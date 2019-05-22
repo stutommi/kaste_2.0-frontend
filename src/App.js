@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Header } from 'semantic-ui-react'
 
 // Components
-import AppMenu from './components/Menu.js'
+import ResponsiveLayout from './components/ResponsiveLayout'
 
 const App = () => {
   const [page, setPage] = useState('chat')
@@ -19,21 +19,18 @@ const App = () => {
 
   return (
     <>
-    <AppMenu 
-    page={page}
-    />
-
-
-      <Header as='h1'>sensorData test</Header>
-      {sensors && sensors.map(sensor =>
-        <div key={sensor.id}>
-          <p>{sensor.id}</p>
-          <p>{sensor.type}</p>
-          <p>{sensor.temp}</p>
-          <p>{sensor.moisture}</p>
-        </div>
-      )
-      }
+      <ResponsiveLayout>
+        <Header as='h1'>sensorData test</Header>
+        {sensors && sensors.map(sensor =>
+          <div key={sensor.id}>
+            <p>{sensor.id}</p>
+            <p>{sensor.type}</p>
+            <p>{sensor.temp}</p>
+            <p>{sensor.moisture}</p>
+          </div>
+        )
+        }
+      </ResponsiveLayout>
     </>
   )
 }
