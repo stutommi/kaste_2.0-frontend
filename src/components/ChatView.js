@@ -1,14 +1,22 @@
 // Libraries
 import React from 'react'
+import { Segment } from 'semantic-ui-react'
 
-const ChatView = ({show}) => {
+// Components
+import ChatMessage from './ChatMessage'
+
+const ChatView = ({ show }) => {
 
   if (!show) {
     return null
   }
 
   return (
-    <p>CHATVIEW</p>
+    <Segment>
+      <ChatMessage />
+      <ChatMessage />
+      <ChatMessage />
+    </Segment>
   )
 }
 

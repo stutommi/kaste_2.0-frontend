@@ -17,7 +17,7 @@ const AboutView = ({ show }) => {
         <tbody>
           <tr>
             <td>Aim:</td>
-            <td>Design and implement a web app to monitor and water plants.</td>
+            <td>Design and implement a responsive web app to monitor and water plants.</td>
           </tr>
           <tr>
             <td>Features:</td>

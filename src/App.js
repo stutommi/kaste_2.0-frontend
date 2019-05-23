@@ -10,8 +10,7 @@ import ChatView from './components/ChatView'
 import AboutView from './components/AboutView'
 
 const App = () => {
-  const [page, setPage] = useState('SensorView')
-  // const [sensors, setSensors] = useState(null)
+  const [page, setPage] = useState('ChatView')
   const [user, setUser] = useState(true)
 
   // useEffect(() => {
