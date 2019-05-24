@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
-import { Responsive, Segment, Menu, Icon } from 'semantic-ui-react'
+import { Responsive, Menu, Icon } from 'semantic-ui-react'
 
 const DesktopContainer = ({ children, setPage, setUser }) => {
   const [recentlyWatered, setRecentlyWatered] = useState(false)

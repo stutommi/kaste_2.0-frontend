@@ -6,7 +6,6 @@ import MobileContainer from './MobileContainer'
 import DesktopContainer from './DesktopContainer'
 
 const ResponsiveLayout = ({ children, setPage, setUser }) => {
-  console.log('children responsivelayout', children)
 
   return (
     <>

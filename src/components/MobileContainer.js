@@ -1,11 +1,10 @@
 // Libraries
 import React, { useState } from 'react'
-import { Responsive, Sidebar, Menu, Icon, Segment, Container, Button } from 'semantic-ui-react'
+import { Responsive, Sidebar, Menu, Icon, Segment, Button } from 'semantic-ui-react'
 
 const MobileContainer = ({ children, setPage, setUser }) => {
   const [recentlyWatered, setRecentlyWatered] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
-  const [activeTab, setActiveTab] = useState('Sensors')
 
   const handleViewChange = (view) => () => {
     setShowSidebar(false)

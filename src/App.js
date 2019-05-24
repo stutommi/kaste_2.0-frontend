@@ -1,5 +1,6 @@
 // Libraries
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+
 // import axios from 'axios'
 
 // Components
@@ -23,24 +24,24 @@ const App = () => {
     <>
       {!user
         ?
-        <LoginView 
-        setUser={setUser}/>
+        <LoginView
+          setUser={setUser} />
         :
         <ResponsiveLayout
-        setPage={setPage}
-        setUser={setUser}
+          setPage={setPage}
+          setUser={setUser}
         >
 
           <SensorView
-          show={page === 'SensorView'}
+            show={page === 'SensorView'}
           />
 
           <ChatView
-          show={page === 'ChatView'}
+            show={page === 'ChatView'}
           />
 
           <AboutView
-          show={page === 'AboutView'}
+            show={page === 'AboutView'}
           />
 
         </ResponsiveLayout>

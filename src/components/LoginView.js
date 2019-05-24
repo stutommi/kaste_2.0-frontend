@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react'
-import { Button, Container, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 const LoginView = ({ setUser }) => {
   console.log('LOGINVIEW')

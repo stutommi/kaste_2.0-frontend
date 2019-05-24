@@ -2,11 +2,13 @@
 import React from 'react'
 import { Message } from 'semantic-ui-react'
 
-const ChatMessage = (props) => (
+const ChatMessage = ({message}) => (
   <>
-    <span>Tommi:</span>
+  {/* Time needs to be fixed... */}
+    <span>{new Date(parseInt(message.created)).toUTCString()} - </span>
+    <span>{message.user.name}:</span>
     <Message style={{ marginTop: 0 }} floating>
-      Jes
+      {message.content}
     </Message>
   </>
 )
