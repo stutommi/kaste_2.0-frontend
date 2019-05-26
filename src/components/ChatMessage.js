@@ -1,16 +1,22 @@
 // Libraries
 import React from 'react'
-import { Message } from 'semantic-ui-react'
+import { Segment,  Comment } from 'semantic-ui-react'
 
-const ChatMessage = ({message}) => (
-  <>
-  {/* Time needs to be fixed... */}
-    <span>{new Date(parseInt(message.created)).toUTCString()} - </span>
-    <span>{message.user.name}:</span>
-    <Message style={{ marginTop: 0 }} floating>
-      {message.content}
-    </Message>
-  </>
+const ChatMessage = ({ message }) => (
+
+  <Comment>
+    <Comment.Content>
+      <Comment.Author as='a'>
+        {message.user.name}
+      </Comment.Author>
+      <Comment.Metadata>
+        <div>{new Date(parseInt(message.created)).toUTCString()}</div>
+      </Comment.Metadata>
+      <Segment style={{marginTop: 0}} compact inverted color='green' secondary>
+          {message.content}
+      </Segment>
+    </Comment.Content>
+  </Comment>
 )
 
 export default ChatMessage
