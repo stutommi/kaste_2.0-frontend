@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Responsive, Menu, Icon } from 'semantic-ui-react'
 
-const DesktopContainer = ({ children, setPage, setUser }) => {
+const DesktopContainer = ({ children, setPage, logOut }) => {
   const [recentlyWatered, setRecentlyWatered] = useState(false)
 
   // Handles sidebar navigation
@@ -52,7 +52,7 @@ const DesktopContainer = ({ children, setPage, setUser }) => {
               <Icon name='question' />
               About
           </Menu.Item>
-            <Menu.Item onClick={() => setUser(false)}>
+            <Menu.Item onClick={() => logOut(false)}>
               <Icon name='log out' />
               Log out
           </Menu.Item>

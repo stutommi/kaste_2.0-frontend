@@ -5,18 +5,18 @@ import React from 'react'
 import MobileContainer from './MobileContainer'
 import DesktopContainer from './DesktopContainer'
 
-const ResponsiveLayout = ({ children, setPage, setUser }) => {
+const ResponsiveLayout = ({ children, setPage, logOut }) => {
 
   return (
     <>
       <MobileContainer 
-      setUser={setUser}
+      logOut={logOut}
       setPage={setPage}>
         {children}
       </MobileContainer>
 
       <DesktopContainer
-      setUser={setUser}
+      logOut={logOut}
       setPage={setPage}>
         {children}
       </DesktopContainer>

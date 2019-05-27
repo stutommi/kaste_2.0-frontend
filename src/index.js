@@ -24,11 +24,12 @@ const httpLink = createHttpLink({
 })
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('library-user-token')
+  const token = JSON.parse(localStorage.getItem('kaste-user-token'))
+  console.log('token', token)
   return {
     headers: {
       ...headers,
-      authorization: token ? `bearer ${token}` : null
+      authorization: token ? `bearer ${token.value}` : null
     }
   }
 })

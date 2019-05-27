@@ -1,7 +1,5 @@
 // Libraries
-import React, { useState } from 'react'
-
-// import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 
 // Components
 import ResponsiveLayout from './components/ResponsiveLayout'
@@ -11,25 +9,24 @@ import ChatView from './components/ChatView'
 import AboutView from './components/AboutView'
 
 const App = () => {
-  const [page, setPage] = useState('ChatView')
-  const [user, setUser] = useState(true)
+  const [page, setPage] = useState('SensorView')
+  const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
 
-  // useEffect(() => {
-  //   axios.get('http://86.115.57.126:8001/ws/pasila_sensors')
-  //     .then(response => console.log(response)
-  //     )
-  // }, [])
+  const logOut = () => {
+    setToken(null)
+    localStorage.removeItem('kaste-user-token')
+  }
 
   return (
     <>
-      {!user
+      {!token
         ?
         <LoginView
-          setUser={setUser} />
+          setToken={setToken} />
         :
         <ResponsiveLayout
           setPage={setPage}
-          setUser={setUser}
+          logOut={logOut}
         >
 
           <SensorView

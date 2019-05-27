@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
-import { Button, Container, Comment, Header, Menu, Input } from 'semantic-ui-react'
+import { Form, Button, Container, Comment, Header, Menu, Input } from 'semantic-ui-react'
 import { useQuery, useMutation, useApolloClient } from 'react-apollo-hooks'
 // TypeDefs
 import chatMessages from '../graphql/queries/chatMessages'
@@ -19,8 +19,7 @@ const ChatView = ({ show }) => {
 
   const addMessage = useMutation(createMessage, {
     update: (store, response) => {
-      console.log('TÄÄLLÄ')
-      
+
       const messageData = store.readQuery({ query: chatMessages })
       const addedMessage = response.data.createMessage
       console.log('messageData', messageData)
@@ -31,7 +30,7 @@ const ChatView = ({ show }) => {
         client.writeQuery({
           query: chatMessages,
           data: messageData,
-          id:1
+          id: 1
         })
         console.log('2')
       }
@@ -39,8 +38,11 @@ const ChatView = ({ show }) => {
     }
   })
 
+  // Prevents empty messages
   const handleSubmit = () => {
-    console.log(messageInput)
+    if (messageInput.length < 1) {
+      return
+    }
 
     addMessage({
       variables: {
@@ -78,10 +80,19 @@ const ChatView = ({ show }) => {
       </Container>
       <Menu fluid color='grey'>
         <Menu.Item style={{ width: '70%' }}>
-          <Input fluid value={messageInput} onChange={({ target }) => setMessageInput(target.value)} />
+          <Input
+            fluid
+            value={messageInput}
+            onChange={({ target }) => setMessageInput(target.value)}
+            onKeyPress={({key}) => {
+              if (key === 'Enter') {
+                handleSubmit()
+              }
+            }}
+            />
         </Menu.Item>
         <Menu.Item position='right'>
-          <Button primary onClick={handleSubmit}>
+          <Button primary type='submit' onClick={handleSubmit}>
             Send
         </Button>
         </Menu.Item>

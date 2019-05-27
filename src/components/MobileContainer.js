@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Responsive, Sidebar, Menu, Icon, Segment, Button } from 'semantic-ui-react'
 
-const MobileContainer = ({ children, setPage, setUser }) => {
+const MobileContainer = ({ children, setPage, logOut }) => {
   const [recentlyWatered, setRecentlyWatered] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
 
@@ -72,7 +72,7 @@ const MobileContainer = ({ children, setPage, setUser }) => {
               <Menu.Item onClick={() => setShowSidebar(true)}>
                 <Icon name='sidebar' />
               </Menu.Item>
-              <Menu.Item position='right' onClick={() => setUser(false)}>
+              <Menu.Item position='right' onClick={() => logOut(false)}>
                 <Button primary>
                   log out
                     </Button>

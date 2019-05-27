@@ -12,7 +12,7 @@ const ChatMessage = ({ message }) => (
       <Comment.Metadata>
         <div>{new Date(parseInt(message.created)).toUTCString()}</div>
       </Comment.Metadata>
-      <Segment style={{marginTop: 0}} compact inverted color='green' secondary>
+      <Segment style={{marginTop: 0, padding: 7}} compact inverted color='green' secondary>
           {message.content}
       </Segment>
     </Comment.Content>
