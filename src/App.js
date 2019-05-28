@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 // Components
 import ResponsiveLayout from './components/ResponsiveLayout'
@@ -12,39 +13,44 @@ const App = () => {
   const [page, setPage] = useState('SensorView')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
 
-  const logOut = () => {
-    setToken(null)
-    localStorage.removeItem('kaste-user-token')
-  }
+  useEffect(() => {
+    axios.get('http://86.115.57.126:8001/ws/pasila_sensors')
+    .then( response => console.log(response)
+    )
+}, [])
 
-  return (
-    <>
-      {!token
-        ?
-        <LoginView
-          setToken={setToken} />
-        :
-        <ResponsiveLayout
-          setPage={setPage}
-          logOut={logOut}
-        >
+const logOut = () => {
+  setToken(null)
+  localStorage.removeItem('kaste-user-token')
+}
 
-          <SensorView
-            show={page === 'SensorView'}
-          />
+return (
+  <>
+    {!token
+      ?
+      <LoginView
+        setToken={setToken} />
+      :
+      <ResponsiveLayout
+        setPage={setPage}
+        logOut={logOut}
+      >
 
-          <ChatView
-            show={page === 'ChatView'}
-          />
+        <SensorView
+          show={page === 'SensorView'}
+        />
 
-          <AboutView
-            show={page === 'AboutView'}
-          />
+        <ChatView
+          show={page === 'ChatView'}
+        />
 
-        </ResponsiveLayout>
-      }
-    </>
-  )
+        <AboutView
+          show={page === 'AboutView'}
+        />
+      </ResponsiveLayout>
+    }
+  </>
+)
 }
 
 export default App;

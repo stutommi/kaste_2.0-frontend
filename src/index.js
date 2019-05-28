@@ -11,16 +11,21 @@ import { setContext } from 'apollo-link-context'
 import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
+// Utilities
+import config from './utilities/config'
 // Components
 import App from './App'
 
+// const wsUrl = 'wss://lit-forest-54340.herokuapp.com/graphql'
+// const httpUrl = 'https://lit-forest-54340.herokuapp.com/graphql'
+
 const wslink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: config.wsUrl,
   options: { reconnect: true }
 })
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql'
+  uri: config.httpUrl
 })
 
 const authLink = setContext((_, { headers }) => {
