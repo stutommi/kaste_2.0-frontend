@@ -1,21 +1,22 @@
 // Libraries
 import React from 'react'
-import { Segment,  Comment } from 'semantic-ui-react'
+import { Segment, Comment, Divider } from 'semantic-ui-react'
 
 const ChatMessage = ({ message }) => (
 
   <Comment>
-    <Comment.Content>
-      <Comment.Author as='a'>
-        {message.user.name}
-      </Comment.Author>
-      <Comment.Metadata>
-        <div>{new Date(parseInt(message.created)).toUTCString()}</div>
-      </Comment.Metadata>
-      <Segment style={{marginTop: 0, padding: 7}} compact inverted color='green' secondary>
-          {message.content}
-      </Segment>
-    </Comment.Content>
+    <Segment style={{ marginTop: 0, padding: 7 }} compact inverted color='green' secondary>
+      <Comment.Content>
+        <Comment.Author style={{ color: 'darkgreen' }} as='a'>
+          {message.user.name}
+        </Comment.Author>
+        <Comment.Metadata>
+          <div>{new Date(parseInt(message.created)).toLocaleString()}</div>
+        </Comment.Metadata>
+        <Divider style={{ margin: '4px 0px 4px 0px' }} />
+        {message.content}
+      </Comment.Content>
+    </Segment>
   </Comment>
 )
 

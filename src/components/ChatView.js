@@ -1,10 +1,11 @@
 // Libraries
 import React, { useState } from 'react'
 import { Form, Button, Container, Comment, Header, Menu, Input } from 'semantic-ui-react'
-import { useQuery, useMutation, useApolloClient } from 'react-apollo-hooks'
+import { useQuery, useMutation, useSubscription, useApolloClient } from 'react-apollo-hooks'
 // TypeDefs
 import chatMessages from '../graphql/queries/chatMessages'
 import createMessage from '../graphql/mutations/createMessage'
+import messageAdded from '../graphql/subscriptions/messageAdded'
 // Components
 import ChatMessage from './ChatMessage'
 import Loading from './Loading'
@@ -17,24 +18,24 @@ const ChatView = ({ show }) => {
 
   const client = useApolloClient()
 
-  const addMessage = useMutation(createMessage, {
-    update: (store, response) => {
+  const addMessage = useMutation(createMessage)
 
-      const messageData = store.readQuery({ query: chatMessages })
-      const addedMessage = response.data.createMessage
-      console.log('messageData', messageData)
+  const addedMessage = useSubscription(messageAdded, {
+    onSubscriptionData: ({ client, subscriptionData }) => {
+      const messageData = client.readQuery({ query: chatMessages })
+      const addedMessage = subscriptionData.data.messageAdded
+
+      console.log('SUB', includedIn(messageData.messages, addedMessage.id))
       if (!includedIn(messageData.messages, addedMessage.id)) {
         messageData.messages.push(addedMessage)
-        console.log('1')
-        // ERRORIA HEITTÄÄ
+
         client.writeQuery({
           query: chatMessages,
           data: messageData,
           id: 1
         })
-        console.log('2')
-      }
 
+      }
     }
   })
 
@@ -84,12 +85,12 @@ const ChatView = ({ show }) => {
             fluid
             value={messageInput}
             onChange={({ target }) => setMessageInput(target.value)}
-            onKeyPress={({key}) => {
+            onKeyPress={({ key }) => {
               if (key === 'Enter') {
                 handleSubmit()
               }
             }}
-            />
+          />
         </Menu.Item>
         <Menu.Item position='right'>
           <Button primary type='submit' onClick={handleSubmit}>
