@@ -16,9 +16,6 @@ import config from './utilities/config'
 // Components
 import App from './App'
 
-// const wsUrl = 'wss://lit-forest-54340.herokuapp.com/graphql'
-// const httpUrl = 'https://lit-forest-54340.herokuapp.com/graphql'
-
 const wslink = new WebSocketLink({
   uri: config.wsUrl,
   options: { reconnect: true }

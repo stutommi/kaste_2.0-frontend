@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Message, Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import { useMutation } from 'react-apollo-hooks'
-import { gql } from 'apollo-boost'
 // Typedefs
 import loginUser from '../graphql/mutations/loginUser'
 // Hooks

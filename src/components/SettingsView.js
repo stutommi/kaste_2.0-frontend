@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react'
-import { Grid, Segment, Header } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 // Components
 import SensorUrlForm from './SensorUrlForm'
 

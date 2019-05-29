@@ -1,7 +1,7 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-
+// Custom hooks
+import { useSensors } from './hooks/index'
 // Components
 import ResponsiveLayout from './components/ResponsiveLayout'
 import LoginView from './components/LoginView'
@@ -13,12 +13,13 @@ import SettingsView from './components/SettingsView'
 const App = () => {
   const [page, setPage] = useState('Settings')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
+  const [sensorData, startFetchingSensors, sensorsConnected, sensorError] = useSensors(60)
 
   useEffect(() => {
-    axios.get('http://86.115.57.126:8001/ws/pasila_sensors')
-      .then(response => console.log(response)
-      )
-  }, [])
+    if (token.sensorEndpoint) {
+      startFetchingSensors(token.sensorEndpoint)
+    }
+  }, [token])
 
   const logOut = () => {
     setToken(null)
@@ -52,6 +53,7 @@ const App = () => {
 
           <SettingsView
             show={page === 'Settings'}
+
           />
         </ResponsiveLayout>
       }

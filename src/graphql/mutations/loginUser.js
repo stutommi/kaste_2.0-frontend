@@ -11,6 +11,7 @@ mutation loginUser(
   ) {
     value
     username
+    sensorEndpoint
   }
 }
 `

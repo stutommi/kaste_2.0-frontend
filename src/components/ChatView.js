@@ -1,7 +1,7 @@
 // Libraries
 import React, { useState, useRef, useEffect } from 'react'
 import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
-import { Container, Button, Comment, Header, Menu, Input } from 'semantic-ui-react'
+import { Container, Icon, Comment, Menu, Input } from 'semantic-ui-react'
 // TypeDefs
 import chatMessages from '../graphql/queries/chatMessages'
 import createMessage from '../graphql/mutations/createMessage'
@@ -18,9 +18,8 @@ const ChatView = ({ show }) => {
   const el = useRef(null)
 
   useEffect(() => {
-    if (!el.current) { return }
-    el.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
-  })
+    scrollToBottom()
+  }, [show])
 
   const addMessage = useMutation(createMessage)
 
@@ -38,12 +37,18 @@ const ChatView = ({ show }) => {
           data: messageData,
           id: 1
         })
+        el.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
       }
     }
   })
 
-  // Prevents empty messages
+  const scrollToBottom = () => {
+    if (!el.current) { return }
+    el.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
+  }
+
   const handleSubmit = () => {
+    // Prevents empty messages
     if (messageInput.length < 1) {
       return
     }
@@ -53,7 +58,6 @@ const ChatView = ({ show }) => {
         "content": messageInput
       }
     })
-
     setMessageInput('')
   }
 
@@ -81,7 +85,7 @@ const ChatView = ({ show }) => {
         <div id={'el'} ref={el}></div>
       </Container>
       <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '10%' }}>
-        <Menu.Item style={{ width: '70%' }}>
+        <Menu.Item style={{ width: '80vw' }}>
           <Input
             fluid
             value={messageInput}
@@ -91,12 +95,17 @@ const ChatView = ({ show }) => {
                 handleSubmit()
               }
             }}
+            onFocus={scrollToBottom}
           />
         </Menu.Item>
-        <Menu.Item position='right'>
-          <Button primary type='submit' onClick={handleSubmit}>
-            Send
-        </Button>
+        <Menu.Item
+          style={{ width: '20vw', justifyContent: 'center' }}
+          onClick={handleSubmit}>
+          <Icon
+            name='send'
+            inverted
+            circular
+            color='green' />
         </Menu.Item>
       </Menu>
     </div>

@@ -75,7 +75,7 @@ const MobileContainer = ({ children, setPage, logOut, page }) => {
                 {page}
               </Menu.Item>
               <Menu.Item position='right' onClick={() => logOut(false)} style={{ alignSelf: 'center' }}>
-                <Icon name='logout' />
+                <Icon name='log out' />
               </Menu.Item>
             </Menu>
 
