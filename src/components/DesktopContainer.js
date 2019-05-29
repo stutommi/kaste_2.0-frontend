@@ -30,12 +30,13 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
           inverted
           icon='labeled'
           color='green'
+          fixed='top'
         >
-          <Menu.Item onClick={handleViewChange('SensorView')}>
+          <Menu.Item onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('ChatView')}>
+          <Menu.Item onClick={handleViewChange('Chat')}>
             <Icon name='comments outline' />
             Chat
           </Menu.Item>
@@ -48,7 +49,11 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
             Reboot rasp
           </Menu.Item>
           <Menu.Menu position='right'>
-            <Menu.Item onClick={handleViewChange('AboutView')}>
+          <Menu.Item onClick={handleViewChange('Settings')}>
+            <Icon name='settings' />
+            Settings
+          </Menu.Item>
+            <Menu.Item onClick={handleViewChange('About')}>
               <Icon name='question' />
               About
           </Menu.Item>
@@ -58,6 +63,7 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
           </Menu.Item>
           </Menu.Menu>
         </Menu>
+        <div style={{height: 71}}/>
         {children}
       </Responsive>
     </>

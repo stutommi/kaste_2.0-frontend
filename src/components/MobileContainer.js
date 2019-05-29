@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Responsive, Sidebar, Menu, Icon, Segment, Button } from 'semantic-ui-react'
 
-const MobileContainer = ({ children, setPage, logOut }) => {
+const MobileContainer = ({ children, setPage, logOut, page }) => {
   const [recentlyWatered, setRecentlyWatered] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
 
@@ -26,7 +26,7 @@ const MobileContainer = ({ children, setPage, logOut }) => {
       <Responsive
         maxWidth={Responsive.onlyMobile.maxWidth}
         as={Sidebar.Pushable}
-        style={{ minHeight: '100vh' }}
+        style={{ height: '100vh' }}
       >
         <Sidebar
           as={Menu}
@@ -38,11 +38,11 @@ const MobileContainer = ({ children, setPage, logOut }) => {
           icon='labeled'
           width='thin'
         >
-          <Menu.Item onClick={handleViewChange('SensorView')}>
+          <Menu.Item onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('ChatView')}>
+          <Menu.Item onClick={handleViewChange('Chat')}>
             <Icon name='comments outline' />
             Chat
           </Menu.Item>
@@ -55,30 +55,30 @@ const MobileContainer = ({ children, setPage, logOut }) => {
             <Icon name='redo' />
             Reboot rasp
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('AboutView')}>
+          <Menu.Item onClick={handleViewChange('Settings')}>
+            <Icon name='settings' />
+            Settings
+          </Menu.Item>
+          <Menu.Item onClick={handleViewChange('About')}>
             <Icon name='question' />
             About
           </Menu.Item>
         </Sidebar>
 
-        <Sidebar.Pusher dimmed={showSidebar}>
-          <Segment
-            inverted
-            textAlign='center'
-            style={{ padding: '0em 0em' }}
-            vertical>
+        <Sidebar.Pusher style={{ height: '100%' }} dimmed={showSidebar}>
 
-            <Menu inverted pointing secondary color='green' size='large'>
-              <Menu.Item onClick={() => setShowSidebar(true)}>
+            <Menu widths={3} inverted pointing color='green' size='large' style={{ height: '10%', marginBottom: 0, borderRadius: 0 }}>
+              <Menu.Item onClick={() => setShowSidebar(true)} style={{ alignSelf: 'center' }}>
                 <Icon name='sidebar' />
               </Menu.Item>
-              <Menu.Item position='right' onClick={() => logOut(false)}>
-                <Button primary>
-                  log out
-                    </Button>
+              <Menu.Item header={true}>
+                {page}
+              </Menu.Item>
+              <Menu.Item position='right' onClick={() => logOut(false)} style={{ alignSelf: 'center' }}>
+                <Icon name='logout' />
               </Menu.Item>
             </Menu>
-          </Segment>
+
 
           {children}
         </Sidebar.Pusher>

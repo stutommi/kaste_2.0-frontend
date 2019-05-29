@@ -4,8 +4,8 @@ import { Segment, Comment, Divider } from 'semantic-ui-react'
 
 const ChatMessage = ({ message }) => (
 
-  <Comment>
-    <Segment style={{ marginTop: 0, padding: 7 }} compact inverted color='green' secondary>
+  <Comment style={{marginTop: 7, paddingTop: 7}}>
+    <Segment style={{ margin: '0 0 5px 0', padding: 7 }} compact inverted color='green' secondary>
       <Comment.Content>
         <Comment.Author style={{ color: 'darkgreen' }} as='a'>
           {message.user.name}

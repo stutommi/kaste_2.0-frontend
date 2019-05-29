@@ -1,7 +1,7 @@
 // Libraries
-import React, { useState } from 'react'
-import { Form, Button, Container, Comment, Header, Menu, Input } from 'semantic-ui-react'
-import { useQuery, useMutation, useSubscription, useApolloClient } from 'react-apollo-hooks'
+import React, { useState, useRef, useEffect } from 'react'
+import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
+import { Container, Button, Comment, Header, Menu, Input } from 'semantic-ui-react'
 // TypeDefs
 import chatMessages from '../graphql/queries/chatMessages'
 import createMessage from '../graphql/mutations/createMessage'
@@ -15,17 +15,21 @@ import { includedIn } from '../utilities/helperFuncs'
 const ChatView = ({ show }) => {
   const { data, loading } = useQuery(chatMessages)
   const [messageInput, setMessageInput] = useState('')
+  const el = useRef(null)
 
-  const client = useApolloClient()
+  useEffect(() => {
+    if (!el.current) { return }
+    el.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
+  })
 
   const addMessage = useMutation(createMessage)
 
+  // eslint-disable-next-line no-unused-vars
   const addedMessage = useSubscription(messageAdded, {
     onSubscriptionData: ({ client, subscriptionData }) => {
       const messageData = client.readQuery({ query: chatMessages })
       const addedMessage = subscriptionData.data.messageAdded
 
-      console.log('SUB', includedIn(messageData.messages, addedMessage.id))
       if (!includedIn(messageData.messages, addedMessage.id)) {
         messageData.messages.push(addedMessage)
 
@@ -34,7 +38,6 @@ const ChatView = ({ show }) => {
           data: messageData,
           id: 1
         })
-
       }
     }
   })
@@ -59,17 +62,14 @@ const ChatView = ({ show }) => {
   }
 
   return (
-    <div >
-      <Container>
+    <div style={{ height: '90%' }}>
+      <Container style={{ height: '90%', overflowY: 'scroll' }}>
         {
           loading
             ?
             <Loading />
             :
             <Comment.Group>
-              <Header textAlign='center' as='h3' dividing>
-                Chat
-            </Header>
               {data.messages.map(message => (
                 <ChatMessage
                   key={message.id}
@@ -78,8 +78,9 @@ const ChatView = ({ show }) => {
               ))}
             </Comment.Group>
         }
+        <div id={'el'} ref={el}></div>
       </Container>
-      <Menu fluid color='grey'>
+      <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '10%' }}>
         <Menu.Item style={{ width: '70%' }}>
           <Input
             fluid
