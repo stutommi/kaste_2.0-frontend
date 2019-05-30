@@ -9,7 +9,6 @@ import { useNotification } from '../hooks/index'
 import editUserSensorEndpoint from '../graphql/mutations/editUserSensorEndpoint'
 
 const SensorUrlForm = ({ sensorsConnected, token }) => {
-  const [sensorConnectedUrl, setSensorConnectedUrl] = useState(null)
   const [sensorUrlField, setSensorUrlField] = useState('')
   const [notification, setNotification] = useNotification()
   const editSensorEndpoint = useMutation(editUserSensorEndpoint)
@@ -17,9 +16,9 @@ const SensorUrlForm = ({ sensorsConnected, token }) => {
   const handleConnect = async () => {
     try {
       const response = await axios.get(sensorUrlField)
-      const validUrl = Object.keys(response.data).includes('sensors')
+      const isValidUrl = Object.keys(response.data).includes('sensors')
 
-      if (validUrl) {
+      if (isValidUrl) {
         const confirmation = window.confirm('Would you like to receive information about these sensors?')
 
         if (confirmation) {
@@ -28,7 +27,6 @@ const SensorUrlForm = ({ sensorsConnected, token }) => {
               sensorEndpoint: sensorUrlField
             }
           })
-          setSensorConnectedUrl(sensorUrlField)
 
           // Sets new url endpoint to localstorage
           const prevToken = JSON.parse(localStorage.getItem('kaste-user-token'))

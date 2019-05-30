@@ -45,7 +45,7 @@ export const useSensors = (duration = 60) => {
   const [actions, setActions] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
   const [error, setError] = useNotification(null)
-  const [IntervalId, setIntervalId] = useState(null)
+  const [intervalId, setIntervalId] = useState(null)
 
   const getSensorData = async (url) => {
     try {
@@ -68,13 +68,16 @@ export const useSensors = (duration = 60) => {
     const id = setInterval(() => {
       console.log('fetching...')
       getSensorData(url)
-      setIntervalId(id)
     }, duration * 1000);
+    setIntervalId(id)
   }
 
   const stopFetching = () => {
-    clearInterval(IntervalId)
+    console.log('IntervalId', intervalId)
+    clearInterval(intervalId)
     setSensorData(null)
+    setIsConnected(false)
+    setActions(null)
   }
 
   const sensorService = {

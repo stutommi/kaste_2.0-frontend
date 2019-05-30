@@ -39,6 +39,11 @@ const HouseSensor = ({ sensor }) => {
         label={'Temperature'}
         />
         
+        <SensorValue
+        value={sensor.time}
+        label={'Updated'}
+        />
+        
     </Segment>
   )
 }

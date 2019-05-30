@@ -7,13 +7,6 @@ import HouseSensor from './HouseSensor'
 
 const SensorView = ({ show, sensorData }) => {
 
-  useEffect(() => {
-    if (sensorData) {
-      console.log(sensorData)
-
-    }
-  }, [sensorData])
-
   if (!show) {
     return null
   }
@@ -28,7 +21,7 @@ const SensorView = ({ show, sensorData }) => {
 
 
   return (
-    <div style={{ height: '90%', overflow: 'scroll', marginTop: 5}}>
+    <div style={{ height: '90%', overflowY: 'scroll' }}>
 
       {sensors()}
 

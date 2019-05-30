@@ -16,7 +16,7 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
     setTimeout(() => {
       setRecentlyWatered(false)
       console.log('Watering completed')
-      
+
     }, 5000)
 
   }
@@ -24,9 +24,11 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
   return (
     <>
       <Responsive
+        style={{ height: '100vh' }}
         minWidth={Responsive.onlyTablet.minWidth}
       >
         <Menu
+          style={{ height: '10%' }}
           inverted
           icon='labeled'
           color='green'
@@ -48,10 +50,14 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
             <Icon name='redo' />
             Reboot rasp
           </Menu.Item>
+          <Menu.Item onClick={handleViewChange('Video')}>
+            <Icon name='eye' />
+            Live Feed
+          </Menu.Item>
           <Menu.Menu position='right'>
-          <Menu.Item onClick={handleViewChange('Settings')}>
-            <Icon name='settings' />
-            Settings
+            <Menu.Item onClick={handleViewChange('Settings')}>
+              <Icon name='settings' />
+              Settings
           </Menu.Item>
             <Menu.Item onClick={handleViewChange('About')}>
               <Icon name='question' />
@@ -63,7 +69,7 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
           </Menu.Item>
           </Menu.Menu>
         </Menu>
-        <div style={{height: 71}}/>
+        <div style={{ height: '10%' }} />
         {children}
       </Responsive>
     </>
