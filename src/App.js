@@ -11,17 +11,19 @@ import AboutView from './components/AboutView'
 import SettingsView from './components/SettingsView'
 
 const App = () => {
-  const [page, setPage] = useState('Settings')
+  const [page, setPage] = useState('Sensors')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
-  const [sensorData, startFetchingSensors, sensorsConnected, sensorError] = useSensors(60)
+  const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(60)
 
   useEffect(() => {
-    if (token.sensorEndpoint) {
-      startFetchingSensors(token.sensorEndpoint)
+    if (token && token.sensorEndpoint) {
+      sensorService.startFetching(token.sensorEndpoint)
     }
   }, [token])
 
   const logOut = () => {
+    // Poistuuko interval??
+    sensorService.stopFetching()
     setToken(null)
     localStorage.removeItem('kaste-user-token')
   }
@@ -40,6 +42,7 @@ const App = () => {
         >
 
           <SensorView
+            sensorData={sensorData}
             show={page === 'Sensors'}
           />
 
@@ -53,7 +56,8 @@ const App = () => {
 
           <SettingsView
             show={page === 'Settings'}
-
+            sensorsConnected={sensorsConnected}
+            token={token}
           />
         </ResponsiveLayout>
       }

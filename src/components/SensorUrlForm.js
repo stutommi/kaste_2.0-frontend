@@ -8,7 +8,7 @@ import { useNotification } from '../hooks/index'
 // TypeDefs
 import editUserSensorEndpoint from '../graphql/mutations/editUserSensorEndpoint'
 
-const SensorUrlForm = () => {
+const SensorUrlForm = ({ sensorsConnected, token }) => {
   const [sensorConnectedUrl, setSensorConnectedUrl] = useState(null)
   const [sensorUrlField, setSensorUrlField] = useState('')
   const [notification, setNotification] = useNotification()
@@ -66,11 +66,11 @@ const SensorUrlForm = () => {
         }
       />
       {
-        sensorConnectedUrl
+        sensorsConnected
           ?
           <Segment color={'green'}>
             connected at: <br />
-            {sensorConnectedUrl}
+            {token.sensorEndpoint}
           </Segment>
           :
           <Segment color={'red'}>
