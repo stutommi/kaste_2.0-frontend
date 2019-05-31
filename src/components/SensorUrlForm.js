@@ -7,8 +7,10 @@ import { useMutation } from 'react-apollo-hooks'
 import { useNotification } from '../hooks/index'
 // TypeDefs
 import editUserSensorEndpoint from '../graphql/mutations/editUserSensorEndpoint'
+// Helper functions
+import { handleSensorEndpointUpdateForToken } from '../utilities/helperFuncs'
 
-const SensorUrlForm = ({ sensorsConnected, token }) => {
+const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
   const [sensorUrlField, setSensorUrlField] = useState('')
   const [notification, setNotification] = useNotification()
   const editSensorEndpoint = useMutation(editUserSensorEndpoint)
@@ -28,22 +30,30 @@ const SensorUrlForm = ({ sensorsConnected, token }) => {
             }
           })
 
-          // Sets new url endpoint to localstorage
-          const prevToken = JSON.parse(localStorage.getItem('kaste-user-token'))
-          localStorage.removeItem('kaste-user-token')
-          const updatedToken = {
-            ...prevToken,
-            sensorEndpoint: sensorUrlField
-          }
-          window.localStorage.setItem('kaste-user-token', JSON.stringify(updatedToken))
+          // For localstorage
+          handleSensorEndpointUpdateForToken(sensorUrlField, setToken)
+          // For app
+          
           setSensorUrlField('')
         }
       }
     } catch (error) {
       setNotification(error.message)
     }
+  }
 
+  const handleClearUrl = () => {
+    const confirmation = window.confirm('Are you sure? Clearing sensor resource url cuts access to all information and functionality.')
 
+    if (confirmation) {
+      editSensorEndpoint({
+        variables: {
+          sensorEndpoint: ''
+        }
+      })
+
+      handleSensorEndpointUpdateForToken('', setToken)
+    }
   }
 
   return (
@@ -67,8 +77,16 @@ const SensorUrlForm = ({ sensorsConnected, token }) => {
         sensorsConnected
           ?
           <Segment color={'green'}>
-            connected at: <br />
+            <Header as='h3'>
+              connected at:
+              </Header>
             {token.sensorEndpoint}
+            <Button
+              fluid
+              style={{ marginTop: 10 }}
+              onClick={handleClearUrl}>
+              clear
+            </Button>
           </Segment>
           :
           <Segment color={'red'}>

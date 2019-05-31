@@ -12,18 +12,20 @@ import SettingsView from './components/SettingsView'
 import VideoView from './components/VideoView'
 
 const App = () => {
-  const [page, setPage] = useState('Sensors')
+  const [page, setPage] = useState('Chat')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
-  const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(5)
+  const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(60)
 
   useEffect(() => {
     if (token && token.sensorEndpoint) {
       sensorService.startFetching(token.sensorEndpoint)
+    } else {
+      sensorService.stopFetching()
     }
   }, [token])
 
   const logOut = () => {
-    setPage('Sensors')
+    setPage('Settings')
     sensorService.stopFetching()
     setToken(null)
     localStorage.removeItem('kaste-user-token')
@@ -41,6 +43,7 @@ const App = () => {
           setPage={setPage}
           logOut={logOut}
           actions={actions}
+          token={token}
         >
 
           <SensorView
@@ -60,6 +63,7 @@ const App = () => {
             show={page === 'Settings'}
             sensorsConnected={sensorsConnected}
             token={token}
+            setToken={setToken}
           />
 
           <VideoView

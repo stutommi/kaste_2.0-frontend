@@ -6,7 +6,7 @@ import Loading from './Loading'
 import ImageError from './ImageError'
 
 const divStyle = {
-  height: '90%',
+  height: '100%',
   background: 'black',
   display: 'flex',
   alignItems: 'center',
@@ -15,11 +15,11 @@ const divStyle = {
 
 const VideoView = ({ show, actions }) => {
   const [imageStatus, setImageStatus] = useState(<Loading />)
-  const [displayImage, setDisplayImage] = useState(true)
+  const [displayImage, setDisplayImage] = useState('block')
 
   useEffect(() => {
     setImageStatus(<Loading />)
-    setDisplayImage(true)
+    setDisplayImage('block')
   }, [show])
 
   if (!show) {
@@ -32,15 +32,14 @@ const VideoView = ({ show, actions }) => {
       {
         actions
           ? <Image
-          style={{maxWidth: 800}}
+          style={{maxWidth: 800, display: `${displayImage}`}}
             centered
             src={actions.camera}
             fluid
-            hidden={displayImage}
             onLoad={() => setImageStatus(null)}
             onError={() => {
               setImageStatus(<ImageError />)
-              setDisplayImage(false)
+              setDisplayImage('none')
             }}
           />
           : null

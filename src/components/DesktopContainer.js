@@ -28,7 +28,7 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
         minWidth={Responsive.onlyTablet.minWidth}
       >
         <Menu
-          style={{ height: '10%' }}
+          style={{ height: 71 }}
           inverted
           icon='labeled'
           color='green'
@@ -69,8 +69,10 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
           </Menu.Item>
           </Menu.Menu>
         </Menu>
-        <div style={{ height: '10%' }} />
-        {children}
+        <div style={{ height: 71 }} />
+        <div style={{ height: 'calc(100vh - 71px)' }}>
+          {children}
+        </div>
       </Responsive>
     </>
   )

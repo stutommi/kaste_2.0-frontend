@@ -21,7 +21,7 @@ const SensorView = ({ show, sensorData }) => {
 
 
   return (
-    <div style={{ height: '90%', overflowY: 'scroll' }}>
+    <div style={{ height: '100%', overflowY: 'scroll' }}>
 
       {sensors()}
 

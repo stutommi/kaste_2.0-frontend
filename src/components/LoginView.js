@@ -4,6 +4,7 @@ import { Message, Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import { useMutation } from 'react-apollo-hooks'
 // Typedefs
 import loginUser from '../graphql/mutations/loginUser'
+import currentUser from '../graphql/queries/currentUser'
 // Hooks
 import { useNotification } from '../hooks/index'
 
@@ -19,7 +20,8 @@ const LoginView = ({ setToken }) => {
       const result = await login({
         variables: {
           username, password
-        }
+        },
+        refetchQueries: ['me']
       })
 
       const token = result.data.login

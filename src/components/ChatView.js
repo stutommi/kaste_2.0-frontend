@@ -4,6 +4,7 @@ import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
 import { Container, Icon, Comment, Menu, Input } from 'semantic-ui-react'
 // TypeDefs
 import chatMessages from '../graphql/queries/chatMessages'
+import currentUser from '../graphql/queries/currentUser'
 import createMessage from '../graphql/mutations/createMessage'
 import messageAdded from '../graphql/subscriptions/messageAdded'
 // Components
@@ -14,6 +15,7 @@ import { includedIn } from '../utilities/helperFuncs'
 
 const ChatView = ({ show }) => {
   const { data, loading } = useQuery(chatMessages)
+  const userQuery = useQuery(currentUser)
   const [messageInput, setMessageInput] = useState('')
   const el = useRef(null)
 
@@ -64,12 +66,11 @@ const ChatView = ({ show }) => {
   if (!show) {
     return null
   }
-
   return (
-    <div style={{ height: '90%' }}>
+    <div style={{ height: '100%' }}>
       <Container style={{ height: '90%', overflowY: 'scroll' }}>
         {
-          loading
+          loading || userQuery.loading
             ?
             <Loading />
             :
@@ -78,12 +79,14 @@ const ChatView = ({ show }) => {
                 <ChatMessage
                   key={message.id}
                   message={message}
+                  currentUser={userQuery.data}
                 />
               ))}
             </Comment.Group>
         }
         <div id={'el'} ref={el}></div>
       </Container>
+
       <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '10%' }}>
         <Menu.Item style={{ width: '80vw' }}>
           <Input

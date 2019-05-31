@@ -1,8 +1,8 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
-import { Responsive, Sidebar, Menu, Icon, Segment, Button, CommentAction } from 'semantic-ui-react'
+import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
 
-const MobileContainer = ({ children, setPage, logOut, page, actions }) => {
+const MobileContainer = ({ children, setPage, logOut, page, actions, token }) => {
   const [recentlyWatered, setRecentlyWatered] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [cameraConnected, setCameraConnected] = useState(false)
@@ -55,6 +55,12 @@ const MobileContainer = ({ children, setPage, logOut, page, actions }) => {
           icon='labeled'
           width='thin'
         >
+        {token &&
+          <Menu.Header as='small' style={{color: 'white'}}>
+            <Icon name='user' color='green'/>
+            {token.username}
+          </Menu.Header>
+        }
           <Menu.Item onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
@@ -87,20 +93,22 @@ const MobileContainer = ({ children, setPage, logOut, page, actions }) => {
 
         <Sidebar.Pusher style={{ height: '100%' }} dimmed={showSidebar}>
 
-          <Menu widths={3} inverted pointing color='green' size='large' style={{ height: '10%', marginBottom: 0, borderRadius: 0 }}>
+          <Menu widths={3} inverted pointing color='green' size='large' style={{ height: '50px', marginBottom: 0, borderRadius: 0 }}>
             <Menu.Item onClick={() => setShowSidebar(true)} style={{ alignSelf: 'center' }}>
               <Icon name='sidebar' />
             </Menu.Item>
             <Menu.Item header={true}>
               {page}
             </Menu.Item>
-            <Menu.Item position='right' onClick={() => logOut(false)} style={{ alignSelf: 'center' }}>
+            <Menu.Item position='right' onClick={() => logOut()} style={{ alignSelf: 'center' }}>
               <Icon name='log out' />
             </Menu.Item>
           </Menu>
 
+          <div style={{ height: 'calc(100vh - 50px)' }}>
+            {children}
+          </div>
 
-          {children}
         </Sidebar.Pusher>
       </Responsive>
     </>

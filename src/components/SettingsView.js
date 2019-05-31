@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react'
 // Components
 import SensorUrlForm from './SensorUrlForm'
 
-const SettingsView = ({ show, sensorsConnected, token }) => {
+const SettingsView = ({ show, sensorsConnected, token, setToken }) => {
   if (!show) {
     return null
   }
@@ -15,7 +15,8 @@ const SettingsView = ({ show, sensorsConnected, token }) => {
         <Grid.Column>
           <SensorUrlForm
           sensorsConnected={sensorsConnected}
-          token={token}/>
+          token={token}
+          setToken={setToken}/>
         </Grid.Column>
       </Grid.Row>
     </Grid>

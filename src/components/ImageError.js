@@ -1,13 +1,12 @@
 // Libraries
 import React from 'react'
-import { Icon, Segment, Grid } from 'semantic-ui-react'
+import { Icon, Segment } from 'semantic-ui-react'
 
 const ImageError = () => {
   return (
     <div style={{textAlign: 'center'}}>
-      <Icon name='frown' inverted color='grey' secondary size='massive'/>
+      <Icon name='frown' inverted color='grey' size='massive'/>
       <Segment
-        
         color='red'
         inverted
         secondary
