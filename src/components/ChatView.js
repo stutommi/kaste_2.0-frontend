@@ -18,7 +18,7 @@ const ChatView = ({ show }) => {
   const userQuery = useQuery(currentUser)
   const [messageInput, setMessageInput] = useState('')
   const el = useRef(null)
-
+  
   useEffect(() => {
     scrollToBottom()
   }, [show])

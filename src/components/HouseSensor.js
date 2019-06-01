@@ -17,26 +17,31 @@ const HouseSensor = ({ sensor }) => {
     <SensorValue
         value={sensor.type}
         label={'Type'}
+        icon={'home'}
         />
 
         <SensorValue
         value={sensor.model}
         label={'Model'}
+        icon={''}
         />
 
         <SensorValue
         value={sensor.location}
         label={'Location'}
+        icon={''}
         />
 
         <SensorValue
         value={sensor.humidity}
         label={'Humidity'}
+        icon={''}
         />
 
         <SensorValue
         value={sensor.temperature_C}
         label={'Temperature'}
+        icon={'thermometer'}
         />
         
         <SensorValue

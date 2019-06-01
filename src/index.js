@@ -27,6 +27,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = JSON.parse(localStorage.getItem('kaste-user-token'))
+  
   return {
     headers: {
       ...headers,

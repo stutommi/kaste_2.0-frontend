@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
 // Custom hooks
 import { useSensors } from './hooks/index'
 // Components
@@ -12,9 +13,10 @@ import SettingsView from './components/SettingsView'
 import VideoView from './components/VideoView'
 
 const App = () => {
-  const [page, setPage] = useState('Chat')
+  const [page, setPage] = useState('Sensors')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
   const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(60)
+  const client = useApolloClient()
 
   useEffect(() => {
     if (token && token.sensorEndpoint) {
@@ -28,7 +30,8 @@ const App = () => {
     setPage('Settings')
     sensorService.stopFetching()
     setToken(null)
-    localStorage.removeItem('kaste-user-token')
+    localStorage.clear()
+    client.resetStore()
   }
 
   return (

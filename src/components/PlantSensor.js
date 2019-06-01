@@ -1,62 +1,77 @@
 // Libraries
-import React from 'react'
-import { Segment, Statistic } from 'semantic-ui-react'
+import React, { useState } from 'react'
+import { Sidebar, Image, Grid, Button, Header, Segment, Icon, List } from 'semantic-ui-react'
 // Components
 import SensorValue from './SensorValue'
+import Chart from './Chart'
 
 const PlantSensor = ({ sensor }) => {
+  const [chartVisible, setChartVisible] = useState(false)
 
   const colorSegment = () => {
-    
+
   }
 
   return (
-    <Segment color='green' inverted secondary style={{margin: '2px 1px'}}>
+    <Segment
+      color='green'
+      inverted
+      secondary
+      style={{ margin: '2px 1px' }}>
 
+
+      <Header textAlign='left' as='h3'>
+        <Icon name='leaf' size='large' />
+        Capsicum baccatum
+      </Header>
+
+
+
+      <List divided horizontal>
         <SensorValue
-        value={sensor.type}
-        label={'Type'}
+          value={sensor.soil_moisture + ' %'}
+          label={'Soil moisture'}
+          icon='theme'
         />
 
         <SensorValue
-        value={sensor.model}
-        label={'Model'}
+          value={sensor.light + ' %'}
+          label={'Light'}
+          icon={'sun'}
         />
 
         <SensorValue
-        value={sensor.location}
-        label={'Location'}
+          value={sensor.temperature_C + ' ºC'}
+          label={'Temperature'}
+          icon={'thermometer'}
         />
 
         <SensorValue
-        value={sensor.nutrient}
-        label={'Nutrient'}
+          value={sensor.nutrient + ' %'}
+          label={'Nutrient'}
+          icon={'meh'}
+        />
+        <SensorValue
+          value={sensor.time}
+          label={'Updated'}
+          icon={'time'}
         />
 
         <SensorValue
-        value={sensor.light}
-        label={'Light'}
+          value={sensor.battery_low + ' %'}
+          label={'Battery'}
+          icon={'battery full'}
         />
+      </List>
 
-        <SensorValue
-        value={sensor.temperature_C}
-        label={'Temperature'}
-        />
+      <Button circular icon='chart area' onClick={() => setChartVisible(!chartVisible)}>
+      </Button>
 
-        <SensorValue
-        value={sensor.soil_moisture}
-        label={'Soil moisture'}
-        />
-
-        <SensorValue
-        value={sensor.time}
-        label={'Updated'}
-        />
-
-        <SensorValue
-        value={sensor.battery_low}
-        label={'Battery'}
-        />
+      <Segment
+        style={{ display: `${chartVisible ? 'block' : 'none'}` }}
+      >
+        <Chart />
+      </Segment>
 
     </Segment>
   )

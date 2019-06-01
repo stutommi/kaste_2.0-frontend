@@ -17,17 +17,18 @@ const LoginView = ({ setToken }) => {
 
   const handleLogin = async () => {
     try {
-      const result = await login({
+      await login({
+        update: (client, result) => {
+          const token = result.data.login
+          setToken(token)
+          localStorage.setItem('kaste-user-token', JSON.stringify(token))
+        },
         variables: {
           username, password
         },
-        refetchQueries: ['me']
+        refetchQueries: [{ query: currentUser }]
       })
 
-      const token = result.data.login
-      console.log('token', token)
-      setToken(token)
-      localStorage.setItem('kaste-user-token', JSON.stringify(token))
 
     } catch (error) {
       setNotification(error.graphQLErrors[0].message)

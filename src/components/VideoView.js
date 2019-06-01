@@ -16,13 +16,14 @@ const divStyle = {
 const VideoView = ({ show, actions }) => {
   const [imageStatus, setImageStatus] = useState(<Loading />)
   const [displayImage, setDisplayImage] = useState('block')
+  const [reloadImage, setReloadImage] = useState(false)
 
   useEffect(() => {
     setImageStatus(<Loading />)
     setDisplayImage('block')
-  }, [show])
+  }, [show, reloadImage])
 
-  if (!show) {
+  if (!show || reloadImage) {
     return null
   }
   return (
@@ -32,13 +33,13 @@ const VideoView = ({ show, actions }) => {
       {
         actions
           ? <Image
-          style={{maxWidth: 800, display: `${displayImage}`}}
+            style={{ maxWidth: 800, display: `${displayImage}` }}
             centered
             src={actions.camera}
             fluid
             onLoad={() => setImageStatus(null)}
             onError={() => {
-              setImageStatus(<ImageError />)
+              setImageStatus(<ImageError setReloadImage={setReloadImage} />)
               setDisplayImage('none')
             }}
           />

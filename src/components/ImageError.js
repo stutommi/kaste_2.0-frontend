@@ -1,11 +1,12 @@
 // Libraries
 import React from 'react'
-import { Icon, Segment } from 'semantic-ui-react'
+import { Icon, Segment, Button } from 'semantic-ui-react'
 
-const ImageError = () => {
+const ImageError = ({ setReloadImage }) => {
   return (
-    <div style={{textAlign: 'center'}}>
-      <Icon name='frown' inverted color='grey' size='massive'/>
+    <div style={{ textAlign: 'center' }}>
+      <Icon name='frown' inverted color='grey' size='massive' />
+
       <Segment
         color='red'
         inverted
@@ -13,6 +14,17 @@ const ImageError = () => {
         compact>
         <p style={{ color: 'white' }}>Image failed to load...</p>
       </Segment>
+
+      <Button
+        circular
+        icon='redo'
+        onClick={async () => {
+          await setReloadImage(true)
+          setReloadImage(false)
+        }}>
+
+
+      </Button>
     </div>
   )
 }

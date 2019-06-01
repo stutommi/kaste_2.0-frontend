@@ -1,12 +1,17 @@
 // Libraries
 import React from 'react'
-import { Statistic } from 'semantic-ui-react'
+import { Icon, List } from 'semantic-ui-react'
 
-const SensorValue = ({ value, label }) => {
+const SensorValue = ({ value, label, icon }) => {
 
   return (
     <>
-      <p>{label}: {value}</p>
+      <List.Item>
+        <List.Content style={{ color: 'white' }}>
+          <List.Icon name={icon} />
+          {value}
+        </List.Content>
+      </List.Item>
     </>
 
   )
