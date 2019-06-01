@@ -68,7 +68,7 @@ const PlantSensor = ({ sensor }) => {
       </Button>
 
       <Segment
-        style={{ display: `${chartVisible ? 'block' : 'none'}` }}
+        style={{ display: `${chartVisible ? 'block' : 'none'}`, padding: 5 }}
       >
         <Chart />
       </Segment>
