@@ -82,7 +82,7 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token }) =>
             Live Feed
           </Menu.Item>
           <Menu.Item disabled={!wateringConnected || recentlyWatered} onClick={handleWatering}>
-            <Icon name='exclamation' />
+            <Icon name='shower' />
             Water plants
           </Menu.Item>
           <Menu.Item disabled={!raspConnected} onClick={() => console.log('Reboot rasp')}>

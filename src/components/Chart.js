@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import { Line } from 'react-chartjs-2'
 
+const labels = ['7h', '6h', '5h', '4h', '3h', '2h', '1h','cur']
+const plantDatasets = [
+
+]
+
 // For testing
 const initialState = {
-  labels: ['7h', '6h', '5h', '4h', '3h', '2h', '1h','cur'],
+  labels: labels,
   datasets: [
     {
       label: 'moisture',
@@ -51,17 +56,14 @@ const initialState = {
   ]
 }
 
-const legend = {
-  display: true,
-}
 
 const Chart = () => {
+
 
   return (
     <Line
     height={175}
-    data={initialState}
-    legend={legend}/>
+    data={initialState}/>
   )
 }
 

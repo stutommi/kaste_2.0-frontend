@@ -8,10 +8,6 @@ import Chart from './Chart'
 const PlantSensor = ({ sensor }) => {
   const [chartVisible, setChartVisible] = useState(false)
 
-  const colorSegment = () => {
-
-  }
-
   return (
     <Segment
       color='green'
@@ -49,7 +45,7 @@ const PlantSensor = ({ sensor }) => {
         <SensorValue
           value={sensor.nutrient + ' %'}
           label={'Nutrient'}
-          icon={'meh'}
+          icon={'pills'}
         />
         <SensorValue
           value={sensor.time}
