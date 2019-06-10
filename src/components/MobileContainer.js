@@ -1,9 +1,11 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
 import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
+import axios from 'axios'
+// Components
+import WateringModal from './WateringModal'
 
 const MobileContainer = ({ children, setPage, logOut, page, actions, token }) => {
-  const [recentlyWatered, setRecentlyWatered] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [cameraConnected, setCameraConnected] = useState(false)
   const [raspConnected, setRaspConnected] = useState(false)
@@ -13,6 +15,15 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token }) =>
     setShowSidebar(false)
     setPage(view)
   }
+
+  const handleReboot = () => {
+    console.log('fired')
+    
+    axios.get(actions.reboot)
+  }
+
+
+  console.log(actions)
 
   // Check if sensor actions include camera, watering or rasp rebooting functionality
   useEffect(() => {
@@ -27,16 +38,6 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token }) =>
     }
 
   }, [actions])
-
-  const handleWatering = () => {
-    setRecentlyWatered(true)
-    console.log('Watering plants plants')
-    setTimeout(() => {
-      setRecentlyWatered(false)
-      console.log('Watering completed')
-
-    }, 5000)
-  }
 
   return (
     <>
@@ -55,12 +56,12 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token }) =>
           icon='labeled'
           width='thin'
         >
-        {token &&
-          <Menu.Header as='small' style={{color: 'white'}}>
-            <Icon name='user' color='green'/>
-            {token.username}
-          </Menu.Header>
-        }
+          {token &&
+            <Menu.Header as='small' style={{ color: 'white' }}>
+              <Icon name='user' color='green' />
+              {token.username}
+            </Menu.Header>
+          }
           <Menu.Item onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
@@ -81,11 +82,12 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token }) =>
             <Icon name='eye' />
             Live Feed
           </Menu.Item>
-          <Menu.Item disabled={!wateringConnected || recentlyWatered} onClick={handleWatering}>
-            <Icon name='shower' />
-            Water plants
-          </Menu.Item>
-          <Menu.Item disabled={!raspConnected} onClick={() => console.log('Reboot rasp')}>
+          <WateringModal
+            actions={actions}
+            wateringConnected={wateringConnected}
+            setPage={setPage}
+          />
+          <Menu.Item disabled={!raspConnected} onClick={handleReboot}>
             <Icon name='redo' />
             Reboot rasp
           </Menu.Item>

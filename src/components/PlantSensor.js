@@ -25,7 +25,7 @@ const PlantSensor = ({ sensor }) => {
       <Grid textAlign='center' columns={2} >
         <Grid.Row>
 
-          <Grid.Column color={sensor.soil_moisture < 30 ? 'yellow' : null}>
+          <Grid.Column color={sensor.soil_moisture < 10 ? 'yellow' : null}>
             <SensorValue
               size={'big'}
               value={sensor.soil_moisture + ' %'}

@@ -1,6 +1,5 @@
 // Libraries
-import React, { useEffect } from 'react'
-import { Header } from 'semantic-ui-react'
+import React from 'react'
 // Components
 import PlantSensor from './PlantSensor'
 import HouseSensor from './HouseSensor'

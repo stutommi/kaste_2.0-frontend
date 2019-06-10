@@ -1,5 +1,5 @@
 // Libraries
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Segment, Grid, Header, Icon, Button } from 'semantic-ui-react'
 // Components
 import SensorValue from './SensorValue'
@@ -10,11 +10,11 @@ const HouseSensor = ({ sensor }) => {
   const [chartTimeRange, setChartTimeRange] = useState('DAY')
 
   return (
-    <Segment color='brown' inverted secondary style={{margin: '2px 1px'}}>
+    <Segment inverted secondary style={{ margin: '2px 1px', background: 'beige', color: 'black' }}>
 
 
-    <Header textAlign='center' as='h3'>
-        <Icon name='home' size='large' />
+      <Header style={{ color: 'black' }} textAlign='center' as='h3'>
+        <Icon name='home' color='black' size='large' />
         {sensor.location}
       </Header>
 
@@ -89,17 +89,16 @@ const HouseSensor = ({ sensor }) => {
 
           <Grid.Column textAlign='right'>
             <SensorValue
-              value={sensor.battery_low + ' %'}
               label={'Battery'}
               size={'small'}
               icon={'battery full'}
-              iconColor={sensor.battery_low < 30 ? 'red' : null}
+              iconColor={sensor.battery_low === 1 ? 'red' : null}
             />
           </Grid.Column>
 
         </Grid.Row>
       </Grid>
-        
+
     </Segment>
   )
 }

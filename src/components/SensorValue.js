@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react'
-import { Icon, List } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 
 const SensorValue = ({ value, label, icon, iconColor, size }) => {
   return (
