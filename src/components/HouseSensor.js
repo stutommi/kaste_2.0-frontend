@@ -1,14 +1,12 @@
 // Libraries
-import React from 'react'
-import { Segment, Statistic } from 'semantic-ui-react'
+import React, {useState} from 'react'
+import { Segment } from 'semantic-ui-react'
 // Components
 import SensorValue from './SensorValue'
 
 const HouseSensor = ({ sensor }) => {
-
-  const colorSegment = () => {
-   
-  }
+  const [chartVisible, setChartVisible] = useState(false)
+  const [chartTimeRange, setChartTimeRange] = useState('DAY')
 
   return (
     <Segment color='brown' inverted secondary style={{margin: '2px 1px'}}>

@@ -1,69 +1,128 @@
+// Libraries
 import React, { useState } from 'react'
+import { useQuery } from 'react-apollo-hooks'
 import { Line } from 'react-chartjs-2'
+import moment from 'moment'
+// Type defs
+import chartData from '../graphql/queries/chartData'
+// Components
+import Loading from './Loading'
 
-const labels = ['7h', '6h', '5h', '4h', '3h', '2h', '1h','cur']
-const plantDatasets = [
+console.log(moment('20111031', 'YYYYMMDD').fromNow(true))
+const formatSensorDataIntoChartData = ({ chartData }) => {
+  console.log('chartData', chartData)
 
-]
+  const formattedChartData = Object.keys(chartData)
+    .reduce((acc, cur) => {
 
-// For testing
-const initialState = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'moisture',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: 'rgba(75,192,192,0.4)',
-      borderColor: 'rgba(75,192,192,1)',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: 'rgba(75,192,192,1)',
-      pointBackgroundColor: '#fff',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40, 100]
-    },
-    {
-      label: 'light',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: 'rgba(12,42,192,0.4)',
-      borderColor: 'rgba(12,42,192,0.4)',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: 'rgba(32,32,222,1)',
-      pointBackgroundColor: '#fff',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [12, 23, 34, 54, 42, 55, 12, 53]
-    },
+      if (cur === '__typename' || chartData[cur] === null) {
+        return acc
+      }
 
-  ]
+      if (cur === 'time') {
+        acc.labels = chartData[cur].map(time => {
+          console.log(new Date(time))
+          
+          if (moment() - time > 1000*60*60*24) {
+            return moment(time).format('ddd hA')
+          }
+
+          return moment(time).fromNow(true)
+        })
+
+        return acc
+      }
+
+      const returnLineColor = (measure) => {
+        switch (measure) {
+          case 'temperatureC':
+            return 'rgba(250, 64, 61, 0.7)'
+          case 'nutrient':
+            return 'rgba(250, 158, 61, 0.7)'
+          case 'light':
+            return 'rgba(246, 250, 61, 0.7)'
+          case 'humidity':
+            return 'rgba(61, 152, 250, 0.7)'
+          case 'soilMoisture':
+            return 'rgba(61, 152, 250, 0.7)'
+          default: break
+        }
+      }
+
+      acc.datasets.push(
+        {
+          label: cur,
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: returnLineColor(cur),
+          borderColor: returnLineColor(cur),
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: returnLineColor(cur),
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: returnLineColor(cur),
+          pointHoverBorderColor: returnLineColor(cur),
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: chartData[cur]
+        }
+
+      )
+
+      return acc
+    }, { labels: [], datasets: [] })
+
+  console.log('formattedChartData', formattedChartData)
+
+  return formattedChartData
 }
 
+const options = {
+  layout: {
+    padding: {
+      bottom: -20
+    }
+  },
+  scales: {
+    xAxes: [
+      {
 
-const Chart = () => {
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 5
+        }
+      }
+    ],
+    yAxes: [
+      {
+        ticks: {
+        min: 0,
+        max: 100
+        }
+      }
+    ]
+  }
+}
 
+const Chart = ({ sensor, chartTimeRange }) => {
+  const plantData = useQuery(chartData, {
+    variables: { id: sensor.id, type: sensor.type.toUpperCase(), range: chartTimeRange },
+    fetchPolicy: 'no-cache'
+  })
+
+  if (plantData.loading) {
+    return <Loading />
+  }
+
+  const formattedChartData = formatSensorDataIntoChartData(plantData.data)
 
   return (
-    <Line
-    height={175}
-    data={initialState}/>
+    <Line data={formattedChartData} options={options} legend={{ display: false }} />
   )
 }
 

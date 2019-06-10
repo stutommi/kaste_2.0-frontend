@@ -2,17 +2,19 @@
 import React from 'react'
 import { Icon, List } from 'semantic-ui-react'
 
-const SensorValue = ({ value, label, icon }) => {
+const SensorValue = ({ value, label, icon, iconColor, size }) => {
+console.log(size)
 
   return (
-    <>
-      <List.Item>
-        <List.Content style={{ color: 'white' }}>
-          <List.Icon name={icon} />
-          {value}
-        </List.Content>
-      </List.Item>
-    </>
+    <div>
+      <Icon name={icon} size={size} color={iconColor ? iconColor : null} />
+      <span style={{
+        fontSize: `${size === 'big' ? '28px' : '11px'}`,
+        verticalAlign: 'middle'
+      }}>
+        {value}
+      </span>
+    </div>
 
   )
 }
