@@ -8,27 +8,26 @@ import chartData from '../graphql/queries/chartData'
 // Components
 import Loading from './Loading'
 
-console.log(moment('20111031', 'YYYYMMDD').fromNow(true))
 const formatSensorDataIntoChartData = ({ chartData }) => {
-  console.log('chartData', chartData)
-
+  
   const formattedChartData = Object.keys(chartData)
-    .reduce((acc, cur) => {
-
-      if (cur === '__typename' || chartData[cur] === null) {
-        return acc
-      }
-
-      if (cur === 'time') {
-        acc.labels = chartData[cur].map(time => {
-          console.log(new Date(time))
+  .reduce((acc, cur) => {
+    if (cur === '__typename' || chartData[cur] === null) {
+      return acc
+    }
+    
+    if (cur === 'time') {
+      
+      acc.labels = chartData[cur].map(time => {
+        
+        // If sensor data older than 1 day, format differently
+        if (moment() - time > 1000*60*60*24) {
           
-          if (moment() - time > 1000*60*60*24) {
-            return moment(time).format('ddd hA')
-          }
-
-          return moment(time).fromNow(true)
-        })
+          return moment.utc(time).local().format('ddd hA')
+        }
+        
+        return moment(time).subtract(3, 'hours').fromNow(true)
+      })
 
         return acc
       }

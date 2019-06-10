@@ -3,8 +3,6 @@ import React from 'react'
 import { Icon, List } from 'semantic-ui-react'
 
 const SensorValue = ({ value, label, icon, iconColor, size }) => {
-console.log(size)
-
   return (
     <div>
       <Icon name={icon} size={size} color={iconColor ? iconColor : null} />
@@ -15,7 +13,6 @@ console.log(size)
         {value}
       </span>
     </div>
-
   )
 }
 

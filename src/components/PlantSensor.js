@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
-import { Sidebar, Image, Grid, Button, Header, Segment, Icon, List } from 'semantic-ui-react'
+import { Grid, Button, Header, Segment, Icon } from 'semantic-ui-react'
 // Components
 import SensorValue from './SensorValue'
 import Chart from './Chart'
@@ -8,8 +8,6 @@ import Chart from './Chart'
 const PlantSensor = ({ sensor }) => {
   const [chartVisible, setChartVisible] = useState(false)
   const [chartTimeRange, setChartTimeRange] = useState('DAY')
-
-  console.log((Date.now() - new Date(sensor.time).getTime()) / 1000 & 60)
 
   return (
     <Segment
@@ -19,7 +17,7 @@ const PlantSensor = ({ sensor }) => {
       style={{ margin: '2px 1px' }}>
 
 
-      <Header textAlign='left' as='h3'>
+      <Header textAlign='center' as='h3'>
         <Icon name='leaf' size='large' />
         Capsicum baccatum
       </Header>
@@ -72,6 +70,7 @@ const PlantSensor = ({ sensor }) => {
 
         </Grid.Row>
         <Grid.Row columns='1' style={{ padding: 0 }}>
+
           <Grid.Column textAlign='center'>
             <Button circular icon={chartVisible ? 'close' : 'chart area'} onClick={() => setChartVisible(!chartVisible)} />
             {
@@ -84,9 +83,11 @@ const PlantSensor = ({ sensor }) => {
               </>
             }
           </Grid.Column>
+
         </Grid.Row>
         <Grid.Row columns={1} style={{ padding: `${chartVisible ? '5px' : '0px'}` }}>
-          <Grid.Column style={{padding: 0}}>
+
+          <Grid.Column style={{ padding: 0 }}>
             <Segment
               style={{
                 display: `${chartVisible ? 'block' : 'none'}`,
@@ -98,8 +99,10 @@ const PlantSensor = ({ sensor }) => {
                 chartTimeRange={chartTimeRange} />
             </Segment>
           </Grid.Column>
+
         </Grid.Row>
         <Grid.Row columns={2} style={{ padding: 5 }}>
+
           <Grid.Column textAlign='left'>
             <SensorValue
               value={sensor.time}
@@ -109,6 +112,7 @@ const PlantSensor = ({ sensor }) => {
               iconColor={Date.now() - new Date(sensor.time).getTime() > 1000 * 60 * 60 ? 'red' : null}
             />
           </Grid.Column>
+
           <Grid.Column textAlign='right'>
             <SensorValue
               value={sensor.battery_low + ' %'}
@@ -118,10 +122,9 @@ const PlantSensor = ({ sensor }) => {
               iconColor={sensor.battery_low < 30 ? 'red' : null}
             />
           </Grid.Column>
+
         </Grid.Row>
       </Grid>
-
-
     </Segment>
   )
 }
