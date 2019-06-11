@@ -18,15 +18,15 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
       }
 
       if (cur === 'time') {
-
         acc.labels = chartData[cur].map(time => {
 
           // If sensor data older than 1 day, format differently
           if (moment() - time > 1000 * 60 * 60 * 24) {
-
             return moment.utc(time).local().format('ddd hA')
           }
 
+          // .fromNow doesn't seem to take UTC into account,
+          // this hacks it to show relative to finnish time
           return moment(time).subtract(3, 'hours').fromNow(true)
         })
 
@@ -99,7 +99,7 @@ const options = {
     yAxes: [
       {
         ticks: {
-          min: 0,
+          suggestedMin: 0,
           max: 100
         }
       }

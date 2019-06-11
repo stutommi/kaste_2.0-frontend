@@ -12,6 +12,7 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
   const [raspConnected, setRaspConnected] = useState(false)
   const [wateringConnected, setWateringConnected] = useState(false)
 
+  // Handles page navigation
   const handleViewChange = (view) => () => {
     setShowSidebar(false)
     setPage(view)

@@ -5,7 +5,8 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:cypress/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -25,6 +26,10 @@ module.exports = {
         'indent': [
             'error',
             2
+        ],
+        'semi': [
+            'error',
+            'never'
         ],
         'no-console': 0
     }

@@ -9,21 +9,28 @@ const ResponsiveLayout = ({ children, setPage, logOut, page, actions, token, sen
 
   return (
     <>
-      <MobileContainer
+      <MobileContainer // Mobile view
         logOut={logOut}
         page={page}
         actions={actions}
         setPage={setPage}
         token={token}
         sensorService={sensorService}>
+
         {children}
+
       </MobileContainer>
 
-      <DesktopContainer
+      <DesktopContainer // Tablet - desktop view
         logOut={logOut}
+        page={page}
+        actions={actions}
         setPage={setPage}
-        actions={actions}>
+        token={token}
+        sensorService={sensorService}>
+
         {children}
+
       </DesktopContainer>
     </>
   )

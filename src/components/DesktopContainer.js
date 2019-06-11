@@ -1,26 +1,44 @@
 // Libraries
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Responsive, Menu, Icon } from 'semantic-ui-react'
+import axios from 'axios'
+// Components
+import WateringModal from './WateringModal'
 
-const DesktopContainer = ({ children, setPage, logOut }) => {
-  const [recentlyWatered, setRecentlyWatered] = useState(false)
+const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorService }) => {
+  const [cameraConnected, setCameraConnected] = useState(false)
+  const [raspConnected, setRaspConnected] = useState(false)
+  const [wateringConnected, setWateringConnected] = useState(false)
 
-  // Handles sidebar navigation
+  // Handles page navigation
   const handleViewChange = (view) => () => {
     setPage(view)
   }
 
-  const handleWatering = () => {
-    setRecentlyWatered(true)
-    console.log('Watering plants plants')
+  // Handles rasp rebooting
+  const handleReboot = () => {
+    sensorService.stopFetching()
+    axios.get(actions.reboot)
+
     setTimeout(() => {
-      setRecentlyWatered(false)
-      console.log('Watering completed')
-
-    }, 5000)
-
+      sensorService.startFetching(token.sensorEndpoint)
+    }, 1000);
   }
+
+  // Check if sensor actions include camera, watering or rasp rebooting functionality
+  useEffect(() => {
+    if (actions) {
+      setCameraConnected(actions.camera !== undefined)
+      setRaspConnected(actions.reboot !== undefined)
+      setWateringConnected(actions.water !== undefined)
+    } else {
+      setCameraConnected(false)
+      setRaspConnected(false)
+      setWateringConnected(false)
+    }
+
+  }, [actions])
 
   return (
     <>
@@ -35,6 +53,7 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
           color='green'
           fixed='top'
         >
+
           <Menu.Item onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
@@ -43,19 +62,27 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
             <Icon name='comments outline' />
             Chat
           </Menu.Item>
-          <Menu.Item disabled={recentlyWatered} onClick={handleWatering}>
-            <Icon name='exclamation' />
-            Water plants
-          </Menu.Item>
-          <Menu.Item onClick={() => console.log('Reboot rasp')}>
+          <WateringModal
+            actions={actions}
+            wateringConnected={wateringConnected}
+            setPage={setPage}
+          />
+          <Menu.Item disabled={!raspConnected} onClick={handleReboot}>
             <Icon name='redo' />
             Reboot rasp
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('Video')}>
+          <Menu.Item disabled={!cameraConnected} onClick={handleViewChange('Video')}>
             <Icon name='eye' />
             Live Feed
           </Menu.Item>
           <Menu.Menu position='right'>
+            {token &&
+              <Menu.Header as='p' style={{ color: 'white', alignSelf: 'center', margin: '0 10px 0' }}>
+                <Icon name='user' />
+                {token.username} <br />
+                logged in
+              </Menu.Header>
+            }
             <Menu.Item onClick={handleViewChange('Settings')}>
               <Icon name='settings' />
               Settings
@@ -83,7 +110,10 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
 DesktopContainer.propTypes = {
   children: PropTypes.node.isRequired,
   setPage: PropTypes.func.isRequired,
-  logOut: PropTypes.func.isRequired
+  logOut: PropTypes.func.isRequired,
+  token: PropTypes.object.isRequired,
+  sensorService: PropTypes.object.isRequired,
+  actions: PropTypes.object
 }
 
 export default DesktopContainer
