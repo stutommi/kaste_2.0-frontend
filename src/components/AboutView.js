@@ -26,7 +26,7 @@ const AboutView = ({ show }) => {
                 <li>Plantwatering functionality for two or more users</li>
                 <li>Possibility to read plant info through charts</li>
                 <li>Simple chat</li>
-                <li>Rebooting Raspberry (that controls sensor data)</li>
+                <li>Rebooting Raspberry (that control sensor data)</li>
               </ul>
             </td>
           </tr>

@@ -5,7 +5,7 @@ import React from 'react'
 import MobileContainer from './MobileContainer'
 import DesktopContainer from './DesktopContainer'
 
-const ResponsiveLayout = ({ children, setPage, logOut, page, actions, token }) => {
+const ResponsiveLayout = ({ children, setPage, logOut, page, actions, token, sensorService }) => {
 
   return (
     <>
@@ -14,7 +14,8 @@ const ResponsiveLayout = ({ children, setPage, logOut, page, actions, token }) =
         page={page}
         actions={actions}
         setPage={setPage}
-        token={token}>
+        token={token}
+        sensorService={sensorService}>
         {children}
       </MobileContainer>
 

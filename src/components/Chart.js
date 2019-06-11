@@ -9,25 +9,25 @@ import chartData from '../graphql/queries/chartData'
 import Loading from './Loading'
 
 const formatSensorDataIntoChartData = ({ chartData }) => {
-  
+
   const formattedChartData = Object.keys(chartData)
-  .reduce((acc, cur) => {
-    if (cur === '__typename' || chartData[cur] === null) {
-      return acc
-    }
-    
-    if (cur === 'time') {
-      
-      acc.labels = chartData[cur].map(time => {
-        
-        // If sensor data older than 1 day, format differently
-        if (moment() - time > 1000*60*60*24) {
-          
-          return moment.utc(time).local().format('ddd hA')
-        }
-        
-        return moment(time).subtract(3, 'hours').fromNow(true)
-      })
+    .reduce((acc, cur) => {
+      if (cur === '__typename' || chartData[cur] === null) {
+        return acc
+      }
+
+      if (cur === 'time') {
+
+        acc.labels = chartData[cur].map(time => {
+
+          // If sensor data older than 1 day, format differently
+          if (moment() - time > 1000 * 60 * 60 * 24) {
+
+            return moment.utc(time).local().format('ddd hA')
+          }
+
+          return moment(time).subtract(3, 'hours').fromNow(true)
+        })
 
         return acc
       }
@@ -76,8 +76,6 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
       return acc
     }, { labels: [], datasets: [] })
 
-  console.log('formattedChartData', formattedChartData)
-
   return formattedChartData
 }
 
@@ -100,8 +98,8 @@ const options = {
     yAxes: [
       {
         ticks: {
-        min: 0,
-        max: 100
+          min: 0,
+          max: 100
         }
       }
     ]
@@ -115,7 +113,11 @@ const Chart = ({ sensor, chartTimeRange }) => {
   })
 
   if (plantData.loading) {
-    return <Loading />
+    return (
+      <div style={{ minHeight: 'calc(89vw / 2)' }}>
+        <Loading inverted={true}/>
+      </div>
+    )
   }
 
   const formattedChartData = formatSensorDataIntoChartData(plantData.data)

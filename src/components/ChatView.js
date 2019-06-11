@@ -46,7 +46,7 @@ const ChatView = ({ show }) => {
 
   const scrollToBottom = () => {
     if (!el.current) { return }
-    el.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
+    el.current.scrollIntoView({ block: 'end'})
   }
 
   const handleSubmit = () => {

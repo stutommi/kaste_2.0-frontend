@@ -5,7 +5,7 @@ import axios from 'axios'
 // Components
 import WateringModal from './WateringModal'
 
-const MobileContainer = ({ children, setPage, logOut, page, actions, token }) => {
+const MobileContainer = ({ children, setPage, logOut, page, actions, token, sensorService }) => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [cameraConnected, setCameraConnected] = useState(false)
   const [raspConnected, setRaspConnected] = useState(false)
@@ -16,14 +16,16 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token }) =>
     setPage(view)
   }
 
+  // Handles rasp rebooting
   const handleReboot = () => {
-    console.log('fired')
-    
+    setShowSidebar(false)
+    sensorService.stopFetching()
     axios.get(actions.reboot)
+    
+    setTimeout(() => {
+      sensorService.startFetching(token.sensorEndpoint)
+    }, 1000);
   }
-
-
-  console.log(actions)
 
   // Check if sensor actions include camera, watering or rasp rebooting functionality
   useEffect(() => {

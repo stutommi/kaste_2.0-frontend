@@ -1,6 +1,7 @@
 // Libraries
 import React, { useState } from 'react'
 import { Segment, Grid, Header, Icon, Button } from 'semantic-ui-react'
+import moment from 'moment'
 // Components
 import SensorValue from './SensorValue'
 import Chart from './Chart'
@@ -78,12 +79,13 @@ const HouseSensor = ({ sensor }) => {
         <Grid.Row columns={2} style={{ padding: 5 }}>
 
           <Grid.Column textAlign='left'>
+
             <SensorValue
-              value={sensor.time}
+              value={moment(sensor.time).fromNow()}
               label={'Updated'}
               size={'small'}
               icon={'time'}
-              iconColor={Date.now() - new Date(sensor.time).getTime() > 1000 * 60 * 60 ? 'red' : null}
+              iconColor={moment() - moment(sensor.time) > 1000 * 60 * 60 ? 'red' : null}
             />
           </Grid.Column>
 

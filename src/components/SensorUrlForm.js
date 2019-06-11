@@ -33,7 +33,6 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
           // For localstorage
           handleSensorEndpointUpdateForToken(sensorUrlField, setToken)
           // For app
-          
           setSensorUrlField('')
         }
       }
@@ -74,23 +73,31 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
         }
       />
       {
-        sensorsConnected
+        token.sensorEndpoint
           ?
-          <Segment color={'green'}>
-            <Header as='h3'>
-              connected at:
+          <>
+            <Segment color={'green'}>
+              <Header as='h3'>
+                connected at:
               </Header>
-            {token.sensorEndpoint}
-            <Button
-              fluid
-              style={{ marginTop: 10 }}
-              onClick={handleClearUrl}>
-              clear
+              {token.sensorEndpoint}
+              <Button
+                fluid
+                style={{ marginTop: 10 }}
+                onClick={handleClearUrl}>
+                clear
             </Button>
-          </Segment>
+            </Segment>
+            <Segment
+              inverted
+              secondary
+              color={sensorsConnected ? 'green' : 'red'}>
+              Endpoint status: {sensorsConnected ? 'Online' : 'Offline'}
+            </Segment>
+          </>
           :
           <Segment color={'red'}>
-            not connected
+            Not connected
           </Segment>
       }
       <Divider />

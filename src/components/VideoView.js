@@ -19,7 +19,7 @@ const VideoView = ({ show, actions }) => {
   const [reloadImage, setReloadImage] = useState(false)
 
   useEffect(() => {
-    setImageStatus(<Loading />)
+    setImageStatus(<Loading inverted={false}/>)
     setDisplayImage('block')
   }, [show, reloadImage])
 
