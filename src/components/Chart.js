@@ -1,5 +1,6 @@
 // Libraries
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo-hooks'
 import { Line } from 'react-chartjs-2'
 import moment from 'moment'
@@ -34,17 +35,17 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
 
       const returnLineColor = (measure) => {
         switch (measure) {
-          case 'temperatureC':
-            return 'rgba(250, 64, 61, 0.7)'
-          case 'nutrient':
-            return 'rgba(250, 158, 61, 0.7)'
-          case 'light':
-            return 'rgba(246, 250, 61, 0.7)'
-          case 'humidity':
-            return 'rgba(61, 152, 250, 0.7)'
-          case 'soilMoisture':
-            return 'rgba(61, 152, 250, 0.7)'
-          default: break
+        case 'temperatureC':
+          return 'rgba(250, 64, 61, 0.7)'
+        case 'nutrient':
+          return 'rgba(250, 158, 61, 0.7)'
+        case 'light':
+          return 'rgba(246, 250, 61, 0.7)'
+        case 'humidity':
+          return 'rgba(61, 152, 250, 0.7)'
+        case 'soilMoisture':
+          return 'rgba(61, 152, 250, 0.7)'
+        default: break
         }
       }
 
@@ -115,7 +116,7 @@ const Chart = ({ sensor, chartTimeRange }) => {
   if (plantData.loading) {
     return (
       <div style={{ minHeight: 'calc(89vw / 2)' }}>
-        <Loading inverted={true}/>
+        <Loading inverted={true} />
       </div>
     )
   }
@@ -123,8 +124,17 @@ const Chart = ({ sensor, chartTimeRange }) => {
   const formattedChartData = formatSensorDataIntoChartData(plantData.data)
 
   return (
-    <Line data={formattedChartData} options={options} legend={{ display: false }} />
+    <Line
+      data={formattedChartData}
+      options={options}
+      legend={{ display: false }} />
   )
+}
+
+// Proptypes
+Chart.propTypes = {
+  sensor: PropTypes.object.isRequired,
+  chartTimeRange: PropTypes.string.isRequired
 }
 
 export default Chart

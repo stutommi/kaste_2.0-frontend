@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Segment, Grid, Header, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
 // Components
@@ -103,6 +104,11 @@ const HouseSensor = ({ sensor }) => {
 
     </Segment>
   )
+}
+
+// Proptypes
+HouseSensor.propTypes = {
+  sensor: PropTypes.object.isRequired
 }
 
 export default HouseSensor

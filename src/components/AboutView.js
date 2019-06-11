@@ -1,5 +1,6 @@
 // Libraries
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Table, Container, Header } from 'semantic-ui-react'
 
 const AboutView = ({ show }) => {
@@ -34,6 +35,11 @@ const AboutView = ({ show }) => {
       </Table>
     </Container>
   )
+}
+
+// Proptypes
+AboutView.propTypes = {
+  show: PropTypes.bool.isRequired
 }
 
 export default AboutView

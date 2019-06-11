@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Button, Input, Segment, Header, Divider, Message } from 'semantic-ui-react'
 import axios from 'axios'
 import { useMutation } from 'react-apollo-hooks'
@@ -59,10 +60,10 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
     <Segment>
       <Header>
         Sensor resource URL
-       </Header>
+      </Header>
       <small style={{ color: 'gray' }}>
         Provide an endpoint URL where sensor output comes from
-       </small>
+      </small>
       <Input
         value={sensorUrlField}
         onChange={({ target }) => setSensorUrlField(target.value)}
@@ -86,7 +87,7 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
                 style={{ marginTop: 10 }}
                 onClick={handleClearUrl}>
                 clear
-            </Button>
+              </Button>
             </Segment>
             <Segment
               inverted
@@ -108,6 +109,13 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
       }
     </Segment>
   )
+}
+
+// Proptypes
+SensorUrlForm.propTypes = {
+  sensorsConnected: PropTypes.bool.isRequired,
+  token: PropTypes.object.isRequired,
+  setToken: PropTypes.func.isRequired
 }
 
 export default SensorUrlForm

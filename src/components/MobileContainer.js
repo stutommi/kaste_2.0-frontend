@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 // Components
@@ -117,6 +118,17 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
       </Responsive>
     </>
   )
+}
+
+// Proptypes
+MobileContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  setPage: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
+  token: PropTypes.object.isRequired,
+  sensorService: PropTypes.object.isRequired,
+  actions: PropTypes.object
 }
 
 export default MobileContainer

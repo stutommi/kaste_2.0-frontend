@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Message, Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import { useMutation } from 'react-apollo-hooks'
 // Typedefs
@@ -85,6 +86,11 @@ const LoginView = ({ setToken }) => {
       </Grid>
     </div>
   )
+}
+
+// Proptypes
+LoginView.propTypes = {
+  setToken: PropTypes.func.isRequired
 }
 
 export default LoginView

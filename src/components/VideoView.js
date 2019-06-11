@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Image } from 'semantic-ui-react'
 // Components
 import Loading from './Loading'
@@ -14,7 +15,7 @@ const divStyle = {
 }
 
 const VideoView = ({ show, actions }) => {
-  const [imageStatus, setImageStatus] = useState(<Loading />)
+  const [imageStatus, setImageStatus] = useState(<Loading inverted={false}/>)
   const [displayImage, setDisplayImage] = useState('block')
   const [reloadImage, setReloadImage] = useState(false)
 
@@ -47,6 +48,12 @@ const VideoView = ({ show, actions }) => {
       }
     </div>
   )
+}
+
+// Proptypes
+VideoView.propTypes = {
+  show: PropTypes.bool.isRequired,
+  actions: PropTypes.object
 }
 
 export default VideoView

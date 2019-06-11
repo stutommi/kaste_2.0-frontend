@@ -1,5 +1,6 @@
 // Libraries
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Icon, Segment, Button } from 'semantic-ui-react'
 
 const ImageError = ({ setReloadImage }) => {
@@ -28,4 +29,10 @@ const ImageError = ({ setReloadImage }) => {
     </div>
   )
 }
+
+// Proptypes
+ImageError.propTypes = {
+  setReloadImage: PropTypes.func.isRequired
+}
+
 export default ImageError

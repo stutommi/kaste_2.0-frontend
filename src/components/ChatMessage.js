@@ -1,5 +1,6 @@
 // Libraries
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Segment, Comment, Divider } from 'semantic-ui-react'
 
 const ChatMessage = ({ message, currentUser }) => {
@@ -25,23 +26,28 @@ const ChatMessage = ({ message, currentUser }) => {
   }
 
   return (
-    < Comment style={{ marginTop: 7, paddingTop: 7, overflow: 'auto' }}>
-        <Segment
-          style={segmentStyle} compact inverted color={defSegColor} secondary>
-          <Comment.Content>
-            <Comment.Author as='a'>
-              {message.user.name}
-            </Comment.Author>
-            <Comment.Metadata>
-              <div>{new Date(parseInt(message.created)).toLocaleString()}</div>
-            </Comment.Metadata>
-            <Divider style={{ margin: '4px 0px 4px 0px' }} />
-            {message.content}
-          </Comment.Content>
-        </Segment>
-    </Comment >
+    <Comment style={{ marginTop: 7, paddingTop: 7, overflow: 'auto' }}>
+      <Segment
+        style={segmentStyle} compact inverted color={defSegColor} secondary>
+        <Comment.Content>
+          <Comment.Author as='a'>
+            {message.user.name}
+          </Comment.Author>
+          <Comment.Metadata>
+            <div>{new Date(parseInt(message.created)).toLocaleString()}</div>
+          </Comment.Metadata>
+          <Divider style={{ margin: '4px 0px 4px 0px' }} />
+          {message.content}
+        </Comment.Content>
+      </Segment>
+    </Comment>
   )
 }
 
+// Proptypes
+ChatMessage.propTypes = {
+  message: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired
+}
 
 export default ChatMessage

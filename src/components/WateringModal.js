@@ -1,5 +1,6 @@
 // Libraries
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Modal, Button, Icon, Menu, Header } from 'semantic-ui-react'
 import axios from 'axios'
 
@@ -67,6 +68,13 @@ const WateringModal = ({ actions, wateringConnected, setPage }) => {
       </Modal.Actions>
     </Modal>
   )
+}
+
+// Proptypes
+WateringModal.propTypes = {
+  actions: PropTypes.object,
+  wateringConnected: PropTypes.bool.isRequired,
+  setPage: PropTypes.func.isRequired
 }
 
 export default WateringModal

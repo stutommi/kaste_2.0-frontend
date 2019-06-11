@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Responsive, Menu, Icon } from 'semantic-ui-react'
 
 const DesktopContainer = ({ children, setPage, logOut }) => {
@@ -58,15 +59,15 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
             <Menu.Item onClick={handleViewChange('Settings')}>
               <Icon name='settings' />
               Settings
-          </Menu.Item>
+            </Menu.Item>
             <Menu.Item onClick={handleViewChange('About')}>
               <Icon name='question' />
               About
-          </Menu.Item>
+            </Menu.Item>
             <Menu.Item onClick={() => logOut(false)}>
               <Icon name='log out' />
               Log out
-          </Menu.Item>
+            </Menu.Item>
           </Menu.Menu>
         </Menu>
         <div style={{ height: 71 }} />
@@ -76,6 +77,13 @@ const DesktopContainer = ({ children, setPage, logOut }) => {
       </Responsive>
     </>
   )
+}
+
+// Proptypes
+DesktopContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  setPage: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired
 }
 
 export default DesktopContainer

@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Grid, Button, Header, Segment, Icon } from 'semantic-ui-react'
 import moment from 'moment'
 // Components
@@ -128,6 +129,11 @@ const PlantSensor = ({ sensor }) => {
       </Grid>
     </Segment>
   )
+}
+
+// Proptypes
+PlantSensor.propTypes = {
+  sensor: PropTypes.object.isRequired
 }
 
 export default PlantSensor

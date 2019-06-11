@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState, useRef, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
 import { Container, Icon, Comment, Menu, Input } from 'semantic-ui-react'
 // TypeDefs
@@ -113,6 +114,11 @@ const ChatView = ({ show }) => {
       </Menu>
     </div>
   )
+}
+
+// Proptypes
+ChatView.propTypes = {
+  show: PropTypes.bool.isRequired
 }
 
 export default ChatView

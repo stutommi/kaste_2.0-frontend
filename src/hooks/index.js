@@ -1,6 +1,6 @@
 // Libraries
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 // Helper functions
 import { formatSensorData } from '../utilities/helperFuncs'
 
@@ -39,27 +39,34 @@ export const useNotification = (duration = 5) => {
   return [text, set]
 }
 
-// Handle fetching sensorinformation
+// Handle sensor information fetching
 // Provide duration as argument (seconds)
 export const useSensors = (duration = 60) => {
   const [sensorData, setSensorData] = useState(null)
   const [actions, setActions] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
-  const [error, setError] = useNotification(null)
+  const [error, setError] = useState(null)
   const [intervalId, setIntervalId] = useState(null)
 
   const getSensorData = async (url) => {
     try {
-      const response = await axios.get(url)
+      const response = await axios.get(url)      
 
       // Format sensor data with helper function
       setSensorData(formatSensorData(response.data.sensors))
       // get actions
       setActions(response.data.actions)
       setIsConnected(true)
+      setError(null)
+
     } catch (error) {
+      
       setIsConnected(false)
-      setError(error)
+      setError(error.message)
+      console.error(error)
+      setTimeout(() => {
+        getSensorData(url)
+      }, 2000);
     }
   }
 
@@ -74,7 +81,6 @@ export const useSensors = (duration = 60) => {
   }
 
   const stopFetching = () => {
-    console.log('IntervalId', intervalId)
     clearInterval(intervalId)
     setSensorData(null)
     setIsConnected(false)
