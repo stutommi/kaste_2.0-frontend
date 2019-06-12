@@ -54,7 +54,7 @@ const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorSer
           fixed='top'
         >
 
-          <Menu.Item onClick={handleViewChange('Sensors')}>
+          <Menu.Item data-cy='sensors-button' onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
           </Menu.Item>
@@ -83,7 +83,7 @@ const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorSer
                 logged in
               </Menu.Header>
             }
-            <Menu.Item onClick={handleViewChange('Settings')}>
+            <Menu.Item data-cy='settings-button' onClick={handleViewChange('Settings')}>
               <Icon name='settings' />
               Settings
             </Menu.Item>

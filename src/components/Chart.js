@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo-hooks'
 import { Line } from 'react-chartjs-2'
 import moment from 'moment'
+import { Segment } from 'semantic-ui-react'
 // Type defs
 import chartData from '../graphql/queries/chartData'
 // Components
@@ -35,17 +36,17 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
 
       const returnLineColor = (measure) => {
         switch (measure) {
-        case 'temperatureC':
-          return 'rgba(250, 64, 61, 0.7)'
-        case 'nutrient':
-          return 'rgba(250, 158, 61, 0.7)'
-        case 'light':
-          return 'rgba(246, 250, 61, 0.7)'
-        case 'humidity':
-          return 'rgba(61, 152, 250, 0.7)'
-        case 'soilMoisture':
-          return 'rgba(61, 152, 250, 0.7)'
-        default: break
+          case 'temperatureC':
+            return 'rgba(250, 64, 61, 0.7)'
+          case 'nutrient':
+            return 'rgba(250, 158, 61, 0.7)'
+          case 'light':
+            return 'rgba(246, 250, 61, 0.7)'
+          case 'humidity':
+            return 'rgba(61, 152, 250, 0.7)'
+          case 'soilMoisture':
+            return 'rgba(61, 152, 250, 0.7)'
+          default: break
         }
       }
 
@@ -121,6 +122,14 @@ const Chart = ({ sensor, chartTimeRange }) => {
     )
   }
 
+  if (Object.keys(plantData.data).length === 0) {
+    return <Segment
+      color='red'
+      inverted
+      secondary>
+      Chart failed to load
+    </Segment>
+  }
   const formattedChartData = formatSensorDataIntoChartData(plantData.data)
 
   return (

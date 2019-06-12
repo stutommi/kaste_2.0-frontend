@@ -65,12 +65,17 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
         Provide an endpoint URL where sensor output comes from
       </small>
       <Input
+        data-cy='sensor-url-input'
         value={sensorUrlField}
         onChange={({ target }) => setSensorUrlField(target.value)}
         fluid
         placeholder='Enter URL...'
         action={
-          <Button loading={false} onClick={handleConnect}>connect</Button>
+          <Button
+            data-cy='sensor-url-button'
+            loading={false}
+            onClick={handleConnect}>connect
+          </Button>
         }
       />
       {

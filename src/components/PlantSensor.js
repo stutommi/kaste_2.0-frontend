@@ -74,7 +74,7 @@ const PlantSensor = ({ sensor }) => {
         <Grid.Row columns='1' style={{ padding: 0 }}>
 
           <Grid.Column textAlign='center'>
-            <Button circular icon={chartVisible ? 'close' : 'chart area'} onClick={() => setChartVisible(!chartVisible)} />
+            <Button data-cy='chart-toggle-button' circular icon={chartVisible ? 'close' : 'chart area'} onClick={() => setChartVisible(!chartVisible)} />
             {
               chartVisible &&
               <>

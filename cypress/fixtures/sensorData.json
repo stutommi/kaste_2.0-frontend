@@ -1,0 +1,63 @@
+{
+  "actions": {
+    "camera": "http://86.115.57.126:8004/",
+    "reboot": "http://86.115.57.126:8001/ws/reboot",
+    "water": {
+      "oneMin": "http://86.115.57.126:8001/ws/kastelu1?value=1",
+      "fiveMin": "http://86.115.57.126:8001/ws/kastelu2?value=1",
+      "tenMin": "http://86.115.57.126:8001/ws/kastelu3?value=1"
+    }
+  },
+  "sensors": {
+    "radio_sensors": [
+      {
+        "time": "2019-06-12 14:07:29",
+        "model": "Acurite tower sensor",
+        "location": "fridge",
+        "id": 1447,
+        "temperature_C": 0.4,
+        "humidity": 32,
+        "battery_low": 0,
+        "type": "house",
+        "owner": "6"
+      },
+      {
+        "time": "2019-06-12 14:07:48",
+        "model": "Acurite tower sensor",
+        "location": "balcony",
+        "id": 725,
+        "temperature_C": 20.3,
+        "humidity": 36,
+        "battery_low": 0,
+        "type": "house",
+        "owner": "6"
+      },
+      {
+        "time": "2019-06-12 14:07:50",
+        "model": "Acurite tower sensor",
+        "location": "living_room",
+        "id": 4489,
+        "temperature_C": 24,
+        "humidity": 38,
+        "battery_low": 0,
+        "type": "house",
+        "owner": "6"
+      }
+    ],
+    "bt_sensors": [
+      {
+        "time": "2019-06-12 14:02:51",
+        "model": "miflora",
+        "location": "balcony",
+        "id": 1,
+        "temperature_C": 23.4,
+        "soil_moisture": 28,
+        "light": 12,
+        "nutrient": 14,
+        "battery_low": 83,
+        "type": "plant",
+        "owner": "6"
+      }
+    ]
+  }
+}
