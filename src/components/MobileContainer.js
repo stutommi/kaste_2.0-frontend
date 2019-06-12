@@ -101,7 +101,7 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
 
           <Menu widths={3} inverted pointing color='green' size='large' style={{ height: '50px', marginBottom: 0, borderRadius: 0 }}>
             <Menu.Item onClick={() => setShowSidebar(true)} style={{ alignSelf: 'center' }}>
-              <Icon name='sidebar' />
+              <Icon data-cy='sidebar-button' name='sidebar' />
             </Menu.Item>
             <Menu.Item header={true}>
               {page}

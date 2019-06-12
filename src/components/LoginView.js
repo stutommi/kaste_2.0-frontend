@@ -54,6 +54,7 @@ const LoginView = ({ setToken }) => {
           <Form size='large' onSubmit={handleLogin}>
             <Segment stacked raised>
               <Form.Input
+                data-cy='username'
                 type="text"
                 value={username}
                 onChange={({ target }) => setUsername(target.value)}
@@ -63,6 +64,7 @@ const LoginView = ({ setToken }) => {
                 placeholder='Username'
               />
               <Form.Input
+                data-cy='password'
                 type="password"
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}

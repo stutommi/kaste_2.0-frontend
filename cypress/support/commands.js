@@ -1,25 +1,60 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+// Sets testing database up - works with cy.setupDB()
+Cypress.Commands.add("setupDB", () => {
+  const createUser = `
+mutation { createUser(
+    username: "testUser",
+    name: "testName",
+    password: "testPassword"
+  ){
+    id
+    name
+    username
+    messages {
+      created
+    }
+    passwordHash
+    sensorEndpoint
+  }
+}`
+
+  const resetDB = `
+mutation {
+  resetDB {
+    message
+  }
+}
+`
+
+  cy.request({
+    method: 'post',
+    body: { query: resetDB },
+    url: "http://localhost:4000/graphql"
+  })
+  cy.request({
+    method: 'post',
+    body: { query: createUser },
+    url: "http://localhost:4000/graphql"
+  })
+})
+
+// Logs user in 
+Cypress.Commands.add("login", () => {
+
+  const login = `
+  mutation {
+    login(username: "testUser", password: "testPassword") {
+      value
+      username
+      sensorEndpoint
+    }
+  }
+  `
+
+  const token = cy.request({
+    method: 'post',
+    body: { query: login },
+    url: "http://localhost:4000/graphql"
+  })
+
+  window.localStorage.setItem('kaste-user-token', JSON.stringify(token))
+})

@@ -91,7 +91,7 @@ const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorSer
               <Icon name='question' />
               About
             </Menu.Item>
-            <Menu.Item onClick={() => logOut(false)}>
+            <Menu.Item data-cy='logout-button' onClick={() => logOut(false)}>
               <Icon name='log out' />
               Log out
             </Menu.Item>

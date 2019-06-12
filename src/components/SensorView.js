@@ -17,7 +17,7 @@ const SensorView = ({ show, sensorData, sensorError, token }) => {
   const notifyStatus = () => {
 
     if (sensorError === 'Sensors loading') {
-      return <Loading inverted={true} />
+      return <div></div>
     }
 
     if (!token.sensorEndpoint || sensorError === 'Network Error') {
