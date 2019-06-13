@@ -23,7 +23,7 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
     setShowSidebar(false)
     sensorService.stopFetching()
     axios.get(actions.reboot)
-    
+
     setTimeout(() => {
       sensorService.startFetching(token.sensorEndpoint)
     }, 1000);
@@ -66,32 +66,52 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
               {token.username}
             </Menu.Header>
           }
-          <Menu.Item onClick={handleViewChange('Sensors')}>
+          <Menu.Item
+            data-cy='sensors-button'
+            onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('Chat')}>
+
+          <Menu.Item
+            data-cy='chat-button'
+            onClick={handleViewChange('Chat')}>
             <Icon name='comments outline' />
             Chat
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('Settings')}>
+
+          <Menu.Item
+            data-cy='settings-button'
+            onClick={handleViewChange('Settings')}>
             <Icon name='settings' />
             Settings
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('About')}>
+
+          <Menu.Item
+            data-cy='about-button'
+            onClick={handleViewChange('About')}>
             <Icon name='question' />
             About
           </Menu.Item>
-          <Menu.Item disabled={!cameraConnected} onClick={handleViewChange('Video')}>
+
+          <Menu.Item
+            data-cy='livefeed-button'
+            disabled={!cameraConnected}
+            onClick={handleViewChange('Video')}>
             <Icon name='eye' />
             Live Feed
           </Menu.Item>
+
           <WateringModal
             actions={actions}
             wateringConnected={wateringConnected}
             setPage={setPage}
           />
-          <Menu.Item disabled={!raspConnected} onClick={handleReboot}>
+
+          <Menu.Item
+            data-cy='stop-button'
+            disabled={!raspConnected}
+            onClick={handleReboot}>
             <Icon name='redo' />
             Reboot rasp
           </Menu.Item>

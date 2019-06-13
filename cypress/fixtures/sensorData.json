@@ -1,11 +1,11 @@
 {
   "actions": {
-    "camera": "http://86.115.57.126:8004/",
-    "reboot": "http://86.115.57.126:8001/ws/reboot",
+    "camera": "http://testurl",
+    "reboot": "http://testurl",
     "water": {
-      "oneMin": "http://86.115.57.126:8001/ws/kastelu1?value=1",
-      "fiveMin": "http://86.115.57.126:8001/ws/kastelu2?value=1",
-      "tenMin": "http://86.115.57.126:8001/ws/kastelu3?value=1"
+      "oneMin": "http://testurl",
+      "fiveMin": "http://testurl",
+      "tenMin": "http://testurl"
     }
   },
   "sensors": {

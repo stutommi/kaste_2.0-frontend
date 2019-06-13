@@ -1,4 +1,4 @@
-describe('Login view', function () {
+describe('Login Page', function () {
   beforeEach(function () {
     cy.setupDB()
   })
@@ -8,12 +8,14 @@ describe('Login view', function () {
     cy.visit('/')
     cy.contains('Log in to Kaste 2.0').should('be.visible')
 
-    cy.get('[data-cy=username]').find('input').type('testUser{enter}')
+    cy.get('[data-cy=username]').find('input').type('testUser1{enter}')
     cy.contains('invalid username or password').should('be.visible')
 
-    cy.get('[data-cy=password]').find('input').type('testPassword{enter}')
+    cy.get('[data-cy=password]').find('input').type('testPassword1{enter}')
 
-    cy.contains('testUser logged in').should('be.visible')
+    cy.contains('testUser1 logged in').should('be.visible')
+
+
   })
 
   it('Mobile login is succesful', function () {
@@ -21,12 +23,12 @@ describe('Login view', function () {
     cy.visit('/')
     cy.contains('Log in to Kaste 2.0').should('be.visible')
 
-    cy.get('[data-cy=username]').find('input').type('testUser{enter}')
+    cy.get('[data-cy=username]').find('input').type('testUser2{enter}')
     cy.contains('invalid username or password').should('be.visible')
 
-    cy.get('[data-cy=password]').find('input').type('testPassword{enter}')
+    cy.get('[data-cy=password]').find('input').type('testPassword2{enter}')
     
     cy.get('[data-cy=sidebar-button]').click()
-    cy.contains('testUser').should('be.visible')
+    cy.contains('testUser2').should('be.visible')
   })
 })

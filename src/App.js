@@ -15,7 +15,7 @@ import VideoView from './components/VideoView'
 const App = () => {
   const [page, setPage] = useState('Sensors')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
-  const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(30) // update granularity (seconds)
+  const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(30) // update interval (in seconds)
   const client = useApolloClient()
 
   useEffect(() => {

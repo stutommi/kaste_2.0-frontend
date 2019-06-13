@@ -18,13 +18,13 @@ const ChatView = ({ show }) => {
   const { data, loading } = useQuery(chatMessages)
   const userQuery = useQuery(currentUser)
   const [messageInput, setMessageInput] = useState('')
+  const addMessage = useMutation(createMessage)
   const el = useRef(null)
-  
+
   useEffect(() => {
     scrollToBottom()
   }, [show])
 
-  const addMessage = useMutation(createMessage)
 
   // eslint-disable-next-line no-unused-vars
   const addedMessage = useSubscription(messageAdded, {
@@ -47,7 +47,7 @@ const ChatView = ({ show }) => {
 
   const scrollToBottom = () => {
     if (!el.current) { return }
-    el.current.scrollIntoView({ block: 'end'})
+    el.current.scrollIntoView({ block: 'end' })
   }
 
   const handleSubmit = () => {
@@ -67,13 +67,14 @@ const ChatView = ({ show }) => {
   if (!show) {
     return null
   }
+
   return (
     <div style={{ height: '100%' }}>
       <Container style={{ height: '90%', overflowY: 'scroll' }}>
         {
           loading || userQuery.loading
             ?
-            <Loading />
+            <Loading inverted={true}/>
             :
             <Comment.Group>
               {data.messages.map(message => (
@@ -91,6 +92,7 @@ const ChatView = ({ show }) => {
       <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '10%' }}>
         <Menu.Item style={{ width: '80vw' }}>
           <Input
+          data-cy='chat-input'
             fluid
             value={messageInput}
             onChange={({ target }) => setMessageInput(target.value)}

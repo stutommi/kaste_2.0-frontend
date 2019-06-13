@@ -54,27 +54,42 @@ const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorSer
           fixed='top'
         >
 
-          <Menu.Item data-cy='sensors-button' onClick={handleViewChange('Sensors')}>
+          <Menu.Item
+            data-cy='sensors-button'
+            onClick={handleViewChange('Sensors')}>
             <Icon name='info' />
             Sensors
           </Menu.Item>
-          <Menu.Item onClick={handleViewChange('Chat')}>
+
+          <Menu.Item
+            data-cy='chat-button'
+            onClick={handleViewChange('Chat')}>
             <Icon name='comments outline' />
             Chat
           </Menu.Item>
+
           <WateringModal
             actions={actions}
             wateringConnected={wateringConnected}
             setPage={setPage}
           />
-          <Menu.Item disabled={!raspConnected} onClick={handleReboot}>
+
+          <Menu.Item
+            data-cy='stop-button'
+            disabled={!raspConnected}
+            onClick={handleReboot}>
             <Icon name='redo' />
             Reboot rasp
           </Menu.Item>
-          <Menu.Item disabled={!cameraConnected} onClick={handleViewChange('Video')}>
+
+          <Menu.Item
+            data-cy='livefeed-button'
+            disabled={!cameraConnected}
+            onClick={handleViewChange('Video')}>
             <Icon name='eye' />
             Live Feed
           </Menu.Item>
+
           <Menu.Menu position='right'>
             {token &&
               <Menu.Header as='p' style={{ color: 'white', alignSelf: 'center', margin: '0 10px 0' }}>
@@ -83,24 +98,35 @@ const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorSer
                 logged in
               </Menu.Header>
             }
-            <Menu.Item data-cy='settings-button' onClick={handleViewChange('Settings')}>
+
+            <Menu.Item
+              data-cy='settings-button'
+              onClick={handleViewChange('Settings')}>
               <Icon name='settings' />
               Settings
             </Menu.Item>
-            <Menu.Item onClick={handleViewChange('About')}>
+
+            <Menu.Item
+              data-cy='about-button'
+              onClick={handleViewChange('About')}>
               <Icon name='question' />
               About
             </Menu.Item>
-            <Menu.Item data-cy='logout-button' onClick={() => logOut(false)}>
+
+            <Menu.Item
+              data-cy='logout-button'
+              onClick={() => logOut(false)}>
               <Icon name='log out' />
               Log out
             </Menu.Item>
           </Menu.Menu>
         </Menu>
+
         <div style={{ height: 71 }} />
         <div style={{ height: 'calc(100vh - 71px)' }}>
           {children}
         </div>
+
       </Responsive>
     </>
   )

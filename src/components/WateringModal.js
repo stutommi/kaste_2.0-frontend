@@ -34,6 +34,7 @@ const WateringModal = ({ actions, wateringConnected, setPage }) => {
       onClose={() => setShowModal(false)}
       trigger={
         <Menu.Item
+          data-cy='water-button'
           onClick={() => setShowModal(true)}
           disabled={!wateringConnected || recentlyWatered}>
           <Icon name='shower' />

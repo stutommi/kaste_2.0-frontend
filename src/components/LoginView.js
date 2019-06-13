@@ -29,8 +29,6 @@ const LoginView = ({ setToken }) => {
         },
         refetchQueries: [{ query: currentUser }]
       })
-
-
     } catch (error) {
       setNotification(error.graphQLErrors[0].message)
     }
@@ -38,6 +36,7 @@ const LoginView = ({ setToken }) => {
 
   return (
     <div className='login-form'>
+
       <style> {`
   body > div,
   body > div > div,
@@ -46,6 +45,7 @@ const LoginView = ({ setToken }) => {
   }
           `}
       </style>
+
       <Grid textAlign='center' style={{ height: '100%', background: 'lightgreen' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 250 }}>
           <Header as='h1' color='grey' dividing textAlign='center'>

@@ -26,7 +26,9 @@ const ChatMessage = ({ message, currentUser }) => {
   }
 
   return (
-    <Comment style={{ marginTop: 7, paddingTop: 7, overflow: 'auto' }}>
+    <Comment
+      data-cy='message'
+      style={{ marginTop: 7, paddingTop: 7, overflow: 'auto' }}>
       <Segment
         style={segmentStyle} compact inverted color={defSegColor} secondary>
         <Comment.Content>
