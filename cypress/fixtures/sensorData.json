@@ -1,6 +1,6 @@
 {
   "actions": {
-    "camera": "http://testurl",
+    "camera": "http://testImg",
     "reboot": "http://testurl",
     "water": {
       "oneMin": "http://testurl",

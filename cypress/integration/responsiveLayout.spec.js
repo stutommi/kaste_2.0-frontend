@@ -1,4 +1,4 @@
-describe.only('Menu buttons appear correctly on', () => {
+describe('Menu buttons appear correctly on', () => {
   beforeEach(function () {
     cy.setupDB()
     cy.login()
@@ -29,7 +29,7 @@ describe.only('Menu buttons appear correctly on', () => {
     cy.get('[data-cy=livefeed-button]').should('not.have.class', 'disabled')
   })
 
-  it.only('Mobile', function () {
+  it('Mobile', function () {
     cy.viewport('iphone-5')
 
     cy.get('[data-cy=logout-button]').should('exist')

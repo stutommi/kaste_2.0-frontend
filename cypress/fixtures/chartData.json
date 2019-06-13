@@ -1,41 +1,41 @@
 
-{
-  "operation": "chartData",
-  "response": {
-    "data": {
-      "chartData": [
-        {
-          "light": [
-            61,
-            64,
-            13,
-            21,
-            34
-          ],
-          "nutrient": [
-            25,
-            28,
-            29,
-            27,
-            26
-          ],
-          "soilMoisture": [
-            43,
-            48,
-            46,
-            45,
-            44
-          ],
-          "temperatureC": [
-            26.8,
-            28.8,
-            24.2,
-            26.1,
-            26
-          ],
-          "__typename": "chartData"
-        }
-      ]
-    }
-  }
-}
+// {
+//   "operation": "chartData",
+//   "response": {
+//     "data": {
+//       "chartData": [
+//         {
+//           "light": [
+//             61,
+//             64,
+//             13,
+//             21,
+//             34
+//           ],
+//           "nutrient": [
+//             25,
+//             28,
+//             29,
+//             27,
+//             26
+//           ],
+//           "soilMoisture": [
+//             43,
+//             48,
+//             46,
+//             45,
+//             44
+//           ],
+//           "temperatureC": [
+//             26.8,
+//             28.8,
+//             24.2,
+//             26.1,
+//             26
+//           ],
+//           "__typename": "chartData"
+//         }
+//       ]
+//     }
+//   }
+// }
