@@ -1,20 +1,23 @@
 // Libraries
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Input, Segment, Header, Divider, Message } from 'semantic-ui-react'
+import { Button, Input, Segment, Header, Divider, Message, Grid } from 'semantic-ui-react'
 import axios from 'axios'
 import { useMutation } from 'react-apollo-hooks'
 // Custom hooks
-import { useNotification } from '../hooks/index'
+import useNotification from '../hooks/useNotification'
+import useAction from '../hooks/useAction'
 // TypeDefs
 import editUserSensorEndpoint from '../graphql/mutations/editUserSensorEndpoint'
+import reboot from '../graphql/mutations/reboot'
 // Helper functions
 import { handleSensorEndpointUpdateForToken } from '../utilities/helperFuncs'
 
-const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
+const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorService }) => {
   const [sensorUrlField, setSensorUrlField] = useState('')
   const [notification, setNotification] = useNotification()
   const editSensorEndpoint = useMutation(editUserSensorEndpoint)
+  const fireAction = useAction()
 
   const handleConnect = async () => {
     try {
@@ -56,6 +59,18 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
     }
   }
 
+  const handleReboot = async () => {
+    const confirmation = window.confirm('WARNING: Endpoint computer might not recover correctly from reboot!')
+
+    if (confirmation) {
+      fireAction(actions.reboot ,reboot)
+
+      sensorService.stopFetching()
+      sensorService.startFetching(token.sensorEndpoint)
+    }
+
+  }
+
   return (
     <Segment>
       <Header>
@@ -74,7 +89,7 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
           <Button
             data-cy='sensor-url-button'
             loading={false}
-            onClick={handleConnect}>connect
+            onClick={handleConnect}>Connect
           </Button>
         }
       />
@@ -98,7 +113,20 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken }) => {
               inverted
               secondary
               color={sensorsConnected ? 'green' : 'red'}>
-              Endpoint status: {sensorsConnected ? 'Online' : 'Offline'}
+              <Grid divided columns={2} textAlign='center'>
+                <Grid.Row verticalAlign='middle'>
+                  <Grid.Column>
+                    Endpoint status: {sensorsConnected ? 'Online' : 'Offline'}
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Button
+                      disabled={!sensorsConnected}
+                      onClick={handleReboot}
+                      icon='redo'
+                      content='Reboot' />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
             </Segment>
           </>
           :

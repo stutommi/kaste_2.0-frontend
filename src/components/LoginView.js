@@ -7,7 +7,7 @@ import { useMutation } from 'react-apollo-hooks'
 import loginUser from '../graphql/mutations/loginUser'
 import currentUser from '../graphql/queries/currentUser'
 // Hooks
-import { useNotification } from '../hooks/index'
+import useNotification from '../hooks/useNotification'
 
 
 const LoginView = ({ setToken }) => {

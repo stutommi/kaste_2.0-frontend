@@ -5,12 +5,18 @@ import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 // Components
 import WateringModal from './WateringModal'
+// Custom hooks
+import useAction from '../hooks/useAction'
+// Typedefs
+import stopWatering from '../graphql/mutations/stopWatering'
+
 
 const MobileContainer = ({ children, setPage, logOut, page, actions, token, sensorService }) => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [cameraConnected, setCameraConnected] = useState(false)
   const [raspConnected, setRaspConnected] = useState(false)
   const [wateringConnected, setWateringConnected] = useState(false)
+  const fireAction = useAction()
 
   // Handles page navigation
   const handleViewChange = (view) => () => {
@@ -18,18 +24,13 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
     setPage(view)
   }
 
-  // Handles rasp rebooting
-  const handleReboot = () => {
+  // Stops watering
+  const handleStopWatering = () => {
     setShowSidebar(false)
-    sensorService.stopFetching()
-    axios.get(actions.reboot)
-
-    setTimeout(() => {
-      sensorService.startFetching(token.sensorEndpoint)
-    }, 1000);
+    fireAction(actions.water.waterstop, stopWatering)
   }
 
-  // Check if sensor actions include camera, watering or rasp rebooting functionality
+  // Check if sensor actions include camera or watering functionality
   useEffect(() => {
     if (actions) {
       setCameraConnected(actions.camera !== undefined)
@@ -110,10 +111,10 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
 
           <Menu.Item
             data-cy='stop-button'
-            disabled={!raspConnected}
-            onClick={handleReboot}>
-            <Icon name='redo' />
-            Reboot rasp
+            disabled={!wateringConnected}
+            onClick={handleStopWatering}>
+            <Icon name='stop circle' />
+            Stop Watering
           </Menu.Item>
         </Sidebar>
 

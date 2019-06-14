@@ -1,43 +1,11 @@
 // Libraries
-import axios from 'axios'
 import { useState } from 'react'
+import { useApolloClient } from 'react-apollo-hooks'
 // Helper functions
 import { formatSensorData } from '../utilities/helperFuncs'
-
-export const useField = (type) => {
-  const [value, setValue] = useState('')
-
-  const onChange = (event) => {
-    setValue(event.target.value)
-  }
-
-  const reset = () => {
-    setValue('')
-  }
-
-  return {
-    type,
-    value,
-    onChange,
-    reset
-  }
-}
-
-// Provide duration as argument (seconds)
-export const useNotification = (duration = 5) => {
-  const [text, setText] = useState(null)
-
-  const reset = () => setText(null)
-
-  const set = (text) => {
-    setText(text)
-    setTimeout(() => {
-      reset()
-    }, duration * 1000)
-  }
-
-  return [text, set]
-}
+// Typedefs
+import sensorDatas from '../graphql/queries/sensorData'
+// NOTE: Really weirdly, importing as sensorData results in Graphql error
 
 // Handle sensor information fetching
 // Provide duration as argument (seconds)
@@ -47,24 +15,30 @@ export const useSensors = (duration = 60) => {
   const [isConnected, setIsConnected] = useState(false)
   const [error, setError] = useState(null)
   const [intervalId, setIntervalId] = useState(null)
+  const client = useApolloClient()
 
   const getSensorData = async (url) => {
     try {
-      const response = await axios.get(url)      
+      // TÄÄ PALVELIMEN KAUTTA
+      const { data } = await client.query({
+        query: sensorDatas,
+        variables: { sensorEndpoint: url },
+        fetchPolicy: 'no-cache'
+      })
+      const parsedSensorQuery = JSON.parse(data.sensorData.value)
 
       // Format sensor data with helper function
-      setSensorData(formatSensorData(response.data.sensors))
-      // get actions
-      setActions(response.data.actions)
+      setSensorData(formatSensorData(parsedSensorQuery.sensors))
+      // Get actions
+      setActions(parsedSensorQuery.actions)
       setIsConnected(true)
       setError(null)
 
     } catch (error) {
-      
       setIsConnected(false)
       setError(error.message)
-      console.error(error)
       setTimeout(() => {
+
         getSensorData(url)
       }, 2000);
     }
@@ -95,3 +69,5 @@ export const useSensors = (duration = 60) => {
 
   return [sensorData, actions, sensorService, isConnected, error]
 }
+
+export default useSensors 

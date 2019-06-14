@@ -5,36 +5,33 @@ import { Responsive, Menu, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 // Components
 import WateringModal from './WateringModal'
+// Custom hooks
+import useAction from '../hooks/useAction'
+// Typedefs
+import stopWatering from '../graphql/mutations/stopWatering'
 
 const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorService }) => {
   const [cameraConnected, setCameraConnected] = useState(false)
-  const [raspConnected, setRaspConnected] = useState(false)
   const [wateringConnected, setWateringConnected] = useState(false)
+  const fireAction = useAction()
 
   // Handles page navigation
   const handleViewChange = (view) => () => {
     setPage(view)
   }
 
-  // Handles rasp rebooting
-  const handleReboot = () => {
-    sensorService.stopFetching()
-    axios.get(actions.reboot)
-
-    setTimeout(() => {
-      sensorService.startFetching(token.sensorEndpoint)
-    }, 1000);
+  // Stops watering
+  const handleStopWatering = () => {
+    fireAction(actions.water.waterstop, stopWatering)
   }
 
-  // Check if sensor actions include camera, watering or rasp rebooting functionality
+  // Check if sensor actions include camera or watering functionality
   useEffect(() => {
     if (actions) {
       setCameraConnected(actions.camera !== undefined)
-      setRaspConnected(actions.reboot !== undefined)
       setWateringConnected(actions.water !== undefined)
     } else {
       setCameraConnected(false)
-      setRaspConnected(false)
       setWateringConnected(false)
     }
 
@@ -76,10 +73,10 @@ const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorSer
 
           <Menu.Item
             data-cy='stop-button'
-            disabled={!raspConnected}
-            onClick={handleReboot}>
-            <Icon name='redo' />
-            Reboot rasp
+            disabled={!wateringConnected}
+            onClick={handleStopWatering}>
+            <Icon name='stop circle' />
+            Stop Watering
           </Menu.Item>
 
           <Menu.Item

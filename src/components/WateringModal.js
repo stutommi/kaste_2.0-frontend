@@ -3,17 +3,22 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Button, Icon, Menu, Header } from 'semantic-ui-react'
 import axios from 'axios'
+// Custom hooks
+import useAction from '../hooks/useAction'
+// Typedefs
+import startWatering from '../graphql/mutations/startWatering'
 
 const WateringModal = ({ actions, wateringConnected, setPage }) => {
   const [showModal, setShowModal] = useState(false)
   const [recentlyWatered, setRecentlyWatered] = useState(false)
+  const fireAction = useAction()
 
   const handleWatering = (duration, action) => {
     setRecentlyWatered(true)
     console.log('Watering plants plants: ', duration)
     try {
       setShowModal(false)
-      axios.get(action)
+      fireAction(action, startWatering)
       setPage('Video')
     } catch (error) {
       console.error(error.message)
