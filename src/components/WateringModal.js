@@ -14,8 +14,7 @@ const WateringModal = ({ actions, wateringConnected, setPage }) => {
   const fireAction = useAction()
 
   const handleWatering = (duration, action) => {
-    setRecentlyWatered(true)
-    console.log('Watering plants plants: ', duration)
+    // setRecentlyWatered(true)
     try {
       setShowModal(false)
       fireAction(action, startWatering)

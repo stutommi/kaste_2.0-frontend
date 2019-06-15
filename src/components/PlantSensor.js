@@ -7,6 +7,8 @@ import moment from 'moment'
 import SensorValue from './SensorValue'
 import Chart from './Chart'
 
+const columnStyle = { padding: 0 }
+
 const PlantSensor = ({ sensor }) => {
   const [chartVisible, setChartVisible] = useState(false)
   const [chartTimeRange, setChartTimeRange] = useState('DAY')
@@ -24,12 +26,14 @@ const PlantSensor = ({ sensor }) => {
         Capsicum baccatum
       </Header>
 
-      <Grid textAlign='center' columns={2} >
+      <Grid textAlign='center' columns={4} >
         <Grid.Row>
 
-          <Grid.Column color={sensor.soil_moisture < 10 ? 'yellow' : null}>
+          <Grid.Column
+            style={columnStyle}
+            color={sensor.soil_moisture < 10 ? 'yellow' : null}>
             <SensorValue
-              size={'big'}
+              size={'large'}
               value={sensor.soil_moisture + ' %'}
               label={'Soil moisture'}
               icon='theme'
@@ -37,9 +41,9 @@ const PlantSensor = ({ sensor }) => {
             />
           </Grid.Column>
 
-          <Grid.Column>
+          <Grid.Column style={columnStyle}>
             <SensorValue
-              size={'big'}
+              size={'large'}
               value={Math.floor(sensor.light) + ' %'}
               label={'Light'}
               icon={'sun'}
@@ -47,12 +51,9 @@ const PlantSensor = ({ sensor }) => {
             />
           </Grid.Column>
 
-        </Grid.Row>
-        <Grid.Row>
-
-          <Grid.Column>
+          <Grid.Column style={columnStyle}>
             <SensorValue
-              size={'big'}
+              size={'large'}
               value={sensor.temperature_C + ' ºC'}
               label={'Temperature'}
               icon={'thermometer'}
@@ -60,9 +61,9 @@ const PlantSensor = ({ sensor }) => {
             />
           </Grid.Column>
 
-          <Grid.Column>
+          <Grid.Column style={columnStyle}>
             <SensorValue
-              size={'big'}
+              size={'large'}
               value={Math.floor(sensor.nutrient) + ' %'}
               label={'Nutrient'}
               icon={'pills'}
@@ -74,7 +75,10 @@ const PlantSensor = ({ sensor }) => {
         <Grid.Row columns='1' style={{ padding: 0 }}>
 
           <Grid.Column textAlign='center'>
-            <Button data-cy='chart-toggle-button' circular icon={chartVisible ? 'close' : 'chart area'} onClick={() => setChartVisible(!chartVisible)} />
+            <Button
+            data-cy='chart-toggle-button'
+            circular icon={chartVisible ? 'close' : 'chart area'}
+            onClick={() => setChartVisible(!chartVisible)} />
             {
               chartVisible &&
               <>

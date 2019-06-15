@@ -8,7 +8,7 @@ const SensorValue = ({ value, icon, iconColor, size }) => {
     <div>
       <Icon name={icon} size={size} color={iconColor ? iconColor : null} />
       <span style={{
-        fontSize: `${size === 'big' ? '28px' : '11px'}`,
+        fontSize: `${size === 'large' ? '15px' : '11px'}`,
         verticalAlign: 'middle'
       }}>
         {value}
