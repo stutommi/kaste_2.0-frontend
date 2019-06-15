@@ -34,9 +34,9 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
             }
           })
 
-          // For localstorage
+          // For localstorage and app
           handleSensorEndpointUpdateForToken(sensorUrlField, setToken)
-          // For app
+          // Clears url field
           setSensorUrlField('')
         }
       }
@@ -95,7 +95,8 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
           <Button
             data-cy='sensor-url-button'
             loading={false}
-            onClick={handleConnect}>Connect
+            onClick={handleConnect}>
+            Connect
           </Button>
         }
       />

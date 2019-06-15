@@ -18,11 +18,11 @@ export const formatSensorData = (sensorData) => {
 
 // Sets new url endpoint to localstorage
 export const handleSensorEndpointUpdateForToken = (sensorUrlField, setToken) => {
-  const prevToken = JSON.parse(localStorage.getItem('kaste-user-token'))
+  const currentToken = JSON.parse(localStorage.getItem('kaste-user-token'))
   localStorage.removeItem('kaste-user-token')
 
   const updatedToken = {
-    ...prevToken,
+    ...currentToken,
     sensorEndpoint: sensorUrlField
   }
 

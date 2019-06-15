@@ -24,7 +24,6 @@ const SensorView = ({ show, sensorData, sensorError, token }) => {
       Sensors loading
     </Segment>
     }
-    console.log(sensorError)
     
     if (!token.sensorEndpoint || sensorError === 'GraphQL error: Request failed with status code 404') {
       return (

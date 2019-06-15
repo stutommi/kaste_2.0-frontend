@@ -1,3 +1,5 @@
+import 'cypress-graphql-mock'
+
 // Sets testing database up - works with cy.setupDB()
 Cypress.Commands.add("setupDB", () => {
 
@@ -25,10 +27,10 @@ mutation {
   }
 }
 `
-const Queries = [
-  createUser("testUser1", "testName1", "testPassword1"),
-  createUser("testUser2", "testName2", "testPassword2")
-] 
+  const Queries = [
+    createUser("testUser1", "testName1", "testPassword1"),
+    createUser("testUser2", "testName2", "testPassword2")
+  ]
 
   cy.request({
     method: 'post',
@@ -64,7 +66,7 @@ Cypress.Commands.add("login", () => {
     body: { query: login },
     url: 'http://localhost:4000/graphql'
   })
-  
+
   window.localStorage.setItem('kaste-user-token', JSON.stringify(token))
 })
 
@@ -73,7 +75,7 @@ Cypress.Commands.add('clearAndSetUserToken', () => {
   const token = {
     value: 'randomString',
     name: 'testName1',
-    sensorEndpoint: 'http://testurl/sensors/'
+    sensorEndpoint: 'http://testurl/sensors'
   }
 
   window.localStorage.clear()

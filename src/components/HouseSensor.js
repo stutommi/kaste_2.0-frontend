@@ -43,71 +43,71 @@ const HouseSensor = ({ sensor }) => {
             />
           </Grid.Column>
 
-          </Grid.Row>
-          <Grid.Row columns='1' style={{ padding: 0 }}>
+        </Grid.Row>
+        <Grid.Row columns='1' style={{ padding: 0 }}>
 
-            <Grid.Column textAlign='center'>
-              <Button circular icon={chartVisible ? 'close' : 'chart area'} onClick={() => setChartVisible(!chartVisible)} />
-              {
-                chartVisible &&
-                <>
-                  <Button circular onClick={() => setChartTimeRange('DAY')}>D</Button>
-                  <Button circular onClick={() => setChartTimeRange('WEEK')}>W</Button>
-                  <Button circular onClick={() => setChartTimeRange('MONTH')}>M</Button>
-                  <Button circular onClick={() => setChartTimeRange('YEAR')}>Y</Button>
-                </>
-              }
-            </Grid.Column>
+          <Grid.Column textAlign='center'>
+            <Button circular icon={chartVisible ? 'close' : 'chart area'} onClick={() => setChartVisible(!chartVisible)} />
+            {
+              chartVisible &&
+              <>
+                <Button circular onClick={() => setChartTimeRange('DAY')}>D</Button>
+                <Button circular onClick={() => setChartTimeRange('WEEK')}>W</Button>
+                <Button circular onClick={() => setChartTimeRange('MONTH')}>M</Button>
+                <Button circular onClick={() => setChartTimeRange('YEAR')}>Y</Button>
+              </>
+            }
+          </Grid.Column>
 
-          </Grid.Row>
-          <Grid.Row columns={1} style={{ padding: `${chartVisible ? '5px' : '0px'}` }}>
+        </Grid.Row>
+        <Grid.Row columns={1} style={{ padding: `${chartVisible ? '5px' : '0px'}` }}>
 
-            <Grid.Column style={{ padding: 0 }}>
-              <Segment
-                style={{
-                  display: `${chartVisible ? 'block' : 'none'}`,
-                  padding: 5,
-                }}
-              >
-                <Chart
-                  sensor={sensor}
-                  chartTimeRange={chartTimeRange} />
-              </Segment>
-            </Grid.Column>
+          <Grid.Column style={{ padding: 0 }}>
+            <Segment
+              style={{
+                display: `${chartVisible ? 'block' : 'none'}`,
+                padding: 5,
+              }}
+            >
+              <Chart
+                sensor={sensor}
+                chartTimeRange={chartTimeRange} />
+            </Segment>
+          </Grid.Column>
 
-          </Grid.Row>
-          <Grid.Row columns={2} style={{ padding: 5 }}>
+        </Grid.Row>
+        <Grid.Row columns={2} style={{ padding: 5 }}>
 
-            <Grid.Column textAlign='left'>
+          <Grid.Column textAlign='left'>
 
-              <SensorValue
-                value={moment(sensor.time).fromNow()}
-                label={'Updated'}
-                size={'small'}
-                icon={'time'}
-                iconColor={moment() - moment(sensor.time) > 1000 * 60 * 60 ? 'red' : null}
-              />
-            </Grid.Column>
+            <SensorValue
+              value={moment(sensor.time).fromNow()}
+              label={'Updated'}
+              size={'small'}
+              icon={'time'}
+              iconColor={moment() - moment(sensor.time) > 1000 * 60 * 60 ? 'red' : null}
+            />
+          </Grid.Column>
 
-            <Grid.Column textAlign='right'>
-              <SensorValue
-                label={'Battery'}
-                size={'small'}
-                icon={'battery full'}
-                iconColor={sensor.battery_low === 1 ? 'red' : null}
-              />
-            </Grid.Column>
+          <Grid.Column textAlign='right'>
+            <SensorValue
+              label={'Battery'}
+              size={'small'}
+              icon={'battery full'}
+              iconColor={sensor.battery_low === 1 ? 'red' : null}
+            />
+          </Grid.Column>
 
-          </Grid.Row>
+        </Grid.Row>
       </Grid>
 
     </Segment>
-      )
-    }
-    
-    // Proptypes
+  )
+}
+
+// Proptypes
 HouseSensor.propTypes = {
-        sensor: PropTypes.object.isRequired
-    }
-    
+  sensor: PropTypes.object.isRequired
+}
+
 export default HouseSensor

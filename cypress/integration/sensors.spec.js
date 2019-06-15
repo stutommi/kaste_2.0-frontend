@@ -1,7 +1,12 @@
+import schema from './introspection-query.json'
+
 describe('Sensors page', function () {
   before(function () {
     cy.setupDB()
     cy.clearAndSetUserToken()
+    cy.server()
+    cy.mockGraphql({ schema })
+    cy.route('/sockjs-node', {})
   })
 
   // As in 12th of june, I wasn't able to implement any solution to
@@ -9,12 +14,17 @@ describe('Sensors page', function () {
   // outside testing, I can't test it right now.
   it('shows sensor data and but not charts', function () {
     cy.viewport('macbook-15')
-    cy.server()
-    cy.route('http://testurl/sensors/', 'fixture:sensorData')
-    
+
+    cy.mockGraphqlOps({
+      operations: {
+        sensorData: {
+          value: "hä"
+        }
+      }
+    })
+
     cy.visit('/')
     cy.get('[data-cy=sensors-button]').click()
-    
     cy.contains(28).should('be.visible')
     cy.contains('fridge').should('be.visible')
     cy.contains('balcony').should('be.visible')

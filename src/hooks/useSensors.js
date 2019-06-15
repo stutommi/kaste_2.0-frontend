@@ -19,12 +19,13 @@ export const useSensors = (duration = 60) => {
 
   const getSensorData = async (url) => {
     try {
-      // TÄÄ PALVELIMEN KAUTTA
       const { data } = await client.query({
         query: sensorDatas,
         variables: { sensorEndpoint: url },
         fetchPolicy: 'no-cache'
       })
+      console.log(data)
+      
       const parsedSensorQuery = JSON.parse(data.sensorData.value)
 
       // Format sensor data with helper function
