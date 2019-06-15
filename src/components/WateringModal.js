@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Button, Icon, Menu, Header } from 'semantic-ui-react'
-import axios from 'axios'
 // Custom hooks
 import useAction from '../hooks/useAction'
 // Typedefs

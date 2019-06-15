@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Input, Segment, Header, Divider, Message, Grid } from 'semantic-ui-react'
-import axios from 'axios'
 import { useMutation } from 'react-apollo-hooks'
 // Custom hooks
 import useNotification from '../hooks/useNotification'
@@ -10,6 +9,7 @@ import useAction from '../hooks/useAction'
 // TypeDefs
 import editUserSensorEndpoint from '../graphql/mutations/editUserSensorEndpoint'
 import reboot from '../graphql/mutations/reboot'
+import validateSensorEndpoint from '../graphql/mutations/validateSensorEndpoint'
 // Helper functions
 import { handleSensorEndpointUpdateForToken } from '../utilities/helperFuncs'
 
@@ -19,12 +19,12 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
   const editSensorEndpoint = useMutation(editUserSensorEndpoint)
   const fireAction = useAction()
 
+  // Handles connection to sensor endpoint
   const handleConnect = async () => {
     try {
-      const response = await axios.get(sensorUrlField)
-      const isValidUrl = Object.keys(response.data).includes('sensors')
+      const { data } = await fireAction(sensorUrlField, validateSensorEndpoint)
 
-      if (isValidUrl) {
+      if (data.validateSensorEndpoint.message === 'Valid endpoint') {
         const confirmation = window.confirm('Would you like to receive information about these sensors?')
 
         if (confirmation) {
@@ -41,10 +41,11 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
         }
       }
     } catch (error) {
-      setNotification(error.message)
+      setNotification('Sensor endpoint offline or invalid URL')
     }
   }
 
+  // Clears sensor url from DB for the current user
   const handleClearUrl = () => {
     const confirmation = window.confirm('Are you sure? Clearing sensor resource url cuts access to all information and functionality.')
 
@@ -59,14 +60,19 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
     }
   }
 
+  // Reboots sensor endpoint computer
   const handleReboot = async () => {
     const confirmation = window.confirm('WARNING: Endpoint computer might not recover correctly from reboot!')
 
     if (confirmation) {
-      fireAction(actions.reboot ,reboot)
+      fireAction(actions.reboot, reboot)
 
       sensorService.stopFetching()
-      sensorService.startFetching(token.sensorEndpoint)
+
+      // Waits that computer has had time to shutdown
+      setTimeout(() => {
+        sensorService.startFetching(token.sensorEndpoint)
+      }, 5000)
     }
 
   }

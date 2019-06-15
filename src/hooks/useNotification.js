@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 // Provide duration as argument (seconds)
 const useNotification = (duration = 5) => {

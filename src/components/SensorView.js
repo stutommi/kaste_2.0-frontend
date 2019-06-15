@@ -3,7 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Segment } from 'semantic-ui-react'
 // Components
-import Loading from './Loading'
 import PlantSensor from './PlantSensor'
 import HouseSensor from './HouseSensor'
 
@@ -17,7 +16,13 @@ const SensorView = ({ show, sensorData, sensorError, token }) => {
   const notifyStatus = () => {
 
     if (sensorError === 'Sensors loading') {
-      return <div></div>
+      return <Segment
+      secondary
+      inverted
+      color='green'
+      textAlign='center'>
+      Sensors loading
+    </Segment>
     }
     console.log(sensorError)
     

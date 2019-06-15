@@ -1,14 +1,15 @@
 import { useApolloClient } from 'react-apollo-hooks'
 
-// Fires sensoractions, requires url and mutation as arguments
+// Fires sensor actions, requires url and mutation as arguments
 const useAction = () => {
   const client = useApolloClient()
 
-  const fireAction = (actionUrl, mutation) => {    
-    client.mutate({
+  const fireAction = (actionUrl, mutation) => {
+    const response = client.mutate({
       mutation: mutation,
-      variables: {sensorEndpoint: actionUrl}
+      variables: { sensorEndpoint: actionUrl }
     })
+    return response
   }
 
   return fireAction

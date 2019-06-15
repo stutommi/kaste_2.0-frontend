@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Responsive, Menu, Icon } from 'semantic-ui-react'
-import axios from 'axios'
 // Components
 import WateringModal from './WateringModal'
 // Custom hooks

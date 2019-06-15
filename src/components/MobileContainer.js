@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
-import axios from 'axios'
 // Components
 import WateringModal from './WateringModal'
 // Custom hooks
@@ -14,7 +13,7 @@ import stopWatering from '../graphql/mutations/stopWatering'
 const MobileContainer = ({ children, setPage, logOut, page, actions, token, sensorService }) => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [cameraConnected, setCameraConnected] = useState(false)
-  const [raspConnected, setRaspConnected] = useState(false)
+  
   const [wateringConnected, setWateringConnected] = useState(false)
   const fireAction = useAction()
 
@@ -34,11 +33,9 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
   useEffect(() => {
     if (actions) {
       setCameraConnected(actions.camera !== undefined)
-      setRaspConnected(actions.reboot !== undefined)
       setWateringConnected(actions.water !== undefined)
     } else {
       setCameraConnected(false)
-      setRaspConnected(false)
       setWateringConnected(false)
     }
 
