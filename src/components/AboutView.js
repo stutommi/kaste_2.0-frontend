@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Container, Header, Divider, Segment } from 'semantic-ui-react'
 // Components
 import InfoSection from './InfoSection'
+import PopupLink from './PopupLink'
 
 const headerStyle = {
   fontSize: 18
@@ -18,15 +19,17 @@ const AboutView = ({ show }) => {
   return (
     <div style={{
       height: '100%',
-      overflowY: 'scroll'
+      overflowY: 'scroll',
+      paddingBottom: 25
     }}>
       <Container textAlign='left' style={{ fontSize: 16 }}>
-        <Header textAlign='center' as='h1' style={{ padding: 25 }}>
-          About Kaste 2.0 🌱
-      </Header>
+        <Header textAlign='center' as='h1' style={{ paddingTop: 25, margin: 0 }}>
+          About Kaste 2.0 <span role='img' aria-label='seedling'>🌱</span>
+        </Header>
 
         <h3 style={headerStyle}>Aim:</h3>
         <p>Design and implement a responsive web app to monitor and water plants.</p>
+
 
         <h3 style={headerStyle}>Features:</h3>
 
@@ -37,12 +40,22 @@ const AboutView = ({ show }) => {
           <li>Rebooting Raspberry (that controls sensor data)</li>
         </ul>
 
-        <Segment secondary style={{background: 'lightgreen'}}>
+        <Segment style={{ background: 'lightgreen' }}>
           <p>
             Any questions, tips, feedback or bug reports are much appreciated! Just
-            post them to chat or tommi.teetee@hotmail.com 🙂
+            post them to chat or tommi.teetee@hotmail.com <span role='img' aria-label='happy smiley'>🙂</span>
           </p>
         </Segment>
+
+        <h4 style={headerStyle}>Made by:</h4>
+        <PopupLink
+          name={'Tommi Tampio'}
+          linkedInUrl={'https://www.linkedin.com/in/tommi-tampio-41b2b7113/'}
+          githubUrl={'https://github.com/stutommi'}
+          email={'tommi.teetee@hotmail.com'}
+        />
+        <span> - Web app</span> <br />
+        <span>Matti Tampio - Raspberry / sensor configuration</span>
 
         <Divider section />
 
@@ -114,6 +127,25 @@ const AboutView = ({ show }) => {
           in any way. Server is always on update with all sensor endpoints of every user and fetches data from them
           at certain interval. If nobody is using an endpoint anymore, server stops fetching and storing data from it.
               </InfoSection>
+
+        <Segment color='yellow'>
+          Known issues:
+          <ul>
+            <li>Endpoint computer might not recover from reboot</li>
+            <li>Tests insufficient (need to dig into graphql tests more)</li>
+            <li></li>
+          </ul>
+        </Segment>
+
+        <Segment color='green'>
+          Things to improve:
+          <ul>
+            <li>Clean codebase</li>
+            <li>More tests</li>
+            <li>More comments</li>
+            <li>Improve Chat (amount of initial messages)</li>
+          </ul>
+        </Segment>
 
       </Container>
     </div>

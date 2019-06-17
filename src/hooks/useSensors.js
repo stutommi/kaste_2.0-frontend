@@ -24,7 +24,6 @@ export const useSensors = (duration = 60) => {
         variables: { sensorEndpoint: url },
         fetchPolicy: 'no-cache'
       })
-      console.log(data)
       
       const parsedSensorQuery = JSON.parse(data.sensorData.value)
 
@@ -46,10 +45,8 @@ export const useSensors = (duration = 60) => {
   }
 
   const startFetching = (url) => {
-    console.log('fetching...')
     getSensorData(url)
     const id = setInterval(() => {
-      console.log('fetching...')
       getSensorData(url)
     }, duration * 1000);
     setIntervalId(id)

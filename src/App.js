@@ -24,6 +24,7 @@ const App = () => {
     } else {
       sensorService.stopFetching()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
   const logOut = () => {
