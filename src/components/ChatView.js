@@ -70,29 +70,34 @@ const ChatView = ({ show }) => {
 
   return (
     <div style={{ height: '100%' }}>
-      <Container style={{ height: '90%', overflowY: 'scroll' }}>
-        {
-          loading || userQuery.loading
-            ?
-            <Loading inverted={true}/>
-            :
-            <Comment.Group>
-              {data.messages.map(message => (
-                <ChatMessage
-                  key={message.id}
-                  message={message}
-                  currentUser={userQuery.data}
-                />
-              ))}
-            </Comment.Group>
-        }
-        <div id={'el'} ref={el}></div>
-      </Container>
+      <div style={{
+        height: '90%',
+        overflowY: 'scroll',
+      }}>
+        <Container>
+          {
+            loading || userQuery.loading
+              ?
+              <Loading inverted={true} />
+              :
+              <Comment.Group>
+                {data.messages.map(message => (
+                  <ChatMessage
+                    key={message.id}
+                    message={message}
+                    currentUser={userQuery.data}
+                  />
+                ))}
+              </Comment.Group>
+          }
+          <div id={'el'} ref={el}></div>
+        </Container>
+      </div>
 
       <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '10%' }}>
         <Menu.Item style={{ width: '80vw' }}>
           <Input
-          data-cy='chat-input'
+            data-cy='chat-input'
             fluid
             value={messageInput}
             onChange={({ target }) => setMessageInput(target.value)}
@@ -114,7 +119,7 @@ const ChatView = ({ show }) => {
             color='green' />
         </Menu.Item>
       </Menu>
-    </div>
+    </div >
   )
 }
 

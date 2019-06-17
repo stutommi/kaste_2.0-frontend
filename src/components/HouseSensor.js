@@ -13,8 +13,6 @@ const HouseSensor = ({ sensor }) => {
 
   return (
     <Segment inverted secondary style={{ margin: '2px 1px', background: 'beige', color: 'black' }}>
-
-
       <Header style={{ color: 'black' }} textAlign='center' as='h3'>
         <Icon name='home' color='black' size='large' />
         {sensor.location}

@@ -13,7 +13,7 @@ import stopWatering from '../graphql/mutations/stopWatering'
 const MobileContainer = ({ children, setPage, logOut, page, actions, token, sensorService }) => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [cameraConnected, setCameraConnected] = useState(false)
-  
+
   const [wateringConnected, setWateringConnected] = useState(false)
   const fireAction = useAction()
 
@@ -129,7 +129,10 @@ const MobileContainer = ({ children, setPage, logOut, page, actions, token, sens
             </Menu.Item>
           </Menu>
 
-          <div style={{ height: 'calc(100vh - 50px)' }}>
+          <div
+            style={{
+              height: 'calc(100vh - 50px)'
+            }}>
             {children}
           </div>
 

@@ -8,6 +8,7 @@ const ChatMessage = ({ message, currentUser }) => {
   if (!currentUser.me) {
     return null
   }
+
   // Defines message color by user
   const defSegColor = currentUser.me.name === message.user.name
     ? 'blue'

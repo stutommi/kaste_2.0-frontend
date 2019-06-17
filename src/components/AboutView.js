@@ -1,7 +1,13 @@
 // Libraries
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Container, Header } from 'semantic-ui-react'
+import { Container, Header, Divider, Segment } from 'semantic-ui-react'
+// Components
+import InfoSection from './InfoSection'
+
+const headerStyle = {
+  fontSize: 18
+}
 
 const AboutView = ({ show }) => {
 
@@ -10,30 +16,107 @@ const AboutView = ({ show }) => {
   }
 
   return (
-    <Container textAlign='center'>
-      <Header as='h1' style={{ padding: 25 }}>
-        About Kaste 2.0
+    <div style={{
+      height: '100%',
+      overflowY: 'scroll'
+    }}>
+      <Container textAlign='left' style={{ fontSize: 16 }}>
+        <Header textAlign='center' as='h1' style={{ padding: 25 }}>
+          About Kaste 2.0 🌱
       </Header>
-      <Table style={{ background: 'lightgreen' }}>
-        <tbody>
-          <tr>
-            <td>Aim:</td>
-            <td>Design and implement a responsive web app to monitor and water plants.</td>
-          </tr>
-          <tr>
-            <td>Features:</td>
-            <td>
-              <ul>
-                <li>Plantwatering functionality for two or more users</li>
-                <li>Possibility to read plant info through charts</li>
-                <li>Simple chat</li>
-                <li>Rebooting Raspberry (that control sensor data)</li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-    </Container>
+
+        <h3 style={headerStyle}>Aim:</h3>
+        <p>Design and implement a responsive web app to monitor and water plants.</p>
+
+        <h3 style={headerStyle}>Features:</h3>
+
+        <ul>
+          <li>Plantwatering functionality for two or more users</li>
+          <li>Possibility to read plant info through charts</li>
+          <li>Simple chat</li>
+          <li>Rebooting Raspberry (that controls sensor data)</li>
+        </ul>
+
+        <Segment secondary style={{background: 'lightgreen'}}>
+          <p>
+            Any questions, tips, feedback or bug reports are much appreciated! Just
+            post them to chat or tommi.teetee@hotmail.com 🙂
+          </p>
+        </Segment>
+
+        <Divider section />
+
+        <h3 style={headerStyle}>Client:</h3>
+        <p>Working with token based authetication, client side is done with React.
+          It's state is managed with hooks for the most part and little with
+          Apollos client. Layout is handled with inline styles and semantic-ui-react.
+          Communication between client and server is done with Graphql.
+
+            </p>
+        <InfoSection header={'Layout and Menus'}>
+          Kaste's layout is designed mobile first, but should work in every screen size.
+          Mobile menu has a fixed menu on top with logout and togglable sidebar,
+          which contains view navigation and functionality. When screen size goes
+          over mobile, the view changes to a fixed top menu, which displays navigation and
+          functionality.
+            </InfoSection>
+        <InfoSection header={'Sensors'}>
+          Sensors data is shown in sensors view. It shows the current value of sensor
+            measurements and chart information on measurement history that can be shown by
+            different time ranges.
+              </InfoSection>
+        <InfoSection header={'Chat'}>
+          Kaste has a supersimple chat. Users can write and receive messages on realtime
+            thanks to subscription based communication with server. Messages are stored in MongoDB.
+              </InfoSection>
+        <InfoSection header={'Settings'}>
+          In order to see any sensor information, user needs to be connected to an endpoint
+            that serves that information. This connection can be made in settings page. If
+            client is able to connect to an endpoint provided by the user, it will start displaying
+            and storing that information on database. Settings page also shows the status of the endpoint
+              </InfoSection>
+        <InfoSection header={'Live Feed'}>
+          If the endpoint a user is connected to has a camera connection, users are able to monitor
+            this connection through the "Live Feed" view. This is useful when you want to make sure
+            that your plants are being watered after using watering functionality.
+              </InfoSection>
+        <InfoSection header={'Water Plants'}>
+          Perhaps the most important feature of Kaste is its watering functionality. Provided that the
+          watering mechanics are hooked correctly at users home, user is able to water their plants
+          by pressing the "Water Plants" found on the menu. They are able to choose watering between durations
+          of 1, 5 and 10 minutes. If there's a need to stop the watering process for whatever reasons,
+          user can simply press "Stop Watering" found next to watering functionality.
+              </InfoSection>
+
+        <Divider section />
+
+        <h3 style={headerStyle}>Server:</h3>
+        <p>Servers main two tasks are handling Graphql requests coming from client and storing
+          collecting and storing messages, user information and sensor data to mongoDB. It is important
+          to note that all requests that client sends to other URLs go through the server. this is done to avoid
+          mixed content warning that comes from making direct requests from Kaste (https) to sensor endpoints
+          (possibly http).
+              </p>
+        <InfoSection header={'User information'}>
+          User information contains name, username, password hash and an endpoint for sensordata.
+          When ever a new endpoint is introduced, server logic will start fetching information from
+          the endpoint.
+                </InfoSection>
+        <InfoSection header={'Messages'}>
+          Messages are stored in MongoDB and used in the chat view of the client. it uses a subscription
+          so any new message is delivered to chat in realtime without refreshing the page. Currently the
+          message live forever in the DB without manual deletion, this could be changed in the future to last
+          only a certain time.
+                </InfoSection>
+        <InfoSection header={'Sensor data'}>
+          Servers two jobs for sensor data is to relay realtime sensor values and functionality to client
+          and store values from all connected endpoints to database. These jobs are not connected to each other
+          in any way. Server is always on update with all sensor endpoints of every user and fetches data from them
+          at certain interval. If nobody is using an endpoint anymore, server stops fetching and storing data from it.
+              </InfoSection>
+
+      </Container>
+    </div>
   )
 }
 
