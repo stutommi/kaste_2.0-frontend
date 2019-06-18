@@ -42,6 +42,7 @@ const LoginForm = ({ setNotification, setToken }) => {
           icon='user'
           iconPosition='left'
           placeholder='Username'
+          autoComplete='current-username'
         />
         <Form.Input
           data-cy='password'
@@ -52,6 +53,7 @@ const LoginForm = ({ setNotification, setToken }) => {
           icon='lock'
           iconPosition='left'
           placeholder='Password'
+          autoComplete='current-password'
         />
 
         <Button color='brown' size='large' type='submit'>

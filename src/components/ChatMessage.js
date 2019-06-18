@@ -16,8 +16,8 @@ const ChatMessage = ({ message, currentUser }) => {
 
   // Defines float side by user
   const defFloatSide = currentUser.me.name === message.user.name
-    ? 'left'
-    : 'right'
+    ? 'right'
+    : 'left'
 
   const segmentStyle = {
     margin: '0 0 5px 0',

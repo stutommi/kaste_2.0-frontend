@@ -10,12 +10,12 @@ const PopupLink = ({ name, githubUrl, linkedInUrl, email }) => (
     hideOnScroll>
     <Grid centered divided columns={3}>
       <Grid.Column textAlign='center'>
-        <a href={githubUrl}>
+        <a href={githubUrl} target='_blank'>
           <Icon color='black' size='large' name='github' />
         </a>
       </Grid.Column>
       <Grid.Column textAlign='center'>
-        <a href={linkedInUrl}>
+        <a href={linkedInUrl} target='_blank'>
           <Icon color='blue' size='large' name='linkedin' />
         </a>
       </Grid.Column>

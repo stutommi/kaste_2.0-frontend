@@ -133,7 +133,6 @@ const AboutView = ({ show }) => {
           <ul>
             <li>Endpoint computer might not recover from reboot</li>
             <li>Tests insufficient (need to dig into graphql tests more)</li>
-            <li></li>
           </ul>
         </Segment>
 
