@@ -165,6 +165,7 @@ const AboutView = ({ show }) => {
           <ul>
             <li>Endpoint computer might not recover from reboot</li>
             <li>Tests insufficient (need to dig into graphql tests more)</li>
+            <li>Loading component renders over menu</li>
           </ul>
         </Segment>
 
@@ -175,6 +176,8 @@ const AboutView = ({ show }) => {
             <li>More tests</li>
             <li>More comments</li>
             <li>Improve Chat (amount of initial messages)</li>
+            <li>Optimize chart ranges</li>
+            <li>Add CO measurements to house sensors</li>
           </ul>
         </Segment>
 
