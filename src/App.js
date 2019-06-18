@@ -13,7 +13,7 @@ import SettingsView from './components/SettingsView'
 import VideoView from './components/VideoView'
 
 const App = () => {
-  const [page, setPage] = useState('About')
+  const [page, setPage] = useState('Chat')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
   const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(30) // update interval (in seconds)
   const client = useApolloClient()

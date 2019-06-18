@@ -71,7 +71,7 @@ const ChatView = ({ show }) => {
   return (
     <div style={{ height: '100%' }}>
       <div style={{
-        height: '90%',
+        height: 'calc(100% -  60px)',
         overflowY: 'scroll',
       }}>
         <Container>
@@ -94,7 +94,7 @@ const ChatView = ({ show }) => {
         </Container>
       </div>
 
-      <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '10%' }}>
+      <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '60px' }}>
         <Menu.Item style={{ width: '80vw' }}>
           <Input
             data-cy='chat-input'

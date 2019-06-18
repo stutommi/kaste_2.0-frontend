@@ -43,7 +43,7 @@ const AboutView = ({ show }) => {
         <Segment style={{ background: 'lightgreen' }}>
           <p>
             Any questions, tips, feedback or bug reports are much appreciated! Just
-            post them to chat or tommi.teetee@hotmail.com <span role='img' aria-label='happy smiley'>🙂</span>
+            post them in the chat or tommi.teetee@hotmail.com <span role='img' aria-label='happy smiley'>🙂</span>
           </p>
         </Segment>
 
