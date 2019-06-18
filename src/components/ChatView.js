@@ -60,7 +60,7 @@ const ChatView = ({ show }) => {
 
     addMessage({
       variables: {
-        "content": messageInput
+        "content": messageInput.value
       }
     })
     resetMessageInput()
@@ -83,13 +83,18 @@ const ChatView = ({ show }) => {
               <Loading inverted={true} />
               :
               <Comment.Group>
-                {data.messages.map(message => (
+                {
+                  data.messages !== undefined
+                  ?
+                  data.messages.map(message => (
                   <ChatMessage
                     key={message.id}
                     message={message}
                     currentUser={userQuery.data}
                   />
-                ))}
+                ))
+                : null
+                }
               </Comment.Group>
           }
           <div id={'el'} ref={el}></div>

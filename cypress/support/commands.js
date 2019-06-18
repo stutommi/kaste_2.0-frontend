@@ -1,3 +1,4 @@
+// NOTE: CYPRESS NEEDS TO BE RUN WITH SERVER AT TEST ENVIROMENT
 import 'cypress-graphql-mock'
 
 // Sets testing database up - works with cy.setupDB()
