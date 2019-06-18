@@ -1,16 +1,19 @@
 // Libraries
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Form, Segment } from 'semantic-ui-react'
 import { useMutation } from 'react-apollo-hooks'
 // TypeDefs
 import loginUser from '../graphql/mutations/loginUser'
 import currentUser from '../graphql/queries/currentUser'
+// Custom hooks
+import {useField} from '../hooks/useField'
 
 const LoginForm = ({ setNotification, setToken }) => {
   const login = useMutation(loginUser)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const {reset: usernameReset, ...username} = useField('text')
+  const {reset: passwordReset, ...password} = useField('password')
+ 
 
   const handleLogin = async () => {
     try {
@@ -21,7 +24,8 @@ const LoginForm = ({ setNotification, setToken }) => {
           localStorage.setItem('kaste-user-token', JSON.stringify(token))
         },
         variables: {
-          username, password
+          username: username.value,
+          password: password.value
         },
         refetchQueries: [{ query: currentUser }]
       })
@@ -34,10 +38,8 @@ const LoginForm = ({ setNotification, setToken }) => {
     <Form size='large' onSubmit={handleLogin}>
       <Segment stacked raised>
         <Form.Input
+        {...username}
           data-cy='username'
-          type="text"
-          value={username}
-          onChange={({ target }) => setUsername(target.value)}
           fluid
           icon='user'
           iconPosition='left'
@@ -45,10 +47,8 @@ const LoginForm = ({ setNotification, setToken }) => {
           autoComplete='current-username'
         />
         <Form.Input
+          {...password}
           data-cy='password'
-          type="password"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
           fluid
           icon='lock'
           iconPosition='left'

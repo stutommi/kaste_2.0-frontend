@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
 import { Container, Icon, Comment, Menu, Input } from 'semantic-ui-react'
@@ -11,13 +11,15 @@ import messageAdded from '../graphql/subscriptions/messageAdded'
 // Components
 import ChatMessage from './ChatMessage'
 import Loading from './Loading'
+// Custom hooks
+import {useField} from '../hooks/useField'
 // Helper functions
 import { includedIn } from '../utilities/helperFuncs'
 
 const ChatView = ({ show }) => {
   const { data, loading } = useQuery(chatMessages)
   const userQuery = useQuery(currentUser)
-  const [messageInput, setMessageInput] = useState('')
+  const {reset: resetMessageInput, ...messageInput} = useField('text')
   const addMessage = useMutation(createMessage)
   const el = useRef(null)
 
@@ -61,7 +63,7 @@ const ChatView = ({ show }) => {
         "content": messageInput
       }
     })
-    setMessageInput('')
+    resetMessageInput()
   }
 
   if (!show) {
@@ -97,10 +99,9 @@ const ChatView = ({ show }) => {
       <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '60px' }}>
         <Menu.Item style={{ width: '80vw' }}>
           <Input
+          {...messageInput}
             data-cy='chat-input'
-            fluid
-            value={messageInput}
-            onChange={({ target }) => setMessageInput(target.value)}
+            fluid            
             onKeyPress={({ key }) => {
               if (key === 'Enter') {
                 handleSubmit()

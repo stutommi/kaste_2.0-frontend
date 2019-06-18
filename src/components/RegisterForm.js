@@ -1,25 +1,32 @@
 // Libraries
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Form, Segment } from 'semantic-ui-react'
 import { useMutation } from 'react-apollo-hooks'
 // TypeDefs
 import createUser from '../graphql/mutations/createUser'
+// Custom hooks
+import {useField} from '../hooks/useField'
 
 const RegisterForm = ({ setNotification, setLoginVisible }) => {
   const register = useMutation(createUser)
-  const [username, setUsername] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
+  const {reset: usernameReset, ...username} = useField('text')
+  const {reset: nameReset, ...name} = useField('text')
+  const {reset: passwordReset, ...password} = useField('password')
 
   const handleRegister = async () => {
     try {
       await register({
         variables: {
-          username, password, name
+          username: username.value,
+          password: password.value,
+          name: name.value
         }
       })
       setNotification('Register succesful')
+      usernameReset()
+      nameReset()
+      passwordReset()
       setLoginVisible(true)
     } catch (error) {
       console.log(error)
@@ -35,10 +42,8 @@ const RegisterForm = ({ setNotification, setLoginVisible }) => {
 
       <Segment stacked raised>
         <Form.Input
+          {...username}
           data-cy='username'
-          type="text"
-          value={username}
-          onChange={({ target }) => setUsername(target.value)}
           fluid
           icon='user'
           iconPosition='left'
@@ -46,10 +51,8 @@ const RegisterForm = ({ setNotification, setLoginVisible }) => {
           autoComplete='new-password'
         />
         <Form.Input
+        {...name}
           data-cy='name'
-          type="text"
-          value={name}
-          onChange={({ target }) => setName(target.value)}
           fluid
           icon='user outline'
           iconPosition='left'
@@ -57,10 +60,8 @@ const RegisterForm = ({ setNotification, setLoginVisible }) => {
           autoComplete='new-password'
         />
         <Form.Input
+        {...password}
           data-cy='password'
-          type="password"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
           fluid
           icon='lock'
           iconPosition='left'

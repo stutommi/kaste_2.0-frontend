@@ -5,7 +5,7 @@ import { Responsive, Menu, Icon } from 'semantic-ui-react'
 // Components
 import WateringModal from './WateringModal'
 // Custom hooks
-import useAction from '../hooks/useAction'
+import {useAction} from '../hooks/useAction'
 // Typedefs
 import stopWatering from '../graphql/mutations/stopWatering'
 

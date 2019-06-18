@@ -1,7 +1,7 @@
 import { useApolloClient } from 'react-apollo-hooks'
 
 // Fires sensor actions, requires url and mutation as arguments
-const useAction = () => {
+export const useAction = () => {
   const client = useApolloClient()
 
   const fireAction = (actionUrl, mutation) => {
@@ -14,5 +14,3 @@ const useAction = () => {
 
   return fireAction
 }
-
-export default useAction

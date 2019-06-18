@@ -6,7 +6,7 @@ import { Menu, Message, Grid, Header } from 'semantic-ui-react'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 // Hooks
-import useNotification from '../hooks/useNotification'
+import {useNotification} from '../hooks/useNotification'
 
 
 const LoginView = ({ setToken }) => {

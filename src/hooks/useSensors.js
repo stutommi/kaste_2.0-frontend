@@ -67,5 +67,3 @@ export const useSensors = (duration = 60) => {
 
   return [sensorData, actions, sensorService, isConnected, error]
 }
-
-export default useSensors 

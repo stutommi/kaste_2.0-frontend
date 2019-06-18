@@ -1,7 +1,7 @@
 // Libraries
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Container, Header, Divider, Segment } from 'semantic-ui-react'
+import { Container, Header, Divider, Segment, List } from 'semantic-ui-react'
 // Components
 import InfoSection from './InfoSection'
 import PopupLink from './PopupLink'
@@ -32,7 +32,6 @@ const AboutView = ({ show }) => {
 
 
         <h3 style={headerStyle}>Features:</h3>
-
         <ul>
           <li>Plantwatering functionality for two or more users</li>
           <li>Possibility to read plant info through charts</li>
@@ -54,12 +53,35 @@ const AboutView = ({ show }) => {
           githubUrl={'https://github.com/stutommi'}
           email={'tommi.teetee@hotmail.com'}
         />
-        <span> - Web app</span> <br />
+        <span> - Web app</span>
+        <br />
         <span>Matti Tampio - Raspberry / sensor configuration</span>
 
         <Divider section />
 
+        <h3 style={headerStyle}>Get started:</h3>
+        <List ordered>
+          <List.Item>Navigate to settings from menu</List.Item>
+          <List.Item>Provide an url that serves sensor data</List.Item>
+          <List.Item>Navigate to "Sensors"-view to check sensor measurements</List.Item>
+          <List.Item>Use features (watering, live feed) from the menu</List.Item>
+          <List.Item>Use that chat if you dare <span role='img' aria-label='devil'>👻</span></List.Item>
+          
+        </List>
+
+        <Divider section />
+
         <h3 style={headerStyle}>Client:</h3>
+
+        <p>
+          <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://github.com/stutommi/kaste_2.0-frontend'>
+            Link to code
+          </a>
+        </p>
+
         <p>Working with token based authetication, client side is done with React.
           It's state is managed with hooks for the most part and little with
           Apollos client. Layout is handled with inline styles and semantic-ui-react.
@@ -104,6 +126,16 @@ const AboutView = ({ show }) => {
         <Divider section />
 
         <h3 style={headerStyle}>Server:</h3>
+
+        <p>
+          <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://github.com/stutommi/kaste_2.0-backend'>
+            Link to code
+          </a>
+        </p>
+
         <p>Servers main two tasks are handling Graphql requests coming from client and storing
           collecting and storing messages, user information and sensor data to mongoDB. It is important
           to note that all requests that client sends to other URLs go through the server. this is done to avoid

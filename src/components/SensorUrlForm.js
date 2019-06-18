@@ -1,11 +1,12 @@
 // Libraries
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Input, Segment, Header, Divider, Message, Grid } from 'semantic-ui-react'
 import { useMutation } from 'react-apollo-hooks'
 // Custom hooks
-import useNotification from '../hooks/useNotification'
-import useAction from '../hooks/useAction'
+import {useField} from '../hooks/useField'
+import {useNotification} from '../hooks/useNotification'
+import {useAction} from '../hooks/useAction'
 // TypeDefs
 import editUserSensorEndpoint from '../graphql/mutations/editUserSensorEndpoint'
 import reboot from '../graphql/mutations/reboot'
@@ -14,7 +15,7 @@ import validateSensorEndpoint from '../graphql/mutations/validateSensorEndpoint'
 import { handleSensorEndpointUpdateForToken } from '../utilities/helperFuncs'
 
 const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorService }) => {
-  const [sensorUrlField, setSensorUrlField] = useState('')
+  const {reset: resetSensorUrl ,...sensorUrl} = useField('text')
   const [notification, setNotification] = useNotification()
   const editSensorEndpoint = useMutation(editUserSensorEndpoint)
   const fireAction = useAction()
@@ -22,7 +23,8 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
   // Handles connection to sensor endpoint
   const handleConnect = async () => {
     try {
-      const { data } = await fireAction(sensorUrlField, validateSensorEndpoint)
+      console.log(sensorUrl.value)
+      const { data } = await fireAction(sensorUrl.value, validateSensorEndpoint)
 
       if (data.validateSensorEndpoint.message === 'Valid endpoint') {
         const confirmation = window.confirm('Would you like to receive information about these sensors?')
@@ -30,14 +32,14 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
         if (confirmation) {
           editSensorEndpoint({
             variables: {
-              sensorEndpoint: sensorUrlField
+              sensorEndpoint: sensorUrl.value
             }
           })
 
           // For localstorage and app
-          handleSensorEndpointUpdateForToken(sensorUrlField, setToken)
+          handleSensorEndpointUpdateForToken(sensorUrl.value, setToken)
           // Clears url field
-          setSensorUrlField('')
+          resetSensorUrl()
         }
       }
     } catch (error) {
@@ -86,9 +88,8 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
         Provide an endpoint URL where sensor output comes from
       </small>
       <Input
+        {...sensorUrl}
         data-cy='sensor-url-input'
-        value={sensorUrlField}
-        onChange={({ target }) => setSensorUrlField(target.value)}
         fluid
         placeholder='Enter URL...'
         action={

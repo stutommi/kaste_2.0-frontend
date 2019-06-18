@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { useApolloClient } from 'react-apollo-hooks'
 // Custom hooks
-import useSensors from './hooks/useSensors'
+import {useSensors} from './hooks/useSensors'
 // Components
 import ResponsiveLayout from './components/ResponsiveLayout'
 import LoginView from './components/LoginView'
@@ -13,7 +13,7 @@ import SettingsView from './components/SettingsView'
 import VideoView from './components/VideoView'
 
 const App = () => {
-  const [page, setPage] = useState('Chat')
+  const [page, setPage] = useState('About')
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('kaste-user-token')))
   const [sensorData, actions, sensorService, sensorsConnected, sensorError] = useSensors(30) // update interval (in seconds)
   const client = useApolloClient()
