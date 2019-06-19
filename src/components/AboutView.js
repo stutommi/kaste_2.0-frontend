@@ -178,6 +178,7 @@ const AboutView = ({ show }) => {
             <li>Improve Chat (amount of initial messages)</li>
             <li>Optimize chart ranges</li>
             <li>Add CO measurements to house sensors</li>
+            <li>Add auto-watering feature</li>
           </ul>
         </Segment>
 

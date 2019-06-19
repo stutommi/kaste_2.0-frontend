@@ -28,6 +28,7 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
 
           // .fromNow doesn't seem to take UTC into account,
           // this hacks it to show relative to finnish time
+          moment.relativeTimeThreshold('h', 25)
           return moment(time).subtract(3, 'hours').fromNow(true)
         })
 
