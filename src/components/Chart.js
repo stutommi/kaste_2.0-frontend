@@ -23,13 +23,11 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
 
           // If sensor data older than 1 day, format differently
           if (moment() - time > 1000 * 60 * 60 * 24) {
-            return moment.utc(time).local().format('ddd hA')
+            return moment.utc(time).local()
           }
 
-          // .fromNow doesn't seem to take UTC into account,
-          // this hacks it to show relative to finnish time
           moment.relativeTimeThreshold('h', 25)
-          return moment(time).subtract(3, 'hours').fromNow(true)
+          return moment(time).subtract(3, 'hours')
         })
 
         return acc
@@ -82,30 +80,55 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
   return formattedChartData
 }
 
-const options = {
-  layout: {
-    padding: {
-      bottom: -20
-    }
-  },
-  scales: {
-    xAxes: [
-      {
+const options = (range) => {
 
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 5
-        }
+  // define unit value based on range
+  const unit = () => {
+    switch (range) {
+      case 'DAY':
+        return 'minute'
+      case 'WEEK':
+        return 'hour'
+      case 'YEAR':
+        return 'day'
+      default:
+        break
+    }
+  }
+
+  // return options object
+  return {
+    layout: {
+      padding: {
+        bottom: -20,
       }
-    ],
-    yAxes: [
-      {
-        ticks: {
-          suggestedMin: 0,
-          max: 100
+    },
+    scales: {
+      xAxes: [
+        {
+          type: 'time',
+          time: {
+            unit: unit(),
+            displayFormats: {
+              minute: 'HH:mm',
+              hour: 'dd HH:mm'
+            },
+          },
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 6
+          }
         }
-      }
-    ]
+      ],
+      yAxes: [
+        {
+          ticks: {
+            suggestedMin: 0,
+            max: 100
+          }
+        }
+      ]
+    }
   }
 }
 
@@ -136,7 +159,7 @@ const Chart = ({ sensor, chartTimeRange }) => {
   return (
     <Line
       data={formattedChartData}
-      options={options}
+      options={options(chartTimeRange)}
       legend={{ display: false }} />
   )
 }
