@@ -12,14 +12,14 @@ import messageAdded from '../graphql/subscriptions/messageAdded'
 import ChatMessage from './ChatMessage'
 import Loading from './Loading'
 // Custom hooks
-import {useField} from '../hooks/useField'
+import { useField } from '../hooks/useField'
 // Helper functions
 import { includedIn } from '../utilities/helperFuncs'
 
 const ChatView = ({ show }) => {
   const { data, loading } = useQuery(chatMessages)
   const userQuery = useQuery(currentUser)
-  const {reset: resetMessageInput, ...messageInput} = useField('text')
+  const { reset: resetMessageInput, ...messageInput } = useField('text')
   const addMessage = useMutation(createMessage)
   const el = useRef(null)
 
@@ -85,15 +85,15 @@ const ChatView = ({ show }) => {
               <Comment.Group>
                 {
                   data.messages !== undefined
-                  ?
-                  data.messages.map(message => (
-                  <ChatMessage
-                    key={message.id}
-                    message={message}
-                    currentUser={userQuery.data}
-                  />
-                ))
-                : null
+                    ?
+                    data.messages.map(message => (
+                      <ChatMessage
+                        key={message.id}
+                        message={message}
+                        currentUser={userQuery.data}
+                      />
+                    ))
+                    : null
                 }
               </Comment.Group>
           }
@@ -104,9 +104,9 @@ const ChatView = ({ show }) => {
       <Menu fluid color='grey' style={{ marginBottom: 0, marginTop: 0, height: '60px' }}>
         <Menu.Item style={{ width: '80vw' }}>
           <Input
-          {...messageInput}
+            {...messageInput}
             data-cy='chat-input'
-            fluid            
+            fluid
             onKeyPress={({ key }) => {
               if (key === 'Enter') {
                 handleSubmit()

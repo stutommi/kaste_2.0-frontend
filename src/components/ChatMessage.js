@@ -33,7 +33,7 @@ const ChatMessage = ({ message, currentUser }) => {
       <Segment
         style={segmentStyle} compact inverted color={defSegColor} secondary>
         <Comment.Content>
-          <Comment.Author as='a'>
+          <Comment.Author as='span'>
             {message.user.name}
           </Comment.Author>
           <Comment.Metadata>

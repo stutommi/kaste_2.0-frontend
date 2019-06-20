@@ -20,9 +20,15 @@ const PlantSensor = ({ sensor }) => {
       secondary
       style={{ margin: '2px 1px' }}>
 
-
+      {/* Hard coded for now, fix coming... */}
       <Header textAlign='center' as='h3'>
-        <Icon name='leaf' size='large' />
+        <a
+          style={{ color: 'inherit' }}
+          href={`https://en.wikipedia.org/wiki/${'Capsicum baccatum'}`}
+          target='_blank'
+          rel="noopener noreferrer">
+          <Icon name='leaf' size='large' />
+        </a>
         Capsicum baccatum
       </Header>
 
@@ -76,16 +82,16 @@ const PlantSensor = ({ sensor }) => {
 
           <Grid.Column textAlign='center'>
             <Button
-            data-cy='chart-toggle-button'
-            circular icon={chartVisible ? 'close' : 'chart area'}
-            onClick={() => setChartVisible(!chartVisible)} />
+              data-cy='chart-toggle-button'
+              circular icon={chartVisible ? 'close' : 'chart area'}
+              onClick={() => setChartVisible(!chartVisible)} />
             {
               chartVisible &&
               <>
-                <Button circular onClick={() => setChartTimeRange('DAY')}>D</Button>
-                <Button circular onClick={() => setChartTimeRange('WEEK')}>W</Button>
-                <Button circular onClick={() => setChartTimeRange('MONTH')}>M</Button>
-                <Button circular onClick={() => setChartTimeRange('YEAR')}>Y</Button>
+                <Button compact circular onClick={() => setChartTimeRange('DAY')}>D</Button>
+                <Button compact circular onClick={() => setChartTimeRange('WEEK')}>W</Button>
+                <Button compact circular onClick={() => setChartTimeRange('MONTH')}>M</Button>
+                <Button compact circular onClick={() => setChartTimeRange('YEAR')}>Y</Button>
               </>
             }
           </Grid.Column>
@@ -131,7 +137,7 @@ const PlantSensor = ({ sensor }) => {
 
         </Grid.Row>
       </Grid>
-    </Segment>
+    </Segment >
   )
 }
 

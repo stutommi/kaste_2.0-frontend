@@ -166,6 +166,7 @@ const AboutView = ({ show }) => {
             <li>Endpoint computer might not recover from reboot</li>
             <li>Tests insufficient (need to dig into graphql tests more)</li>
             <li>Loading component renders over menu</li>
+            <li>Plant name is hardcoded</li>
           </ul>
         </Segment>
 
