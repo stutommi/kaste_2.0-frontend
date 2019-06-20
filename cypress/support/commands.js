@@ -45,7 +45,7 @@ mutation {
       body: { query: userQuery },
       url: "http://localhost:4000/graphql"
     })
-  });
+  })
 })
 
 // Logs user in 
@@ -62,6 +62,7 @@ Cypress.Commands.add("login", () => {
   }
   `
 
+  // eslint-disable-next-line cypress/no-assigning-return-values
   const token = cy.request({
     method: 'post',
     body: { query: login },

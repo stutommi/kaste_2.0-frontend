@@ -29,9 +29,11 @@ const SettingsView = ({ show, sensorsConnected, token, setToken, actions, sensor
 // Proptypes
 SettingsView.propTypes = {
   show: PropTypes.bool.isRequired,
+  setToken: PropTypes.func.isRequired,
   sensorsConnected: PropTypes.bool,
   token: PropTypes.object,
-  setToken: PropTypes.func.isRequired
+  actions: PropTypes.object,
+  sensorService: PropTypes.object.isRequired,
 }
 
 export default SettingsView

@@ -5,12 +5,12 @@ import { Responsive, Sidebar, Menu, Icon } from 'semantic-ui-react'
 // Components
 import WateringModal from './WateringModal'
 // Custom hooks
-import {useAction} from '../hooks/useAction'
+import { useAction } from '../hooks/useAction'
 // Typedefs
 import stopWatering from '../graphql/mutations/stopWatering'
 
 
-const MobileContainer = ({ children, setPage, logOut, page, actions, token, sensorService }) => {
+const MobileContainer = ({ children, setPage, logOut, page, actions, token }) => {
   const [showSidebar, setShowSidebar] = useState(false)
   const [cameraConnected, setCameraConnected] = useState(false)
 

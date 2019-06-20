@@ -1,5 +1,6 @@
 // Libraries
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Popup, Icon, Grid } from 'semantic-ui-react'
 
 const PopupLink = ({ name, githubUrl, linkedInUrl, email }) => (
@@ -32,5 +33,12 @@ const PopupLink = ({ name, githubUrl, linkedInUrl, email }) => (
     </Grid>
   </Popup>
 )
+
+PopupLink.propTypes = {
+  name: PropTypes.string.isRequired,
+  githubUrl: PropTypes.string.isRequired,
+  linkedInUrl: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+}
 
 export default PopupLink

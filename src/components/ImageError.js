@@ -17,7 +17,7 @@ const ImageError = ({ setReloadImage }) => {
       </Segment>
 
       <Button
-      data-cy='error-button'
+        data-cy='error-button'
         circular
         icon='redo'
         onClick={async () => {

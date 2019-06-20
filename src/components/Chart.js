@@ -35,17 +35,17 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
 
       const returnLineColor = (measure) => {
         switch (measure) {
-          case 'temperatureC':
-            return 'rgba(250, 64, 61, 0.7)'
-          case 'nutrient':
-            return 'rgba(250, 158, 61, 0.7)'
-          case 'light':
-            return 'rgba(246, 250, 61, 0.7)'
-          case 'humidity':
-            return 'rgba(61, 152, 250, 0.7)'
-          case 'soilMoisture':
-            return 'rgba(61, 152, 250, 0.7)'
-          default: break
+        case 'temperatureC':
+          return 'rgba(250, 64, 61, 0.7)'
+        case 'nutrient':
+          return 'rgba(250, 158, 61, 0.7)'
+        case 'light':
+          return 'rgba(246, 250, 61, 0.7)'
+        case 'humidity':
+          return 'rgba(61, 152, 250, 0.7)'
+        case 'soilMoisture':
+          return 'rgba(61, 152, 250, 0.7)'
+        default: break
         }
       }
 
@@ -85,14 +85,14 @@ const options = (range) => {
   // define unit value based on range
   const unit = () => {
     switch (range) {
-      case 'DAY':
-        return 'minute'
-      case 'WEEK':
-        return 'hour'
-      case 'YEAR':
-        return 'day'
-      default:
-        break
+    case 'DAY':
+      return 'minute'
+    case 'WEEK':
+      return 'hour'
+    case 'YEAR':
+      return 'day'
+    default:
+      break
     }
   }
 

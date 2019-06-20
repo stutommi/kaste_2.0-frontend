@@ -63,10 +63,10 @@ const AboutView = ({ show }) => {
         <List ordered>
           <List.Item>Navigate to settings from menu</List.Item>
           <List.Item>Provide an url that serves sensor data</List.Item>
-          <List.Item>Navigate to "Sensors"-view to check sensor measurements</List.Item>
+          <List.Item>Navigate to `&quot;`Sensors`&quot;`-view to check sensor measurements</List.Item>
           <List.Item>Use features (watering, live feed) from the menu</List.Item>
           <List.Item>Use that chat if you dare <span role='img' aria-label='devil'>👻</span></List.Item>
-          
+
         </List>
 
         <Divider section />
@@ -75,54 +75,54 @@ const AboutView = ({ show }) => {
 
         <p>
           <a
-          target='_blank'
-          rel='noopener noreferrer'
-          href='https://github.com/stutommi/kaste_2.0-frontend'>
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://github.com/stutommi/kaste_2.0-frontend'>
             Link to code
           </a>
         </p>
 
         <p>Working with token based authetication, client side is done with React.
-          It's state is managed with hooks for the most part and little with
+          Its state is managed with hooks for the most part and little with
           Apollos client. Layout is handled with inline styles and semantic-ui-react.
           Communication between client and server is done with Graphql.
 
-            </p>
+        </p>
         <InfoSection header={'Layout and Menus'}>
-          Kaste's layout is designed mobile first, but should work in every screen size.
+          Kastes layout is designed mobile first, but should work in every screen size.
           Mobile menu has a fixed menu on top with logout and togglable sidebar,
           which contains view navigation and functionality. When screen size goes
           over mobile, the view changes to a fixed top menu, which displays navigation and
           functionality.
-            </InfoSection>
+        </InfoSection>
         <InfoSection header={'Sensors'}>
           Sensors data is shown in sensors view. It shows the current value of sensor
             measurements and chart information on measurement history that can be shown by
             different time ranges. clicking on the leaf icon in plant sensors opens a new tab
             in wikipedia, showing the results matching the name of the plant.
-              </InfoSection>
+        </InfoSection>
         <InfoSection header={'Chat'}>
           Kaste has a supersimple chat. Users can write and receive messages on realtime
             thanks to subscription based communication with server. Messages are stored in MongoDB.
-              </InfoSection>
+        </InfoSection>
         <InfoSection header={'Settings'}>
           In order to see any sensor information, user needs to be connected to an endpoint
             that serves that information. This connection can be made in settings page. If
             client is able to connect to an endpoint provided by the user, it will start displaying
             and storing that information on database. Settings page also shows the status of the endpoint
-              </InfoSection>
+        </InfoSection>
         <InfoSection header={'Live Feed'}>
           If the endpoint a user is connected to has a camera connection, users are able to monitor
-            this connection through the "Live Feed" view. This is useful when you want to make sure
+            this connection through the `&quot;`Live Feed`&quot;` view. This is useful when you want to make sure
             that your plants are being watered after using watering functionality.
-              </InfoSection>
+        </InfoSection>
         <InfoSection header={'Water Plants'}>
           Perhaps the most important feature of Kaste is its watering functionality. Provided that the
           watering mechanics are hooked correctly at users home, user is able to water their plants
-          by pressing the "Water Plants" found on the menu. They are able to choose watering between durations
-          of 1, 5 and 10 minutes. If there's a need to stop the watering process for whatever reasons,
-          user can simply press "Stop Watering" found next to watering functionality.
-              </InfoSection>
+          by pressing the `&quot;`Water Plants`&quot;` found on the menu. They are able to choose watering between durations
+          of 1, 5 and 10 minutes. If there`&quot;`s a need to stop the watering process for whatever reasons,
+          user can simply press `&quot;`Stop Watering`&quot;` found next to watering functionality.
+        </InfoSection>
 
         <Divider section />
 
@@ -130,9 +130,9 @@ const AboutView = ({ show }) => {
 
         <p>
           <a
-          target='_blank'
-          rel='noopener noreferrer'
-          href='https://github.com/stutommi/kaste_2.0-backend'>
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://github.com/stutommi/kaste_2.0-backend'>
             Link to code
           </a>
         </p>
@@ -142,24 +142,24 @@ const AboutView = ({ show }) => {
           to note that all requests that client sends to other URLs go through the server. this is done to avoid
           mixed content warning that comes from making direct requests from Kaste (https) to sensor endpoints
           (possibly http).
-              </p>
+        </p>
         <InfoSection header={'User information'}>
           User information contains name, username, password hash and an endpoint for sensordata.
           When ever a new endpoint is introduced, server logic will start fetching information from
           the endpoint.
-                </InfoSection>
+        </InfoSection>
         <InfoSection header={'Messages'}>
           Messages are stored in MongoDB and used in the chat view of the client. it uses a subscription
           so any new message is delivered to chat in realtime without refreshing the page. Currently the
           message live forever in the DB without manual deletion, this could be changed in the future to last
           only a certain time.
-                </InfoSection>
+        </InfoSection>
         <InfoSection header={'Sensor data'}>
           Servers two jobs for sensor data is to relay realtime sensor values and functionality to client
           and store values from all connected endpoints to database. These jobs are not connected to each other
           in any way. Server is always on update with all sensor endpoints of every user and fetches data from them
           at certain interval. If nobody is using an endpoint anymore, server stops fetching and storing data from it.
-              </InfoSection>
+        </InfoSection>
 
         <Segment color='yellow'>
           Known issues:

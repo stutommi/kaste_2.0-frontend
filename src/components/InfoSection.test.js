@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react'
-import { render, getByText } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import 'jest-dom/extend-expect'
 // Components
 import InfoSection from './InfoSection'

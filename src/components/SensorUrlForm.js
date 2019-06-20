@@ -156,7 +156,9 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
 SensorUrlForm.propTypes = {
   sensorsConnected: PropTypes.bool.isRequired,
   token: PropTypes.object.isRequired,
-  setToken: PropTypes.func.isRequired
+  setToken: PropTypes.func.isRequired,
+  sensorService: PropTypes.object.isRequired,
+  actions: PropTypes.func
 }
 
 export default SensorUrlForm

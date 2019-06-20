@@ -17,14 +17,14 @@ const SensorView = ({ show, sensorData, sensorError, token }) => {
 
     if (sensorError === 'Sensors loading') {
       return <Segment
-      secondary
-      inverted
-      color='green'
-      textAlign='center'>
-      Sensors loading
-    </Segment>
+        secondary
+        inverted
+        color='green'
+        textAlign='center'>
+        Sensors loading
+      </Segment>
     }
-    
+
     if (!token.sensorEndpoint || sensorError === 'GraphQL error: Request failed with status code 404') {
       return (
         <Segment

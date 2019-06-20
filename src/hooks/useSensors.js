@@ -40,7 +40,7 @@ export const useSensors = (duration = 60) => {
       setTimeout(() => {
 
         getSensorData(url)
-      }, 2000);
+      }, 2000)
     }
   }
 
@@ -48,7 +48,7 @@ export const useSensors = (duration = 60) => {
     getSensorData(url)
     const id = setInterval(() => {
       getSensorData(url)
-    }, duration * 1000);
+    }, duration * 1000)
     setIntervalId(id)
   }
 

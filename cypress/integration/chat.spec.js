@@ -42,7 +42,9 @@ describe('Chat Page', function () {
     cy.get('[data-cy=chat-input]').find('input')
       .type('This is a test message from second user.{enter}')
 
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(2000)
+    
     cy.get('[data-cy=message] > div').eq(1).should('have.class', 'blue')
   })
 })

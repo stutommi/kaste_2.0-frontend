@@ -7,13 +7,15 @@ import { useMutation } from 'react-apollo-hooks'
 import loginUser from '../graphql/mutations/loginUser'
 import currentUser from '../graphql/queries/currentUser'
 // Custom hooks
-import {useField} from '../hooks/useField'
+import { useField } from '../hooks/useField'
 
 const LoginForm = ({ setNotification, setToken }) => {
   const login = useMutation(loginUser)
-  const {reset: usernameReset, ...username} = useField('text')
-  const {reset: passwordReset, ...password} = useField('password')
- 
+  // eslint-disable-next-line no-unused-vars
+  const { reset: usernameReset, ...username } = useField('text')
+  // eslint-disable-next-line no-unused-vars
+  const { reset: passwordReset, ...password } = useField('password')
+
 
   const handleLogin = async () => {
     try {
@@ -38,7 +40,7 @@ const LoginForm = ({ setNotification, setToken }) => {
     <Form size='large' onSubmit={handleLogin}>
       <Segment stacked raised>
         <Form.Input
-        {...username}
+          {...username}
           data-cy='username'
           fluid
           icon='user'

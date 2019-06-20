@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react'
-import { render, getByText } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import 'jest-dom/extend-expect'
 // Components
 import ChatMessage from './ChatMessage'
@@ -36,7 +36,7 @@ describe('ChatMessage', () => {
         message={message('TestName2')}
       />)
 
-expect(component2.container.querySelector('.segment')).toHaveClass('green')
-expect(component2.container).toHaveTextContent('Test text content')
+    expect(component2.container.querySelector('.segment')).toHaveClass('green')
+    expect(component2.container).toHaveTextContent('Test text content')
   })
 })

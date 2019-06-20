@@ -9,7 +9,7 @@ import {useAction} from '../hooks/useAction'
 // Typedefs
 import stopWatering from '../graphql/mutations/stopWatering'
 
-const DesktopContainer = ({ children, setPage, logOut, actions, token, sensorService }) => {
+const DesktopContainer = ({ children, setPage, logOut, actions, token }) => {
   const [cameraConnected, setCameraConnected] = useState(false)
   const [wateringConnected, setWateringConnected] = useState(false)
   const fireAction = useAction()

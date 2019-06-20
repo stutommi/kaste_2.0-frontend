@@ -6,13 +6,13 @@ import { useMutation } from 'react-apollo-hooks'
 // TypeDefs
 import createUser from '../graphql/mutations/createUser'
 // Custom hooks
-import {useField} from '../hooks/useField'
+import { useField } from '../hooks/useField'
 
 const RegisterForm = ({ setNotification, setLoginVisible }) => {
   const register = useMutation(createUser)
-  const {reset: usernameReset, ...username} = useField('text')
-  const {reset: nameReset, ...name} = useField('text')
-  const {reset: passwordReset, ...password} = useField('password')
+  const { reset: usernameReset, ...username } = useField('text')
+  const { reset: nameReset, ...name } = useField('text')
+  const { reset: passwordReset, ...password } = useField('password')
 
   const handleRegister = async () => {
     try {
@@ -51,7 +51,7 @@ const RegisterForm = ({ setNotification, setLoginVisible }) => {
           autoComplete='new-password'
         />
         <Form.Input
-        {...name}
+          {...name}
           data-cy='name'
           fluid
           icon='user outline'
@@ -60,7 +60,7 @@ const RegisterForm = ({ setNotification, setLoginVisible }) => {
           autoComplete='new-password'
         />
         <Form.Input
-        {...password}
+          {...password}
           data-cy='password'
           fluid
           icon='lock'

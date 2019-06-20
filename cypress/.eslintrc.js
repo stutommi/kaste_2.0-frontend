@@ -1,8 +1,8 @@
-{
+module.exports = {
   "plugins" : [
     "cypress"
   ],
-  "env": {
+    "env": {
     "cypress/globals": true
   }
 }
