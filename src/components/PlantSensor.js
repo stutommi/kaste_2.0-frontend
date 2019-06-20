@@ -7,7 +7,7 @@ import moment from 'moment'
 import SensorValue from './SensorValue'
 import Chart from './Chart'
 
-const columnStyle = { padding: 0 }
+const columnStyle = { padding: 0, margin: 0 }
 
 const PlantSensor = ({ sensor }) => {
   const [chartVisible, setChartVisible] = useState(false)
@@ -37,7 +37,7 @@ const PlantSensor = ({ sensor }) => {
 
           <Grid.Column
             style={columnStyle}
-            color={sensor.soil_moisture < 10 ? 'yellow' : null}>
+            color={sensor.soil_moisture < 10 ? 'red' : null}>
             <SensorValue
               size={'large'}
               value={sensor.soil_moisture + ' %'}
@@ -60,20 +60,20 @@ const PlantSensor = ({ sensor }) => {
           <Grid.Column style={columnStyle}>
             <SensorValue
               size={'large'}
-              value={sensor.temperature_C + ' ºC'}
-              label={'Temperature'}
-              icon={'thermometer'}
-              iconColor={'red'}
+              value={Math.floor(sensor.nutrient) + ' %'}
+              label={'Nutrient'}
+              icon={'pills'}
+              iconColor={'orange'}
             />
           </Grid.Column>
 
           <Grid.Column style={columnStyle}>
             <SensorValue
               size={'large'}
-              value={Math.floor(sensor.nutrient) + ' %'}
-              label={'Nutrient'}
-              icon={'pills'}
-              iconColor={'orange'}
+              value={sensor.temperature_C + ' ºC'}
+              label={'Temperature'}
+              icon={'thermometer'}
+              iconColor={'red'}
             />
           </Grid.Column>
 

@@ -98,7 +98,8 @@ const AboutView = ({ show }) => {
         <InfoSection header={'Sensors'}>
           Sensors data is shown in sensors view. It shows the current value of sensor
             measurements and chart information on measurement history that can be shown by
-            different time ranges.
+            different time ranges. clicking on the leaf icon in plant sensors opens a new tab
+            in wikipedia, showing the results matching the name of the plant.
               </InfoSection>
         <InfoSection header={'Chat'}>
           Kaste has a supersimple chat. Users can write and receive messages on realtime

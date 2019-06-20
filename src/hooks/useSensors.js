@@ -8,7 +8,7 @@ import sensorDatas from '../graphql/queries/sensorData'
 // NOTE: Really weirdly, importing as sensorData results in Graphql error
 
 // Handle sensor information fetching
-// Provide duration as argument (seconds)
+// Provide interval as argument (seconds)
 export const useSensors = (duration = 60) => {
   const [sensorData, setSensorData] = useState(null)
   const [actions, setActions] = useState(null)
