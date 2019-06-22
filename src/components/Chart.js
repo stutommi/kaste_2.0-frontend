@@ -102,7 +102,7 @@ const options = (range) => {
   return {
     layout: {
       padding: {
-        bottom: `${window.innerWidth < 821 ? -15 : 0}`
+        bottom: `${range === 'DAY' || range === 'WEEK' ? -15 : 0}`
       }
     },
     scales: {
