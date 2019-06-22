@@ -102,7 +102,8 @@ const options = (range) => {
   return {
     layout: {
       padding: {
-        bottom: `${range === 'DAY' || range === 'WEEK' ? -15 : 0}`
+        // Reduce unnecessary space on labels for better mobile view
+        bottom: `${range === 'DAY' || (range === 'WEEK' && window.innerWidth < 848) ? -15 : 0}`
       }
     },
     scales: {
