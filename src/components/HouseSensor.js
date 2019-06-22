@@ -63,8 +63,10 @@ const HouseSensor = ({ sensor }) => {
           <Grid.Column style={{ padding: 0 }}>
             <Segment
               style={{
+                margin: '0 auto',
                 display: `${chartVisible ? 'block' : 'none'}`,
                 padding: 5,
+                maxWidth: 1300
               }}
             >
               <Chart

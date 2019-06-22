@@ -97,13 +97,15 @@ const PlantSensor = ({ sensor }) => {
           </Grid.Column>
 
         </Grid.Row>
-        <Grid.Row columns={1} style={{ padding: `${chartVisible ? '5px' : '0px'}` }}>
+        <Grid.Row columns={1} centered style={{ padding: `${chartVisible ? '5px' : '0px'}` }}>
 
-          <Grid.Column style={{ padding: 0 }}>
+          <Grid.Column textAlign='center' style={{ padding: 0 }}>
             <Segment
               style={{
+                margin: '0 auto',
                 display: `${chartVisible ? 'block' : 'none'}`,
                 padding: 5,
+                maxWidth: 1300
               }}
             >
               <Chart
@@ -137,7 +139,7 @@ const PlantSensor = ({ sensor }) => {
 
         </Grid.Row>
       </Grid>
-    </Segment >
+    </Segment>
   )
 }
 

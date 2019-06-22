@@ -22,9 +22,9 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
         acc.labels = chartData[cur].map(time => {
 
           // If sensor data older than 1 day, format differently
-          if (moment() - time > 1000 * 60 * 60 * 24) {
-            return moment.utc(time).local()
-          }
+          // if (moment() - time > 1000 * 60 * 60 * 24) {
+          //   return moment.utc(time).local()
+          // }
 
           moment.relativeTimeThreshold('h', 25)
           return moment(time).subtract(3, 'hours')
@@ -89,6 +89,8 @@ const options = (range) => {
       return 'minute'
     case 'WEEK':
       return 'hour'
+    case 'MONTH':
+      return 'day'
     case 'YEAR':
       return 'day'
     default:
@@ -100,7 +102,7 @@ const options = (range) => {
   return {
     layout: {
       padding: {
-        bottom: -20,
+        bottom: `${window.innerWidth < 821 ? -15 : 0}`
       }
     },
     scales: {
@@ -111,12 +113,14 @@ const options = (range) => {
             unit: unit(),
             displayFormats: {
               minute: 'HH:mm',
-              hour: 'dd HH:mm'
+              hour: 'dd HH:mm',
+              day: 'DD.M',
+
             },
           },
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 6
+            maxTicksLimit: 6,
           }
         }
       ],
@@ -128,6 +132,9 @@ const options = (range) => {
           }
         }
       ]
+    },
+    legend: {
+      display: false
     }
   }
 }
@@ -160,7 +167,7 @@ const Chart = ({ sensor, chartTimeRange }) => {
     <Line
       data={formattedChartData}
       options={options(chartTimeRange)}
-      legend={{ display: false }} />
+    />
   )
 }
 
