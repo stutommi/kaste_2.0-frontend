@@ -63,7 +63,7 @@ const AboutView = ({ show }) => {
         <List ordered>
           <List.Item>Navigate to settings from menu</List.Item>
           <List.Item>Provide an url that serves sensor data</List.Item>
-          <List.Item>Navigate to `&quot;`Sensors`&quot;`-view to check sensor measurements</List.Item>
+          <List.Item>Navigate to &quot;Sensors&quot;-view to check sensor measurements</List.Item>
           <List.Item>Use features (watering, live feed) from the menu</List.Item>
           <List.Item>Use that chat if you dare <span role='img' aria-label='devil'>👻</span></List.Item>
 
@@ -113,15 +113,16 @@ const AboutView = ({ show }) => {
         </InfoSection>
         <InfoSection header={'Live Feed'}>
           If the endpoint a user is connected to has a camera connection, users are able to monitor
-            this connection through the `&quot;`Live Feed`&quot;` view. This is useful when you want to make sure
-            that your plants are being watered after using watering functionality.
+            this connection through the &quot;Live Feed&quot; view. This is useful when you want to make sure
+            that your plants are being watered after using watering functionality. Note that if you have a slow internet
+            connection, the picture may refresh much slower (or completely), but the watering funcionality still works.
         </InfoSection>
         <InfoSection header={'Water Plants'}>
           Perhaps the most important feature of Kaste is its watering functionality. Provided that the
           watering mechanics are hooked correctly at users home, user is able to water their plants
-          by pressing the `&quot;`Water Plants`&quot;` found on the menu. They are able to choose watering between durations
-          of 1, 5 and 10 minutes. If there`&quot;`s a need to stop the watering process for whatever reasons,
-          user can simply press `&quot;`Stop Watering`&quot;` found next to watering functionality.
+          by pressing the &quot;Water Plants&quot; found on the menu. They are able to choose watering between durations
+          of 1, 5 and 10 minutes. If there&quot;s a need to stop the watering process for whatever reasons,
+          user can simply press &quot;Stop Watering&quot; found next to watering functionality.
         </InfoSection>
 
         <Divider section />
@@ -149,7 +150,7 @@ const AboutView = ({ show }) => {
           the endpoint.
         </InfoSection>
         <InfoSection header={'Messages'}>
-          Messages are stored in MongoDB and used in the chat view of the client. it uses a subscription
+          Messages are stored in MongoDB and used in the chat view of the client. It uses a subscription
           so any new message is delivered to chat in realtime without refreshing the page. Currently the
           message live forever in the DB without manual deletion, this could be changed in the future to last
           only a certain time.
@@ -168,6 +169,7 @@ const AboutView = ({ show }) => {
             <li>Tests insufficient (need to dig into graphql tests more)</li>
             <li>Loading component renders over menu</li>
             <li>Plant name is hardcoded</li>
+            <li>Life feed can freeze with slow internet connection</li>
           </ul>
         </Segment>
 

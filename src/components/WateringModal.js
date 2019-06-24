@@ -9,7 +9,6 @@ import startWatering from '../graphql/mutations/startWatering'
 
 const WateringModal = ({ actions, wateringConnected, setPage }) => {
   const [showModal, setShowModal] = useState(false)
-  const [recentlyWatered, setRecentlyWatered] = useState(false)
   const fireAction = useAction()
 
   const handleWatering = (duration, action) => {
@@ -21,12 +20,6 @@ const WateringModal = ({ actions, wateringConnected, setPage }) => {
     } catch (error) {
       console.error(error.message)
     }
-
-    setTimeout(() => {
-      setRecentlyWatered(false)
-      console.log('Watering completed')
-
-    }, duration * 1000 * 60)
   }
 
   return (
@@ -39,7 +32,7 @@ const WateringModal = ({ actions, wateringConnected, setPage }) => {
         <Menu.Item
           data-cy='water-button'
           onClick={() => setShowModal(true)}
-          disabled={!wateringConnected || recentlyWatered}>
+          disabled={!wateringConnected}>
           <Icon name='shower' />
           Water Plants
         </Menu.Item>
