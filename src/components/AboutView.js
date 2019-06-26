@@ -169,7 +169,7 @@ const AboutView = ({ show }) => {
             <li>Tests insufficient (need to dig into graphql tests more)</li>
             <li>Loading component renders over menu</li>
             <li>Plant name is hardcoded</li>
-            <li>Life feed can freeze with slow internet connection</li>
+            <li>Live feed can freeze with slow internet connection</li>
           </ul>
         </Segment>
 

@@ -15,7 +15,8 @@ const ResponsiveLayout = ({ children, setPage, logOut, page, actions, token, sen
         actions={actions}
         setPage={setPage}
         token={token}
-        sensorService={sensorService}>
+        sensorService={sensorService}
+      >
 
         {children}
 
@@ -27,7 +28,8 @@ const ResponsiveLayout = ({ children, setPage, logOut, page, actions, token, sen
         actions={actions}
         setPage={setPage}
         token={token}
-        sensorService={sensorService}>
+        sensorService={sensorService}
+      >
 
         {children}
 
