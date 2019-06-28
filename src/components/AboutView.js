@@ -183,6 +183,7 @@ const AboutView = ({ show }) => {
             <li>Optimize chart ranges</li>
             <li>Add CO measurements to house sensors</li>
             <li>Add auto-watering feature</li>
+            <li>Add feature to email user when plant is dry</li>
           </ul>
         </Segment>
 
