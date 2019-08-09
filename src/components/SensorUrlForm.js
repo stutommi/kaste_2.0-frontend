@@ -23,12 +23,11 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
   // Handles connection to sensor endpoint
   const handleConnect = async () => {
     try {
-      console.log(sensorUrl.value)
       const { data } = await fireAction(sensorUrl.value, validateSensorEndpoint)
 
       if (data.validateSensorEndpoint.message === 'Valid endpoint') {
         const confirmation = window.confirm('Would you like to receive information about these sensors?')
-
+        
         if (confirmation) {
           editSensorEndpoint({
             variables: {
@@ -158,7 +157,7 @@ SensorUrlForm.propTypes = {
   token: PropTypes.object.isRequired,
   setToken: PropTypes.func.isRequired,
   sensorService: PropTypes.object.isRequired,
-  actions: PropTypes.func
+  actions: PropTypes.object
 }
 
 export default SensorUrlForm

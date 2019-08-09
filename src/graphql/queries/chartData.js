@@ -4,11 +4,12 @@ const chartData = gql`
   query ChartData($id: Int!, $type: HousePlant!, $range: DayWeekMonthYear!) {
   chartData(id: $id, type: $type, range: $range) {
     time
-    light
-    nutrient
-    soilMoisture
-    temperatureC
+    light_lux
+    ec_mS_cm
+    soil_moisture
+    temperature_C
     humidity
+    CO2_ppm
   }
 }
 `

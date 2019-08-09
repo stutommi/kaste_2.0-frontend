@@ -1,9 +1,10 @@
 export const includedIn = (set, object) =>
   set.map(p => p.id).includes(object.id)
 
-// Sensor data comes in two objects. they need to be merged into one one array
+// Sensor data comes in three objects. they need to be merged into one array
 export const formatSensorData = (sensorData) => {
   const values = Object.values(sensorData)
+  
   const flattenedArray = values.reduce((acc, cur) => cur.concat(acc))
   // Some sensors might show empty values because they're not online yet
   // so they need to be filtered out.

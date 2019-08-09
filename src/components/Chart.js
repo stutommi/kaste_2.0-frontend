@@ -10,7 +10,7 @@ import chartData from '../graphql/queries/chartData'
 // Components
 import Loading from './Loading'
 
-const formatSensorDataIntoChartData = ({ chartData }) => {
+const formatSensorDataIntoChartData = ({ chartData }, chartFilter) => {
 
   const formattedChartData = Object.keys(chartData)
     .reduce((acc, cur) => {
@@ -20,67 +20,65 @@ const formatSensorDataIntoChartData = ({ chartData }) => {
 
       if (cur === 'time') {
         acc.labels = chartData[cur].map(time => {
-
-          // If sensor data older than 1 day, format differently
-          // if (moment() - time > 1000 * 60 * 60 * 24) {
-          //   return moment.utc(time).local()
-          // }
-
           moment.relativeTimeThreshold('h', 25)
           return moment(time).subtract(3, 'hours')
         })
-
         return acc
       }
 
       const returnLineColor = (measure) => {
         switch (measure) {
-        case 'temperatureC':
+        case 'temperature_C':
           return 'rgba(250, 64, 61, 0.7)'
-        case 'nutrient':
+        case 'ec_mS_cm':
           return 'rgba(250, 158, 61, 0.7)'
-        case 'light':
+        case 'light_lux':
           return 'rgba(246, 250, 61, 0.7)'
         case 'humidity':
           return 'rgba(61, 152, 250, 0.7)'
-        case 'soilMoisture':
+        case 'soil_moisture':
           return 'rgba(61, 152, 250, 0.7)'
+        case 'CO2_ppm':
+          return 'rgba(0, 0, 0, 0.7)'
         default: break
         }
       }
 
-      acc.datasets.push(
-        {
-          label: cur,
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: returnLineColor(cur),
-          borderColor: returnLineColor(cur),
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: returnLineColor(cur),
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: returnLineColor(cur),
-          pointHoverBorderColor: returnLineColor(cur),
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: chartData[cur]
-        }
+      if (chartFilter.includes(cur))
+      {
+        console.log('cur', cur)
+        acc.datasets.push(
+          {
+            label: cur,
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: returnLineColor(cur),
+            borderColor: returnLineColor(cur),
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: returnLineColor(cur),
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: returnLineColor(cur),
+            pointHoverBorderColor: returnLineColor(cur),
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: chartData[cur]
+          }
 
-      )
-
+        )
+      }
       return acc
     }, { labels: [], datasets: [] })
 
   return formattedChartData
 }
 
-const options = (range) => {
+const options = (range, chartFilter) => {
 
   // define unit value based on range
   const unit = () => {
@@ -93,6 +91,21 @@ const options = (range) => {
       return 'day'
     case 'YEAR':
       return 'day'
+    default:
+      break
+    }
+  }
+
+  const yMax = () => {
+    switch (chartFilter[0]) {
+    case 'temperature_C':
+      return 100
+    case 'light_lux':
+      return 128
+    case 'ec_mS_cm':
+      return 5
+    case 'CO2_ppm':
+      return 3000
     default:
       break
     }
@@ -129,7 +142,7 @@ const options = (range) => {
         {
           ticks: {
             suggestedMin: 0,
-            max: 100
+            max: yMax()
           }
         }
       ]
@@ -140,12 +153,12 @@ const options = (range) => {
   }
 }
 
-const Chart = ({ sensor, chartTimeRange }) => {
+const Chart = ({ sensor, chartTimeRange, chartFilter }) => {
   const plantData = useQuery(chartData, {
     variables: { id: sensor.id, type: sensor.type.toUpperCase(), range: chartTimeRange },
     fetchPolicy: 'no-cache'
   })
-
+  console.log('plantData', plantData)
   if (plantData.loading) {
     return (
       <div style={{ minHeight: 'calc(89vw / 2)' }}>
@@ -162,18 +175,19 @@ const Chart = ({ sensor, chartTimeRange }) => {
       Chart failed to load
     </Segment>
   }
-  const formattedChartData = formatSensorDataIntoChartData(plantData.data)
 
+  const formattedChartData = formatSensorDataIntoChartData(plantData.data, chartFilter)
   return (
     <Line
       data={formattedChartData}
-      options={options(chartTimeRange)}
+      options={options(chartTimeRange, chartFilter)}
     />
   )
 }
 
 // Proptypes
 Chart.propTypes = {
+  chartFilter: PropTypes.array.isRequired,
   sensor: PropTypes.object.isRequired,
   chartTimeRange: PropTypes.string.isRequired
 }

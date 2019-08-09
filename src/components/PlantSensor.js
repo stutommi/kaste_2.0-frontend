@@ -9,9 +9,14 @@ import Chart from './Chart'
 
 const columnStyle = { padding: 0, margin: 0 }
 
+const chartFilterDef = ['temperature_C', 'soil_moisture']
+const chartFilterLight = ['light_lux']
+const chartFilterNutr = ['ec_mS_cm']
+
 const PlantSensor = ({ sensor }) => {
   const [chartVisible, setChartVisible] = useState(false)
   const [chartTimeRange, setChartTimeRange] = useState('DAY')
+  const [measures, setMeasures] = useState(chartFilterDef)
 
   return (
     <Segment
@@ -20,16 +25,15 @@ const PlantSensor = ({ sensor }) => {
       secondary
       style={{ margin: '2px 1px' }}>
 
-      {/* Hard coded for now, fix coming... */}
       <Header textAlign='center' as='h3'>
         <a
           style={{ color: 'inherit' }}
-          href={`https://en.wikipedia.org/wiki/${'Capsicum baccatum'}`}
+          href={`https://en.wikipedia.org/wiki/${sensor.name}`}
           target='_blank'
           rel="noopener noreferrer">
           <Icon name='leaf' size='large' />
         </a>
-        Capsicum baccatum
+        {sensor.name}
       </Header>
 
       <Grid textAlign='center' columns={4} >
@@ -50,7 +54,7 @@ const PlantSensor = ({ sensor }) => {
           <Grid.Column style={columnStyle}>
             <SensorValue
               size={'large'}
-              value={Math.floor(sensor.light) + ' %'}
+              value={sensor.light_lux + ' klx'}
               label={'Light'}
               icon={'sun'}
               iconColor={'yellow'}
@@ -60,7 +64,7 @@ const PlantSensor = ({ sensor }) => {
           <Grid.Column style={columnStyle}>
             <SensorValue
               size={'large'}
-              value={Math.floor(sensor.nutrient) + ' %'}
+              value={sensor.ec_mS_cm + ' mS'}
               label={'Nutrient'}
               icon={'pills'}
               iconColor={'orange'}
@@ -85,34 +89,44 @@ const PlantSensor = ({ sensor }) => {
               data-cy='chart-toggle-button'
               circular icon={chartVisible ? 'close' : 'chart area'}
               onClick={() => setChartVisible(!chartVisible)} />
-            {
-              chartVisible &&
-              <>
-                <Button compact circular onClick={() => setChartTimeRange('DAY')}>D</Button>
-                <Button compact circular onClick={() => setChartTimeRange('WEEK')}>W</Button>
-                <Button compact circular onClick={() => setChartTimeRange('MONTH')}>M</Button>
-                <Button compact circular onClick={() => setChartTimeRange('YEAR')}>Y</Button>
-              </>
-            }
           </Grid.Column>
-
         </Grid.Row>
-        <Grid.Row columns={1} centered style={{ padding: `${chartVisible ? '5px' : '0px'}` }}>
+
+        <Grid.Row
+          columns={1}
+          centered
+          style={{
+            display: `${chartVisible ? 'block' : 'none'}`,
+            padding: 5
+          }}>
+
+          <Button.Group attached='top'>
+            <Button onClick={() => setChartTimeRange('DAY')}>D</Button>
+            <Button onClick={() => setChartTimeRange('WEEK')}>W</Button>
+            <Button onClick={() => setChartTimeRange('MONTH')}>M</Button>
+            <Button onClick={() => setChartTimeRange('YEAR')}>Y</Button>
+          </Button.Group>
 
           <Grid.Column textAlign='center' style={{ padding: 0 }}>
             <Segment
               style={{
                 margin: '0 auto',
-                display: `${chartVisible ? 'block' : 'none'}`,
                 padding: 5,
                 maxWidth: 1300
               }}
             >
               <Chart
                 sensor={sensor}
-                chartTimeRange={chartTimeRange} />
+                chartTimeRange={chartTimeRange}
+                chartFilter={measures} />
             </Segment>
           </Grid.Column>
+
+          <Button.Group attached='bottom'>
+            <Button onClick={() => setMeasures(chartFilterDef)}>moist. + temp</Button>
+            <Button onClick={() => setMeasures(chartFilterLight)}>light</Button>
+            <Button onClick={() => setMeasures(chartFilterNutr)}>nutrition</Button>
+          </Button.Group>
 
         </Grid.Row>
         <Grid.Row columns={2} style={{ padding: 5 }}>

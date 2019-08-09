@@ -24,7 +24,7 @@ export const useSensors = (duration = 60) => {
         variables: { sensorEndpoint: url },
         fetchPolicy: 'no-cache'
       })
-      
+
       const parsedSensorQuery = JSON.parse(data.sensorData.value)
 
       // Format sensor data with helper function
