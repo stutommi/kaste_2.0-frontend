@@ -166,9 +166,7 @@ const AboutView = ({ show }) => {
           Known issues:
           <ul>
             <li>Endpoint computer might not recover from reboot</li>
-            <li>Tests insufficient (need to dig into graphql tests more)</li>
             <li>Loading component renders over menu</li>
-            <li>Plant name is hardcoded</li>
             <li>Live feed can freeze with slow internet connection</li>
           </ul>
         </Segment>
@@ -180,8 +178,6 @@ const AboutView = ({ show }) => {
             <li>More tests</li>
             <li>More comments</li>
             <li>Improve Chat (amount of initial messages)</li>
-            <li>Optimize chart ranges</li>
-            <li>Add CO measurements to house sensors</li>
             <li>Add auto-watering feature</li>
             <li>Add feature to email user when plant is dry</li>
           </ul>

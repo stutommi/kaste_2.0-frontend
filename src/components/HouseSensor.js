@@ -75,37 +75,29 @@ const HouseSensor = ({ sensor }) => {
             display: `${chartVisible ? 'block' : 'none'}`,
             padding: 5
           }}>
-
-          <Button.Group attached='top'>
-            <Button onClick={() => setChartTimeRange('DAY')}>D</Button>
-            <Button onClick={() => setChartTimeRange('WEEK')}>W</Button>
-            <Button onClick={() => setChartTimeRange('MONTH')}>M</Button>
-            <Button onClick={() => setChartTimeRange('YEAR')}>Y</Button>
-          </Button.Group>
-
           <Grid.Column style={{ padding: 0 }}>
-            <Segment
-              style={{
-                margin: '0 auto',
-                padding: 5,
-                maxWidth: 1300
-              }}>
+            <Button.Group attached='top' style={{ maxWidth: 1300 }}>
+              <Button onClick={() => setChartTimeRange('DAY')}>D</Button>
+              <Button onClick={() => setChartTimeRange('WEEK')}>W</Button>
+              <Button onClick={() => setChartTimeRange('MONTH')}>M</Button>
+              <Button onClick={() => setChartTimeRange('YEAR')}>Y</Button>
+            </Button.Group>
 
+            <Segment style={{ margin: '0 auto', padding: 5 }}>
               <Chart
                 sensor={sensor}
                 chartTimeRange={chartTimeRange}
                 chartFilter={measures} />
-
             </Segment>
-          </Grid.Column>
-          {
-            sensor.CO2_ppm &&
-            <Button.Group attached='bottom'>
-              <Button onClick={() => setMeasures(chartFilterDef)}>hum / temp</Button>
-              <Button onClick={() => setMeasures(chartFilterCO2)}>CO<sup>2</sup></Button>
-            </Button.Group>
-          }
 
+            {
+              sensor.CO2_ppm &&
+              <Button.Group attached='bottom'>
+                <Button onClick={() => setMeasures(chartFilterDef)}>hum / temp</Button>
+                <Button onClick={() => setMeasures(chartFilterCO2)}>CO<sup>2</sup></Button>
+              </Button.Group>
+            }
+          </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={sensor.CO2_ppm ? 1 : 2} style={{ padding: 5 }}>
 
@@ -135,7 +127,7 @@ const HouseSensor = ({ sensor }) => {
         </Grid.Row>
       </Grid>
 
-    </Segment>
+    </Segment >
   )
 }
 

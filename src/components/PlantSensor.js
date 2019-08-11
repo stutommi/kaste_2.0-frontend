@@ -100,33 +100,28 @@ const PlantSensor = ({ sensor }) => {
             padding: 5
           }}>
 
-          <Button.Group attached='top'>
-            <Button onClick={() => setChartTimeRange('DAY')}>D</Button>
-            <Button onClick={() => setChartTimeRange('WEEK')}>W</Button>
-            <Button onClick={() => setChartTimeRange('MONTH')}>M</Button>
-            <Button onClick={() => setChartTimeRange('YEAR')}>Y</Button>
-          </Button.Group>
+          <Grid.Column textAlign='center' style={{ padding: 0, maxWidth: 1300 }}>
+            <Button.Group attached='top'>
+              <Button onClick={() => setChartTimeRange('DAY')}>D</Button>
+              <Button onClick={() => setChartTimeRange('WEEK')}>W</Button>
+              <Button onClick={() => setChartTimeRange('MONTH')}>M</Button>
+              <Button onClick={() => setChartTimeRange('YEAR')}>Y</Button>
+            </Button.Group>
 
-          <Grid.Column textAlign='center' style={{ padding: 0 }}>
-            <Segment
-              style={{
-                margin: '0 auto',
-                padding: 5,
-                maxWidth: 1300
-              }}
-            >
+
+            <Segment style={{ margin: '0 auto', padding: 5 }}>
               <Chart
                 sensor={sensor}
                 chartTimeRange={chartTimeRange}
                 chartFilter={measures} />
             </Segment>
-          </Grid.Column>
 
-          <Button.Group attached='bottom'>
-            <Button onClick={() => setMeasures(chartFilterDef)}>moist. + temp</Button>
-            <Button onClick={() => setMeasures(chartFilterLight)}>light</Button>
-            <Button onClick={() => setMeasures(chartFilterNutr)}>nutrition</Button>
-          </Button.Group>
+            <Button.Group attached='bottom'>
+              <Button onClick={() => setMeasures(chartFilterDef)}>moist. + temp</Button>
+              <Button onClick={() => setMeasures(chartFilterLight)}>light</Button>
+              <Button onClick={() => setMeasures(chartFilterNutr)}>nutrition</Button>
+            </Button.Group>
+          </Grid.Column>
 
         </Grid.Row>
         <Grid.Row columns={2} style={{ padding: 5 }}>

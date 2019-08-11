@@ -44,9 +44,7 @@ const formatSensorDataIntoChartData = ({ chartData }, chartFilter) => {
         }
       }
 
-      if (chartFilter.includes(cur))
-      {
-        console.log('cur', cur)
+      if (chartFilter.includes(cur)) {
         acc.datasets.push(
           {
             label: cur,
@@ -113,12 +111,6 @@ const options = (range, chartFilter) => {
 
   // return options object
   return {
-    layout: {
-      padding: {
-        // Reduce unnecessary space on labels for better mobile view
-        bottom: `${range === 'DAY' || (range === 'WEEK' && window.innerWidth < 848) ? -15 : 0}`
-      }
-    },
     scales: {
       xAxes: [
         {
@@ -135,6 +127,7 @@ const options = (range, chartFilter) => {
           ticks: {
             autoSkip: true,
             maxTicksLimit: 6,
+            maxRotation: 0
           }
         }
       ],
@@ -158,7 +151,6 @@ const Chart = ({ sensor, chartTimeRange, chartFilter }) => {
     variables: { id: sensor.id, type: sensor.type.toUpperCase(), range: chartTimeRange },
     fetchPolicy: 'no-cache'
   })
-  console.log('plantData', plantData)
   if (plantData.loading) {
     return (
       <div style={{ minHeight: 'calc(89vw / 2)' }}>
