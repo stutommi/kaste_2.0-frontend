@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { useApolloClient } from 'react-apollo-hooks'
 // Custom hooks
-import {useSensors} from './hooks/useSensors'
+import { useSensors } from './hooks/useSensors'
 // Components
 import ResponsiveLayout from './components/ResponsiveLayout'
 import LoginView from './components/LoginView'
@@ -35,54 +35,47 @@ const App = () => {
     client.resetStore()
   }
 
+  if (!token) return <LoginView setToken={setToken} />
   return (
-    <>
-      {!token
-        ?
-        <LoginView
-          setToken={setToken} />
-        :
-        <ResponsiveLayout
-          page={page}
-          setPage={setPage}
-          logOut={logOut}
-          actions={actions}
-          token={token}
-          sensorService={sensorService}
-        >
+    <ResponsiveLayout
+      page={page}
+      setPage={setPage}
+      logOut={logOut}
+      actions={actions}
+      token={token}
+      sensorService={sensorService}
+    >
 
-          <SensorView
-            token={token}
-            sensorData={sensorData}
-            sensorError={sensorError}
-            show={page === 'Sensors'}
-          />
+      <SensorView
+        token={token}
+        sensorData={sensorData}
+        sensorError={sensorError}
+        show={page === 'Sensors'}
+      />
 
-          <ChatView
-            show={page === 'Chat'}
-          />
+      <ChatView
+        show={page === 'Chat'}
+      />
 
-          <AboutView
-            show={page === 'About'}
-          />
+      <AboutView
+        show={page === 'About'}
+      />
 
-          <SettingsView
-            show={page === 'Settings'}
-            sensorsConnected={sensorsConnected}
-            token={token}
-            setToken={setToken}
-            actions={actions}
-            sensorService={sensorService}
-          />
+      <SettingsView
+        show={page === 'Settings'}
+        sensorsConnected={sensorsConnected}
+        token={token}
+        setToken={setToken}
+        actions={actions}
+        sensorService={sensorService}
+      />
 
-          <VideoView
-            show={page === 'Video'}
-            token={token}
-            actions={actions}
-          />
-        </ResponsiveLayout>
-      }
-    </>
+      <VideoView
+        show={page === 'Video'}
+        token={token}
+        actions={actions}
+      />
+    </ResponsiveLayout>
   )
 }
 

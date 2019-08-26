@@ -15,37 +15,36 @@ const divStyle = {
 }
 
 const VideoView = ({ show, actions }) => {
-  const [imageStatus, setImageStatus] = useState(<Loading inverted={false}/>)
+  const [pending, setPending] = useState(true)
   const [displayImage, setDisplayImage] = useState('block')
   const [reloadImage, setReloadImage] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    setImageStatus(<Loading inverted={false}/>)
+    setPending(true)
     setDisplayImage('block')
   }, [show, reloadImage])
 
-  if (!show || reloadImage) {
-    return null
-  }
+  if (!show || reloadImage) { return null }
+  if (error) { return <ImageError setReloadImage={setReloadImage} setError={setError} /> }
+
   return (
     <div style={divStyle}>
 
-      {imageStatus}
-      {
-        actions
-          ? <Image
-            style={{ maxWidth: 800, display: `${displayImage}` }}
-            centered
-            src={actions.camera}
-            fluid
-            onLoad={() => setImageStatus(null)}
-            onError={() => {
-              setImageStatus(<ImageError setReloadImage={setReloadImage} />)
-              setDisplayImage('none')
-            }}
-          />
-          : null
-      }
+      {pending && <Loading inverted={false} />}
+
+      <Image
+        style={{ maxWidth: 800, display: `${displayImage}` }}
+        centered
+        src={actions.camera}
+        fluid
+        onLoad={() => setPending(false)}
+        onError={() => {
+          setError(true)
+          setDisplayImage('none')
+        }}
+      />
+
     </div>
   )
 }
