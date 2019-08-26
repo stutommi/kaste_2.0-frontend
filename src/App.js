@@ -36,6 +36,7 @@ const App = () => {
   }
 
   if (!token) return <LoginView setToken={setToken} />
+    
   return (
     <ResponsiveLayout
       page={page}
