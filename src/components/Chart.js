@@ -65,6 +65,7 @@ const formatSensorDataIntoChartData = ({ chartData }, chartFilter) => {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
+            yAxisID: cur === 'temperature_C' ? 'y-axis-2' : 'y-axis-1',
             data: chartData[cur]
           }
 
@@ -72,7 +73,6 @@ const formatSensorDataIntoChartData = ({ chartData }, chartFilter) => {
       }
       return acc
     }, { labels: [], datasets: [] })
-
   return formattedChartData
 }
 
@@ -109,8 +109,34 @@ const options = (range, chartFilter) => {
     }
   }
 
-  // return options object
-  return {
+  const yAxes = () => {
+
+    const yAxisLeft = {
+      id: 'y-axis-1',
+      position: 'left',
+      ticks: {
+        suggestedMin: 0,
+        max: yMax()
+      }
+    }
+
+    const yAxisRight = {
+      id: 'y-axis-2',
+      position: 'right',
+      display: chartFilter[0] === 'temperature_C' ? true : false,
+      gridLines: {
+        display: false
+      }
+    }
+
+    if (chartFilter[0] === 'temperature_C') {
+      return [yAxisLeft, yAxisRight]
+    } else {
+      return [yAxisLeft]
+    }
+  }
+
+  const optionsObj = {
     scales: {
       xAxes: [
         {
@@ -131,19 +157,15 @@ const options = (range, chartFilter) => {
           }
         }
       ],
-      yAxes: [
-        {
-          ticks: {
-            suggestedMin: 0,
-            max: yMax()
-          }
-        }
-      ]
+      yAxes: yAxes()
     },
     legend: {
       display: false
     }
   }
+
+  // return options object
+  return optionsObj
 }
 
 const Chart = ({ sensor, chartTimeRange, chartFilter }) => {
@@ -173,6 +195,7 @@ const Chart = ({ sensor, chartTimeRange, chartFilter }) => {
     <Line
       data={formattedChartData}
       options={options(chartTimeRange, chartFilter)}
+      redraw={true}
     />
   )
 }
