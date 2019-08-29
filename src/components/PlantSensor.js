@@ -117,7 +117,7 @@ const PlantSensor = ({ sensor }) => {
             </Segment>
 
             <Button.Group attached='bottom'>
-              <Button onClick={() => setMeasures(chartFilterDef)}>moist. + temp</Button>
+              <Button onClick={() => setMeasures(chartFilterDef)}>temp + moist.</Button>
               <Button onClick={() => setMeasures(chartFilterLight)}>light</Button>
               <Button onClick={() => setMeasures(chartFilterNutr)}>nutrition</Button>
             </Button.Group>
