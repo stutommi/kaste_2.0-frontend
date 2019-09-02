@@ -1,4 +1,4 @@
-import { useApolloClient } from 'react-apollo-hooks'
+import { useApolloClient } from '@apollo/react-hooks'
 
 // Fires sensor actions, requires url and mutation as arguments
 export const useAction = () => {

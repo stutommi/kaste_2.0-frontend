@@ -1,15 +1,15 @@
 // Libraries
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useQuery } from 'react-apollo-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { Line } from 'react-chartjs-2'
 import { Segment } from 'semantic-ui-react'
-// Type defs
+// TypeDefs
 import chartData from '../graphql/queries/chartData'
 // Components
 import Loading from './Loading'
 // Utils
-import { formatSensorDataIntoChartData, options} from '../utilities/chartConfig'
+import { formatSensorDataIntoChartData, options } from '../utilities/chartConfig'
 
 const Chart = ({ sensor, chartTimeRange, chartFilter }) => {
   const plantData = useQuery(chartData, {

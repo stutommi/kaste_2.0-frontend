@@ -3,9 +3,13 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Segment, Grid, Header, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
+import { useMutation } from '@apollo/react-hooks'
 // Components
 import SensorValue from './SensorValue'
 import Chart from './Chart'
+// TypeDefs
+import clearChartData from '../graphql/mutations/clearChartData'
+import chartData from '../graphql/queries/chartData'
 
 const chartFilterDef = ['temperature_C', 'humidity']
 const chartFilterCO2 = ['CO2_ppm']
@@ -14,6 +18,23 @@ const HouseSensor = ({ sensor }) => {
   const [chartVisible, setChartVisible] = useState(false)
   const [chartTimeRange, setChartTimeRange] = useState('DAY')
   const [measures, setMeasures] = useState(chartFilterDef)
+  const [clearChartHistory] = useMutation(clearChartData, {
+    refetchQueries: () => [{
+      query: chartData,
+      variables: {id: sensor.id, type: "HOUSE" , range: chartTimeRange}}]
+  })
+
+  const handleClearData = () => {
+    const confirmation = window.confirm('Are you sure you want to delete all data that this sensor has gathered to DB?')
+
+    if (confirmation === false) {
+      return
+    }
+
+    clearChartHistory({
+      variables: { id: sensor.id },
+    })
+  }
 
   return (
     <Segment inverted secondary style={{ margin: '2px 1px', background: 'beige', color: 'black' }}>
@@ -65,6 +86,11 @@ const HouseSensor = ({ sensor }) => {
               data-cy='chart-toggle-button'
               circular icon={chartVisible ? 'close' : 'chart area'}
               onClick={() => setChartVisible(!chartVisible)} />
+            <Button style={{ display: chartVisible ? 'inline-block' : 'none' }}
+              data-cy='chart-clearData-button'
+              circular icon={'trash alternate'}
+              onClick={handleClearData}
+            />
           </Grid.Column>
         </Grid.Row>
 

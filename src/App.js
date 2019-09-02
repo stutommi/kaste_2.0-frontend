@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
-import { useApolloClient } from 'react-apollo-hooks'
+import { useApolloClient } from '@apollo/react-hooks'
 // Custom hooks
 import { useSensors } from './hooks/useSensors'
 // Components

@@ -1,7 +1,7 @@
 //Libraries
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ApolloProvider } from 'react-apollo-hooks'
+import { ApolloProvider } from '@apollo/react-hooks'
 // ...Because of authorization for headers (instead of apollo-boost)
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'

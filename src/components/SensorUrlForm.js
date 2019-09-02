@@ -2,11 +2,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Input, Segment, Header, Divider, Message, Grid } from 'semantic-ui-react'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from '@apollo/react-hooks'
 // Custom hooks
-import {useField} from '../hooks/useField'
-import {useNotification} from '../hooks/useNotification'
-import {useAction} from '../hooks/useAction'
+import { useField } from '../hooks/useField'
+import { useNotification } from '../hooks/useNotification'
+import { useAction } from '../hooks/useAction'
 // TypeDefs
 import editUserSensorEndpoint from '../graphql/mutations/editUserSensorEndpoint'
 import reboot from '../graphql/mutations/reboot'
@@ -15,9 +15,9 @@ import validateSensorEndpoint from '../graphql/mutations/validateSensorEndpoint'
 import { handleSensorEndpointUpdateForToken } from '../utilities/helperFuncs'
 
 const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorService }) => {
-  const {reset: resetSensorUrl ,...sensorUrl} = useField('text')
+  const { reset: resetSensorUrl, ...sensorUrl } = useField('text')
   const [notification, setNotification] = useNotification()
-  const editSensorEndpoint = useMutation(editUserSensorEndpoint)
+  const [editSensorEndpoint] = useMutation(editUserSensorEndpoint)
   const fireAction = useAction()
 
   // Handles connection to sensor endpoint
@@ -27,7 +27,7 @@ const SensorUrlForm = ({ sensorsConnected, token, setToken, actions, sensorServi
 
       if (data.validateSensorEndpoint.message === 'Valid endpoint') {
         const confirmation = window.confirm('Would you like to receive information about these sensors?')
-        
+
         if (confirmation) {
           editSensorEndpoint({
             variables: {

@@ -1,6 +1,6 @@
 // Libraries
 import { useState } from 'react'
-import { useApolloClient } from 'react-apollo-hooks'
+import { useApolloClient } from '@apollo/react-hooks'
 // Helper functions
 import { formatSensorData } from '../utilities/helperFuncs'
 // Typedefs

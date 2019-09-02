@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Form, Segment } from 'semantic-ui-react'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from '@apollo/react-hooks'
 // TypeDefs
 import loginUser from '../graphql/mutations/loginUser'
 import currentUser from '../graphql/queries/currentUser'
@@ -10,7 +10,7 @@ import currentUser from '../graphql/queries/currentUser'
 import { useField } from '../hooks/useField'
 
 const LoginForm = ({ setNotification, setToken }) => {
-  const login = useMutation(loginUser)
+  const [login] = useMutation(loginUser)
   // eslint-disable-next-line no-unused-vars
   const { reset: usernameReset, ...username } = useField('text')
   // eslint-disable-next-line no-unused-vars

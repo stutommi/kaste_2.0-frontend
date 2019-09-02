@@ -2,14 +2,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Form, Segment } from 'semantic-ui-react'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from '@apollo/react-hooks'
 // TypeDefs
 import createUser from '../graphql/mutations/createUser'
 // Custom hooks
 import { useField } from '../hooks/useField'
 
 const RegisterForm = ({ setNotification, setLoginVisible }) => {
-  const register = useMutation(createUser)
+  const [register] = useMutation(createUser)
   const { reset: usernameReset, ...username } = useField('text')
   const { reset: nameReset, ...name } = useField('text')
   const { reset: passwordReset, ...password } = useField('password')

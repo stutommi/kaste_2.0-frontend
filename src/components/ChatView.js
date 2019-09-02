@@ -1,7 +1,7 @@
 // Libraries
-import React, { useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
 import { Container, Icon, Comment, Menu, Input } from 'semantic-ui-react'
 // TypeDefs
 import chatMessages from '../graphql/queries/chatMessages'
@@ -20,13 +20,12 @@ const ChatView = ({ show }) => {
   const { data, loading } = useQuery(chatMessages)
   const userQuery = useQuery(currentUser)
   const { reset: resetMessageInput, ...messageInput } = useField('text')
-  const addMessage = useMutation(createMessage)
+  const [addMessage] = useMutation(createMessage)
   const el = useRef(null)
 
   useEffect(() => {
     scrollToBottom()
   }, [show])
-
 
   // eslint-disable-next-line no-unused-vars
   const addedMessage = useSubscription(messageAdded, {
@@ -35,12 +34,10 @@ const ChatView = ({ show }) => {
       const addedMessage = subscriptionData.data.messageAdded
 
       if (!includedIn(messageData.messages, addedMessage.id)) {
-        messageData.messages.push(addedMessage)
-
         client.writeQuery({
           query: chatMessages,
-          data: messageData,
-          id: 1
+          data: { messages: [...messageData.messages, subscriptionData.data.messageAdded] },
+          id: 1,
         })
         el.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
       }
@@ -68,6 +65,11 @@ const ChatView = ({ show }) => {
 
   if (!show) {
     return null
+  }
+
+  if (data.messages !== undefined) {
+
+    console.log('RERENDER seconds', new Date(Date.now()).getSeconds(), 'messages', data.messages.length)
   }
 
   return (
