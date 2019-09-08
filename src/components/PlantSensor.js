@@ -13,15 +13,15 @@ import chartData from '../graphql/queries/chartData'
 
 const columnStyle = { padding: 0, margin: 0 }
 
-const chartFilterDef = ['temperature_C', 'soil_moisture']
-const chartFilterLight = ['light_lux']
-const chartFilterNutr = ['ec_mS_cm']
+const chartFilterTempLight = ['temperature_C', 'light_lux']
+const chartFilterSoilCond = ['soil_moisture', 'ec_mS_cm']
 
 const PlantSensor = ({ sensor }) => {
   const [chartVisible, setChartVisible] = useState(false)
   const [chartTimeRange, setChartTimeRange] = useState('DAY')
-  const [measures, setMeasures] = useState(chartFilterDef)
+  const [measures, setMeasures] = useState(chartFilterSoilCond)
   const [clearChartHistory] = useMutation(clearChartData, {
+    // Doesn't update the UI..
     refetchQueries: () => [{
       query: chartData,
       variables: { id: sensor.id, type: "PLANT", range: chartTimeRange }
@@ -50,7 +50,7 @@ const PlantSensor = ({ sensor }) => {
       <Header textAlign='center' as='h3'>
         <a
           style={{ color: 'inherit' }}
-          href={`https://en.wikipedia.org/wiki/${sensor.name}`}
+          href={`https://en.wikipedia.org/wiki/${sensor.name.replace(/[0-9]/g, '')}`}
           target='_blank'
           rel="noopener noreferrer">
           <Icon name='leaf' size='large' />
@@ -144,9 +144,8 @@ const PlantSensor = ({ sensor }) => {
             </Segment>
 
             <Button.Group attached='bottom'>
-              <Button onClick={() => setMeasures(chartFilterDef)}>temp + moist.</Button>
-              <Button onClick={() => setMeasures(chartFilterLight)}>light</Button>
-              <Button onClick={() => setMeasures(chartFilterNutr)}>nutrition</Button>
+              <Button onClick={() => setMeasures(chartFilterSoilCond)}>Moist & Nutr</Button>
+              <Button onClick={() => setMeasures(chartFilterTempLight)}>Temp & Light</Button>
             </Button.Group>
           </Grid.Column>
 

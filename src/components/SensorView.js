@@ -44,10 +44,17 @@ const SensorView = ({ show, sensorData, sensorError, token }) => {
 
   const sensors = () =>
     sensorData
-      ? sensorData.map(sensor =>
-        sensor.type === 'plant'
-          ? <PlantSensor key={sensor.id} sensor={sensor} />
-          : <HouseSensor key={sensor.id} sensor={sensor} />)
+      ? sensorData
+        .sort((a, b) => {
+          if (a.type === 'plant') {
+            return a.name > b.name ? 1 : -1
+          }
+          return 1
+        })
+        .map(sensor =>
+          sensor.type === 'plant'
+            ? <PlantSensor key={sensor.id} sensor={sensor} />
+            : <HouseSensor key={sensor.id} sensor={sensor} />)
       : null
 
   return (

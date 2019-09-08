@@ -4,19 +4,26 @@ import moment from 'moment'
 const returnColor = (measure) => {
   switch (measure) {
   case 'temperature_C':
-    return 'rgba(219, 40, 40, 1)'
+    return 'rgba(219, 40, 40, 0.8)'
   case 'ec_mS_cm':
-    return 'rgba(242, 113, 28, 1)'
+    return 'rgba(242, 113, 28, 0.8)'
   case 'light_lux':
-    return 'rgba(251, 189, 8, 1)'
+    return 'rgba(251, 189, 8, 0.8)'
   case 'humidity':
-    return 'rgba(33, 133, 208, 1)'
+    return 'rgba(33, 133, 208, 0.8)'
   case 'soil_moisture':
-    return 'rgba(33, 133, 208, 1)'
+    return 'rgba(33, 133, 208, 0.8)'
   case 'CO2_ppm':
-    return 'rgba(0, 0, 0, 1)'
+    return 'rgba(0, 0, 0, 0.8)'
   default: break
   }
+}
+
+const returnAxisId = (m) => {
+  if (m === 'light_lux' || m === 'ec_mS_cm' || m === 'humidity') {
+    return 'y-axis-2'
+  }
+  return 'y-axis-1'
 }
 
 export const formatSensorDataIntoChartData = ({ chartData }, chartFilter) => {
@@ -56,7 +63,7 @@ export const formatSensorDataIntoChartData = ({ chartData }, chartFilter) => {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            yAxisID: cur === 'soil_moisture' || cur === 'humidity' ? 'y-axis-2' : 'y-axis-1',
+            yAxisID: returnAxisId(cur),
             data: chartData[cur]
           }
 
@@ -70,7 +77,7 @@ export const formatSensorDataIntoChartData = ({ chartData }, chartFilter) => {
 export const options = (range, chartFilter) => {
 
   // define unit value based on range
-  const unit = () => {
+  const returnUnit = () => {
     switch (range) {
     case 'DAY':
       return 'minute'
@@ -86,8 +93,8 @@ export const options = (range, chartFilter) => {
   }
 
   // define label based on chartFilter
-  const returnYLabel = () => {
-    switch (chartFilter[0]) {
+  const returnYLabel = (measure) => {
+    switch (measure) {
     case 'temperature_C':
       return 'ºC'
     case 'light_lux':
@@ -96,6 +103,10 @@ export const options = (range, chartFilter) => {
       return 'mS'
     case 'CO2_ppm':
       return 'ppm'
+    case 'soil_moisture':
+      return '%'
+    case 'humidity':
+      return '%'
     default:
       break
     }
@@ -108,8 +119,9 @@ export const options = (range, chartFilter) => {
       id: 'y-axis-1',
       position: 'left',
       ticks: {
-        suggestedMin: 0,
-        callback: (value, index) => index === 0 ? value + returnYLabel() : value,
+        suggestedMin: chartFilter[0] === 'soil_moisture' ? 0 : undefined,
+        max: chartFilter[0] === 'soil_moisture' ? 100 : undefined,
+        callback: (value, index) => index === 0 ? value + returnYLabel(chartFilter[0]) : value,
         fontColor: returnColor(chartFilter[0])
       },
       gridLines: {
@@ -120,12 +132,12 @@ export const options = (range, chartFilter) => {
     const yAxisRight = {
       id: 'y-axis-2',
       position: 'right',
-      display: chartFilter[0] === 'temperature_C' ? true : false,
+      // display: chartFilter[0] === 'temperature_C' ? true : false,
       ticks: {
-        suggestedMin: 0,
-        max: 100,
-        callback: (value, index) => index === 0 ? value + '%' : value,
-        fontColor: 'rgba(33, 133, 208, 1)'
+        suggestedMin: chartFilter[1] === 'humidity' ? 0 : undefined,
+        max: chartFilter[1] === 'humidity' ? 100 : undefined,
+        callback: (value, index) => index === 0 ? value + returnYLabel(chartFilter[1]) : value,
+        fontColor: returnColor(chartFilter[1])
       },
       gridLines: {
         drawBorder: false,
@@ -133,7 +145,7 @@ export const options = (range, chartFilter) => {
       }
     }
 
-    if (chartFilter[0] === 'temperature_C') {
+    if (chartFilter[0] === 'temperature_C' || chartFilter[0] === 'soil_moisture') {
       return [yAxisLeft, yAxisRight]
     } else {
       return [yAxisLeft]
@@ -147,7 +159,7 @@ export const options = (range, chartFilter) => {
         {
           type: 'time',
           time: {
-            unit: unit(),
+            unit: returnUnit(),
             displayFormats: {
               minute: 'HH:mm',
               hour: 'dd HH:mm',

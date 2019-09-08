@@ -19,9 +19,11 @@ const HouseSensor = ({ sensor }) => {
   const [chartTimeRange, setChartTimeRange] = useState('DAY')
   const [measures, setMeasures] = useState(chartFilterDef)
   const [clearChartHistory] = useMutation(clearChartData, {
+    // Doesn't update the UI..
     refetchQueries: () => [{
       query: chartData,
-      variables: {id: sensor.id, type: "HOUSE" , range: chartTimeRange}}]
+      variables: { id: sensor.id, type: "HOUSE", range: chartTimeRange }
+    }]
   })
 
   const handleClearData = () => {
@@ -45,14 +47,13 @@ const HouseSensor = ({ sensor }) => {
 
       <Grid textAlign='center' columns={sensor.CO2_ppm ? 3 : 2} >
         <Grid.Row>
-
           <Grid.Column>
             <SensorValue
               size={'large'}
-              value={sensor.humidity + ' %'}
-              label={'Soil moisture'}
-              icon='theme'
-              iconColor={'blue'}
+              value={sensor.temperature_C + ' ºC'}
+              label={'Temperature'}
+              icon={'thermometer'}
+              iconColor={'red'}
             />
           </Grid.Column>
 
@@ -71,13 +72,12 @@ const HouseSensor = ({ sensor }) => {
           <Grid.Column>
             <SensorValue
               size={'large'}
-              value={sensor.temperature_C + ' ºC'}
-              label={'Temperature'}
-              icon={'thermometer'}
-              iconColor={'red'}
+              value={sensor.humidity + ' %'}
+              label={'Soil moisture'}
+              icon='theme'
+              iconColor={'blue'}
             />
           </Grid.Column>
-
         </Grid.Row>
 
         <Grid.Row columns='1' style={{ padding: 0 }}>
@@ -119,7 +119,7 @@ const HouseSensor = ({ sensor }) => {
             {
               sensor.CO2_ppm &&
               <Button.Group attached='bottom'>
-                <Button onClick={() => setMeasures(chartFilterDef)}>hum / temp</Button>
+                <Button onClick={() => setMeasures(chartFilterDef)}>Temp & Hum</Button>
                 <Button onClick={() => setMeasures(chartFilterCO2)}>CO<sup>2</sup></Button>
               </Button.Group>
             }
