@@ -119,8 +119,6 @@ export const options = (range, chartFilter) => {
       id: 'y-axis-1',
       position: 'left',
       ticks: {
-        suggestedMin: chartFilter[0] === 'soil_moisture' ? 0 : undefined,
-        max: chartFilter[0] === 'soil_moisture' ? 100 : undefined,
         callback: (value, index) => index === 0 ? value + returnYLabel(chartFilter[0]) : value,
         fontColor: returnColor(chartFilter[0])
       },
@@ -132,10 +130,7 @@ export const options = (range, chartFilter) => {
     const yAxisRight = {
       id: 'y-axis-2',
       position: 'right',
-      // display: chartFilter[0] === 'temperature_C' ? true : false,
       ticks: {
-        suggestedMin: chartFilter[1] === 'humidity' ? 0 : undefined,
-        max: chartFilter[1] === 'humidity' ? 100 : undefined,
         callback: (value, index) => index === 0 ? value + returnYLabel(chartFilter[1]) : value,
         fontColor: returnColor(chartFilter[1])
       },
