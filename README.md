@@ -2,7 +2,7 @@ KASTE 2.0 FRONTEND
 
 Featuring React (with hooks) and Apollo (GraphQL)
 
-Live: https://lit-forest-54340.herokuapp.com/
+Live: https://kaste.herokuapp.com
 
 Link to backend: https://github.com/stutommi/kaste_2.0-backend
 
