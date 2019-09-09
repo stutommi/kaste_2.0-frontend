@@ -12,7 +12,6 @@ const WateringModal = ({ actions, wateringConnected, setPage }) => {
   const fireAction = useAction()
 
   const handleWatering = (duration, action) => {
-    // setRecentlyWatered(true)
     try {
       setShowModal(false)
       fireAction(action, startWatering)

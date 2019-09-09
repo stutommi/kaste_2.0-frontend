@@ -29,7 +29,6 @@ const RegisterForm = ({ setNotification, setLoginVisible }) => {
       passwordReset()
       setLoginVisible(true)
     } catch (error) {
-      console.log(error)
       setNotification(error.graphQLErrors[0].message)
     }
   }

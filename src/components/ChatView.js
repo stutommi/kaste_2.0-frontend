@@ -67,11 +67,6 @@ const ChatView = ({ show }) => {
     return null
   }
 
-  if (data.messages !== undefined) {
-
-    console.log('RERENDER seconds', new Date(Date.now()).getSeconds(), 'messages', data.messages.length)
-  }
-
   return (
     <div style={{ height: '100%' }}>
       <div style={{
